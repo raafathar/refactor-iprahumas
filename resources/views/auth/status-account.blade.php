@@ -13,7 +13,13 @@
                                     height="58" alt="Logo-light" />
                             </a>
                             <p class="text-center">
-                                {{ __('Terima kasih sudah bergabung! Proses pendaftaran akun Anda sedang diproses. Silakan cek email Anda secara berkala.') }}
+                                @if (Auth::user()->form->status == 'pending')
+                                    {{ __('Terima kasih sudah bergabung! Proses pendaftaran akun Anda sedang diproses. Silakan cek email Anda secara berkala.') }}
+                                @elseif (Auth::user()->form->status == 'rejected')
+                                    {{ __('Maaf, pendaftaran akun Anda ditolak. Silakan cek email Anda untuk informasi lebih lanjut.') }}
+                                @elseif (Auth::user()->form->status == 'approved')
+                                    {{ __('Selamat, pendaftaran akun Anda berhasil!') }}
+                                @endif
                             </p>
                             <div class="mb-3">
                                 <form method="POST" action="{{ route('logout') }}">

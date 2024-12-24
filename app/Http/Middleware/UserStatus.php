@@ -15,10 +15,25 @@ class UserStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->hasVerifiedEmail() && $request->user()->form?->status === 'approved') {
+        $user = $request->user();
+        $formStatus = $user->form?->status;
+
+        if (in_array($user->role, ['admin', 'superadmin'])) {
             return $next($request);
         }
 
-        return redirect()->route('status-account');
+        if (!$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        if (in_array($formStatus, ['pending', 'rejected'])) {
+            return redirect()->route('status-account');
+        }
+
+        if ($formStatus === 'approved') {
+            return $next($request);
+        }
+
+        return redirect()->route('verification.notice');
     }
 }

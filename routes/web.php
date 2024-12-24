@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,9 @@ Route::prefix('/')->group(function () {
 // For authenticated users
 Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Data Master
+    Route::resource('users', UserController::class)->middleware(['user.access:superadmin,admin'])->names('users');
 });
 
 

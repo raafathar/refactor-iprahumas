@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -58,6 +59,10 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::get('status-account', function () {
-        return view('auth.status-account');
+        $formStatus = Auth::user()->form?->status;
+        if (in_array($formStatus, ['pending', 'rejected'])) {
+            return view('auth.status-account');
+        }
+        return redirect()->route('dashboard');
     })->name('status-account');
 });
