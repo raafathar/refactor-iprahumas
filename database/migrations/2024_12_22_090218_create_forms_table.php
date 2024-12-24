@@ -32,6 +32,7 @@ return new class extends Migration
             $table->foreignId('village_id')->constrained('villages')->nullable();
             $table->text('address')->nullable();
             $table->foreignUuid('period_id')->constrained('periods')->nullable();
+            $table->text('payment_proof')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignUuid('updated_by')->constrained('users')->nullable();
             $table->timestamps();

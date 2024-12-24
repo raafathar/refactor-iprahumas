@@ -30,6 +30,7 @@ class Form extends Model
         'subdistrict_id',
         'village_id',
         'address',
+        'payment_proof',
         'status',
         'period_id',
         'updated_by',

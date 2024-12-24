@@ -12,27 +12,36 @@
                                 <img src="{{ asset('assets/images/logos/light-logo.png') }}" class="light-logo"
                                     height="58" alt="Logo-light" />
                             </a>
-                            <div class="mb-5 text-center">
-                                <p>
-                                    {{ __('Terima kasih sudah bergabung! Sebelum mulai, yuk cek email Anda dan klik tautan untuk verifikasi alamat email. Kalau emailnya belum sampai, jangan khawatir, kami siap kirim ulang untuk Anda.') }}
-                                </p>
-                                <h6 class="fw-bolder">{{ $email }}</h6>
-                            </div>
+                            <p class="text-center">
+                                {{ __('Terima kasih sudah bergabung! Silakan bayar biaya pendaftaran untuk menerima email verifikasi.') }}
+                            </p>
+
                             @if (session('status') == 'verification-link-sent')
                                 <div class="mb-5 text-center text-success">
-                                    {{ __('Tautan verifikasi baru telah dikirim ke alamat email yang Anda gunakan saat pendaftaran.') }}
+                                    {{ __('Tautan verifikasi berhasil dikirim ke email yang Anda gunakan saat pendaftaran.') }}
                                 </div>
                             @endif
-                            <div class="d-flex gap-3 mb-4">
-                                <form method="POST" action="{{ route('verification.send') }}" class="w-100">
+                            <div class="mb-3">
+                                <form method="POST" action="{{ route('verification.send') }}"
+                                    enctype="multipart/form-data">
                                     @csrf
+                                    @if (Auth::user()->form->payment_proof == null)
+                                        <div class="mb-3">
+                                            <x-input-label for="payment_proof" :value="__('Bukti Pembayaran')" />
+                                            <x-text-input id="payment_proof" type="file" name="payment_proof"
+                                                :value="old('payment_proof')" required autofocus autocomplete="payment_proof" />
+                                            <x-input-error :messages="$errors->get('payment_proof')" class="mt-2" />
+                                        </div>
+                                    @endif
                                     <button type="submit" class="btn btn-primary w-100 py-2 me-2">
-                                        {{ __('Kirim Ulang Email') }}
+                                        {{ __('Kirim Email Verifikasi') }}
                                     </button>
                                 </form>
-                                <form method="POST" action="{{ route('logout') }}" class="w-100">
+                            </div>
+                            <div class="mb-3">
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-danger w-100 py-2 ms-2">
+                                    <button type="submit" class="btn btn-outline-danger w-100 py-2 me-2">
                                         {{ __('Log Out') }}
                                     </button>
                                 </form>
