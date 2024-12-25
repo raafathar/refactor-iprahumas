@@ -56,8 +56,23 @@ class UsersDataTable extends DataTable
             ->editColumn('work_unit', function (User $users) {
                 return $users->form->work_unit;
             })
+            ->editColumn('skill_id', function (User $users) {
+                return $users->form->skill->name;
+            })
             ->editColumn('updated_by', function (User $users) {
                 return $users->form->updatedBy->name;
+            })
+            ->editColumn('province_id', function (User $users) {
+                return $users->form->province->name;
+            })
+            ->editColumn('district_id', function (User $users) {
+                return $users->form->district->name;
+            })
+            ->editColumn('subdistrict_id', function (User $users) {
+                return $users->form->subdistrict->name;
+            })
+            ->editColumn('village_id', function (User $users) {
+                return $users->form->village->name;
             })
             ->editColumn('created_at', function (User $users) {
                 return $users->created_at->timezone('Asia/Jakarta')->format('d-m-Y H:i:s T');
@@ -145,21 +160,29 @@ class UsersDataTable extends DataTable
                 ->title('Aksi'),
             Column::make('name')
                 ->title('Nama Lengkap'),
-            Column::make('email')
+            Column::computed('email')
+                ->width(110)
                 ->title('Email'),
-            Column::make('position_id')
+            Column::computed('position_id')
+                ->width(110)
                 ->title('Jabatan'),
-            Column::make('instance_id')
+            Column::computed('instance_id')
+                ->width(200)
                 ->title('Instansi'),
-            Column::make('golongan_id')
+            Column::computed('golongan_id')
+                ->width(110)
                 ->title('Pangkat/Golongan'),
-            Column::make('work_unit')
+            Column::computed('work_unit')
+                ->width(110)
                 ->title('Unit Kerja'),
-            Column::make('updated_by')
+            Column::computed('updated_by')
+                ->width(110)
                 ->title('Diperbarui Oleh'),
             Column::make('created_at')
+                ->width(110)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
+                ->width(110)
                 ->title('Diperbarui Pada'),
         ];
     }
