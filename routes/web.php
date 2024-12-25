@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
 
     // Data Master
     Route::resource('users', UserController::class)->middleware(['user.access:superadmin,admin'])->names('users');
+    Route::resource('admin/berita', BeritaController::class)->middleware(['user.access:superadmin,admin'])->names('beritas');
 });
 
 
