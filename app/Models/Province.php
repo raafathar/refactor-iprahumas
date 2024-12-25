@@ -14,4 +14,9 @@ class Province extends Model
     {
         return $this->hasMany(District::class);
     }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class);
+    }
 }

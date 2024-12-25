@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,10 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'nip' => 'required|string|min:18|unique:forms,nip',
-            'email' => 'required|email|string|max:255|unique:users,email',
-            'phone' => 'required|string|min:10|max:15|unique:forms,phone',
+            'nip' => 'required|string|min:18|unique:forms,nip,'
+                . $this->user->id . ',user_id',
+            'email' => 'nullable|email|string|max:255|unique:users,email,' . $this->user->id,
+            'phone' => 'required|string|min:10|max:15|unique:forms,phone,' . $this->user->id . ',user_id',
             'dob' => 'required|date',
             'religion' => 'required|string',
             'position_id' => 'required|exists:positions,id',
@@ -38,10 +39,10 @@ class StoreUserRequest extends FormRequest
             'last_education_institution' => 'required|string',
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
-            'subdistrict_id' => 'required|exists:districts,id',
+            'subdistrict_id' => 'required|exists:subdistricts,id',
             'village_id' => 'required|exists:villages,id',
             'address' => 'required|string',
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:1024',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
         ];
     }
 }

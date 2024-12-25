@@ -1,28 +1,4 @@
-$(`select`).select2()
-
-// $("select#province_id").select2({
-//     ajax: {
-//         url: `${window.location.origin}/api/provinces`,
-//         dataType: 'json',
-//         delay: 500,
-//         data: function (params) {
-//             return {
-//                 search: params.term
-//             };
-//         },
-//         processResults: function (data) {
-//             const items = data.data && data.data.data ? data.data.data : [];
-
-//             return {
-//                 results: items.map(item => ({
-//                     id: item.id,
-//                     text: item.name
-//                 }))
-//             };
-//         }
-//     },
-//     minimumInputLength: 1,
-// });
+// $(`select`).select2()
 
 $("select#province_id").select2({
     ajax: createAjaxConfig("provinces", (data) => {
