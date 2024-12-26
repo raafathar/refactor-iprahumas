@@ -17,6 +17,7 @@
     </div>
 
     <div class="card card-body">
+        <img src="{{ Storage::url($berita->b_image) }}" class="object-fit-cover" style="height: 30rem" alt="Cover Berita">
         {!! $berita->b_content !!}
     </div>
 </x-app-layout>

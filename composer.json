@@ -13,6 +13,7 @@
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "orangehill/iseed": "^3.0",
         "stevebauman/location": "^7.4",
         "tightenco/ziggy": "^2.4",
         "yajra/laravel-datatables": "^11.0",

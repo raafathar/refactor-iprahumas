@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\DataTables\BeritaDataTable;
 use App\Helper\FileHandler;
 use App\Http\Requests\BeritaRequest;
+use Illuminate\Filesystem\Filesystem;
 
 class BeritaController extends Controller
 {
@@ -57,6 +58,7 @@ class BeritaController extends Controller
      */
     public function show($slug)
     {
+
         $berita = Berita::whereBSlug($slug)->first();
         return view("dashboard.datamaster.berita.detail", compact("berita"));
     }
@@ -66,6 +68,11 @@ class BeritaController extends Controller
      */
     public function edit($slug)
     {
+        // $file = new Filesystem();
+        // $imagePath = public_path("berita");
+
+        // dd($file->files($imagePath)[1]);
+        // dd(file_get_contents($imagePath));
         $berita = Berita::whereBSlug($slug)->first();
         return view("dashboard.datamaster.berita.edit", compact("berita"));
     }
