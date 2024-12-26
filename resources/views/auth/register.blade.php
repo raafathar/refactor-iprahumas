@@ -307,7 +307,6 @@
         <link rel="stylesheet" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
     @endpush
     @push('scripts')
-        {{-- <script src="{{ asset('assets/js/jquery-3.7.1.js') }}"></script> --}}
         <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
         <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script>
         {{-- Handle Group Form --}}

@@ -19,7 +19,8 @@ class AdministrativeSeeder extends Seeder
     {
         try {
             // Seed provinces
-            $provinces = json_decode(file_get_contents(storage_path('app/public/data/provinces.json')), true);
+            // GET FILE FROM PUBLIC DATA
+            $provinces = json_decode(file_get_contents(public_path('data/provinces.json')), true);
             foreach ($provinces as $provinceData) {
                 Province::create([
                     'id' => $provinceData['id'],
@@ -29,7 +30,7 @@ class AdministrativeSeeder extends Seeder
 
             // Seed districts
             $districts =
-                json_decode(file_get_contents(storage_path('app/public/data/districts.json')), true);
+                json_decode(file_get_contents(public_path('data/districts.json')), true);
             foreach ($districts as $districtData) {
                 District::create([
                     'id' => $districtData['id'],
@@ -40,7 +41,7 @@ class AdministrativeSeeder extends Seeder
 
             // Seed subdistricts
             $subdistricts =
-                json_decode(file_get_contents(storage_path('app/public/data/subdistricts.json')), true);
+                json_decode(file_get_contents(public_path('data/subdistricts.json')), true);
             foreach ($subdistricts as $subdistrictData) {
                 Subdistrict::create([
                     'id' => $subdistrictData['id'],
@@ -51,7 +52,7 @@ class AdministrativeSeeder extends Seeder
 
             // Seed villages
             $villages =
-                json_decode(file_get_contents(storage_path('app/public/data/villages.json')), true);
+                json_decode(file_get_contents(public_path('data/villages.json')), true);
             foreach ($villages as $villageData) {
                 Village::create([
                     'id' => $villageData['id'],

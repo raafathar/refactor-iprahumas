@@ -36,6 +36,35 @@
                     </a>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Data Master -->
+                <!-- ---------------------------------- -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Data Master</span>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Data Anggota -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="hide-menu">Data Anggota</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Data Berita -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="hide-menu">Data Berita</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
                 <!-- Frontend page -->
                 <!-- ---------------------------------- -->
                 <li class="sidebar-item">

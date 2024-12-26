@@ -83,7 +83,7 @@ class RegisteredUserController extends Controller
                 'updated_by' => $user->id,
             ]);
 
-            event(new Registered($user));
+            // event(new Registered($user));
 
             Auth::login($user);
 
@@ -92,7 +92,7 @@ class RegisteredUserController extends Controller
             $user = Auth::user();
             $user->notify(new AccountDetail($request, $password_rand));
 
-            toastr()->success('Registrasi berhasil, silakan periksa email Anda untuk verifikasi.');
+            toastr()->success('Registrasi berhasil, silakan cek email Anda untuk melihat detail akun.');
 
             return redirect(route('dashboard', absolute: false));
         } catch (QueryException $e) {

@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
         if ($user->email_verified_at != null) {
-            // $user->notify(new LoginNotification($request, $user));
+            $user->notify(new LoginNotification($request, $user));
         }
 
         return redirect()->intended(route('dashboard', absolute: false));
