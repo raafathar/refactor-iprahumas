@@ -22,6 +22,15 @@
         </div>
     </div>
 
+    <div class="alert bg-primary-subtle fade show" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="ti ti-info-circle me-2 fs-4"></i>
+            <span>User yang baru saja ditambahkan dapat dilihat pada
+                <a href="#halaman-pendaftaran" class="alert-link text-primary">Halaman Pendaftaran Pending</a>.
+            </span>
+        </div>
+    </div>
+
     <div class="card card-body">
         <div class="table-responsive">
             {{ $dataTable->table() }}
