@@ -49,38 +49,60 @@ class BeritaController extends Controller
             return back()->with("error", "Ups ada yang salah!");
         }
 
-        return back()->with("success", "Berhasil menambahkan " . $berita->b_title);
+        return back()->with("success", "Berhasil menambahkan berita " . $berita->b_title);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Berita $berita)
+    public function show($slug)
     {
-        //
+        $berita = Berita::whereBSlug($slug)->first();
+        return view("dashboard.datamaster.berita.detail", compact("berita"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Berita $berita)
+    public function edit($slug)
     {
-        //
+        $berita = Berita::whereBSlug($slug)->first();
+        return view("dashboard.datamaster.berita.edit", compact("berita"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Berita $berita)
+    public function update(BeritaRequest $request, $id)
     {
-        //
+        $validation = $request->validated();
+
+        try {
+            $berita = Berita::findOrFail($id)->first();
+            $validation["b_is_active"] = $validation["b_is_active"] == "on" ? 1 : 0;
+            $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $berita->b_image, "berita");
+            $validation["b_slug"] = Str::slug($validation["b_title"] . "-" . explode("-", $berita->id)[0]);
+            Berita::whereId($id)->update($validation);
+        } catch (\InvalidArgumentException $th) {
+            return back()->with("error", "Ups ada yang salah!");
+        }
+        return back()->with("success", "Berhasil mengubah berita " . $berita->b_title);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Berita $berita)
+    public function destroy($id)
     {
-        //
+        try {
+            $berita = Berita::whereId($id)->first();
+            $beritaOld = $berita->first();
+            $berita->delete();
+
+            $this->isExistFile($beritaOld->b_image);
+        } catch (\InvalidArgumentException $th) {
+            return back()->with("error", "Ups ada yang salah ni");
+        }
+        return back()->with("success", "Berhasil menghapus berita " . $beritaOld->b_title);
     }
 }

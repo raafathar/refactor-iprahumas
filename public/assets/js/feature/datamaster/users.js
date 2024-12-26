@@ -39,7 +39,7 @@ $(document).ready(() => {
     }
 
     function generateDetailHTML(json) {
-        const formatDate = (date) => 
+        const formatDate = (date) =>
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
         const fields = [
@@ -113,8 +113,8 @@ $(document).ready(() => {
         $('#users-form').find('input[name="profile_picture"]').prop('required', true);
 
         $('#users-form')
-                .attr('action', route('users.store'))
-                .attr('method', 'POST');
+            .attr('action', route('users.store'))
+            .attr('method', 'POST');
     };
 
     window.onEdit = function (event) {
@@ -170,11 +170,11 @@ $(document).ready(() => {
 
             return {
                 results: items
-                .filter(item => item.province_id == $("#province_id").val())
-                .map(item => ({
-                    id: item.id,
-                    text: item.name
-                }))
+                    .filter(item => item.province_id == $("#province_id").val())
+                    .map(item => ({
+                        id: item.id,
+                        text: item.name
+                    }))
             };
         }),
         minimumInputLength: 2,
@@ -188,11 +188,11 @@ $(document).ready(() => {
 
             return {
                 results: items
-                .filter(item => item.district_id == $("#district_id").val())
-                .map(item => ({
-                    id: item.id,
-                    text: item.name
-                }))
+                    .filter(item => item.district_id == $("#district_id").val())
+                    .map(item => ({
+                        id: item.id,
+                        text: item.name
+                    }))
             };
         }),
         minimumInputLength: 2,
@@ -206,11 +206,11 @@ $(document).ready(() => {
 
             return {
                 results: items
-                .filter(item => item.subdistrict_id == $("#subdistrict_id").val())
-                .map(item => ({
-                    id: item.id,
-                    text: item.name
-                }))
+                    .filter(item => item.subdistrict_id == $("#subdistrict_id").val())
+                    .map(item => ({
+                        id: item.id,
+                        text: item.name
+                    }))
             };
         }),
         minimumInputLength: 2,
@@ -224,7 +224,7 @@ $(document).ready(() => {
             delay: 500,
             data: function (params) {
                 return {
-                    search: params.term 
+                    search: params.term
                 };
             },
             processResults: processData,

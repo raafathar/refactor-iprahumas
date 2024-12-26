@@ -32,7 +32,7 @@ class BeritaDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function (Berita $berita) {
-                return view();
+                return view("dashboard.datamaster.berita.action", compact("berita"));
             })
             ->rawColumns(['updated_by', 'created_at', "b_date", "aktif"])
             ->editColumn('b_date', function (Berita $berita) {

@@ -196,6 +196,9 @@ ClassicEditor.create(document.querySelector('#editor'), {
     }
 })
     .then((editor) => {
+        editor.editing.view.change(writer => {
+            writer.setStyle('min-height', '50rem', editor.editing.view.document.getRoot());
+        });
         window.editor = editor;
         window.ContentEditor = editor;
         ContentEditor = editor;

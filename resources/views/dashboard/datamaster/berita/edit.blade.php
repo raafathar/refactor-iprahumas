@@ -3,21 +3,23 @@
         <link rel="stylesheet" href="{{ asset('assets/css/ckeditor5.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/css/ckeditor5-premium-features.css') }}">
         <style>
-            .ck-editor {
-                height: 10rem;
+            .ck-editor__editable {
+                height: 50rem !important;
             }
         </style>
     @endpush
 
     <x-breadcrumb :items="['Data Master', 'Tambah Berita']" />
 
-    <div class="card card-body">
-        <form action="{{ route('beritas.store') }}" method="POST" enctype="multipart/form-data">
+    <div class="card card-body" style="height: auto">
+        <form action="{{ route('beritas.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('put')
             {{-- Judul --}}
             <div class="form-group mb-3">
                 <label for="b_title">Judul Berita</label>
-                <input id="b_title" name="b_title" value="{{ old('b_title') }}" type="text" class="form-control">
+                <input id="b_title" name="b_title" value="{{ old('b_title') ?? $berita->b_title }}" type="text"
+                    class="form-control">
                 <x-input-error messages="{{ $errors->first('b_title') }}" />
             </div>
 
@@ -25,6 +27,8 @@
             <div class="mb-3">
                 <label for="b_image">Gambar Berita</label>
                 <input name="b_image" class="form-control" type="file" id="formFile">
+
+                <img src="{{ Storage::url($berita->b_image) }}" class="img-thumbnail" alt="Cover Berita">
                 <x-input-error messages="{{ $errors->first('b_image') }}" />
             </div>
 
@@ -33,24 +37,27 @@
                 <div class="form-group">
                     <label for="b_date">Tanggal Berita</label>
                     <input id="b_date" name="b_date" type="date" class="form-control"
-                        value="{{ old('b_date') }}">
+                        value="{{ old('b_date') ?? $berita->b_date }}">
                 </div>
                 <x-input-error messages="{{ $errors->first('b_date') }}" />
             </div>
 
             {{-- is Active --}}
             <div class="form-check form-switch mb-3">
-                <input class="form-check-input" name="b_is_active" type="checkbox" id="color-primary" checked>
+                <input class="form-check-input" name="b_is_active" type="checkbox" id="color-primary"
+                    {{ $berita->b_is_active == 1 ? 'checked' : '' }}>
                 <label class="form-check-label" for="color-primary">Aktif</label>
             </div>
             <x-input-error messages="{{ $errors->first('b_is_active') }}" />
 
             {{-- Editor --}}
-            <textarea id="editor" name="b_content">{{ old('b_content') }}</textarea>
-            <x-input-error messages="{{ $errors->first('b_content') }}" />
+            <div class="form-group" style="height: 50rem">
+                <textarea id="editor" name="b_content">{{ old('b_content') ?? $berita->b_content }}</textarea>
+                <x-input-error messages="{{ $errors->first('b_content') }}" />
+            </div>
 
 
-            <button class="btn btn-primary">Tambahkan Berita</button>
+            <button class="btn btn-primary">Ubah Berita</button>
         </form>
     </div>
 
