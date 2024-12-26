@@ -14518,6 +14518,31 @@
   --bs-btn-hover-bg: #3ea2d9;
   --bs-btn-hover-border-color: #3a98cc;
 }
+[data-bs-theme="dark"][data-color-theme="Red_Theme"]:root,
+[data-bs-theme="light"][data-color-theme="Red_Theme"]:root {
+  --bs-primary: #97071f;
+  --bs-primary-rgb: 151, 7, 31;
+  --bs-light-primary: rgba(151, 7, 31, 0.1);
+  --bs-primary-bg-subtle: rgba(151, 7, 31, 0.1);
+  --bs-secondary: #49beff;
+  --bs-secondary-rgb: 73, 190, 255;
+  --bs-light-secondary: rgba(73, 190, 255, 0.1);
+  --bs-secondary-bg-subtle: rgba(73, 190, 255, 0.1);
+}
+[data-bs-theme="dark"][data-color-theme="Red_Theme"]:root .btn-primary,
+[data-bs-theme="light"][data-color-theme="Red_Theme"]:root .btn-primary {
+  --bs-btn-bg: #97071f;
+  --bs-btn-border-color: #97071f;
+  --bs-btn-hover-bg: #dc0025;
+  --bs-btn-hover-border-color: #dc0025;
+}
+[data-bs-theme="dark"][data-color-theme="Red_Theme"]:root .btn-secondary,
+[data-bs-theme="light"][data-color-theme="Red_Theme"]:root .btn-secondary {
+  --bs-btn-bg: #97071f;
+  --bs-btn-border-color: #97071f;
+  --bs-btn-hover-bg: #3ea2d9;
+  --bs-btn-hover-border-color: #3a98cc;
+}
 [data-bs-theme="dark"][data-color-theme="Aqua_Theme"]:root,
 [data-bs-theme="light"][data-color-theme="Aqua_Theme"]:root {
   --bs-primary: #0074ba;
@@ -17677,12 +17702,12 @@ textarea.form-control-lg {
 }
 .form-floating > .form-control:disabled ~ label,
 .form-floating > :disabled ~ label {
-  color: #7c8fac;
+  color: #2a3547;
 }
-/* .form-floating > .form-control:disabled ~ label::after,
+.form-floating > .form-control:disabled ~ label::after,
 .form-floating > :disabled ~ label::after {
   background-color: var(--bs-secondary-bg);
-} */
+}
 .input-group {
   position: relative;
   display: flex;
@@ -17881,6 +17906,12 @@ textarea.form-control.is-valid {
 }
 .invalid-feedback {
   display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: var(--bs-form-invalid-color);
+}
+.invalid-feedback-show {
   width: 100%;
   margin-top: 0.25rem;
   font-size: 0.875em;
@@ -32869,7 +32900,7 @@ html[data-boxed-layout="boxed"] .container-xxl {
   color: var(--bs-white);
 }
 .sidebar-nav ul .sidebar-item.selected .sidebar-link.has-arrow::after {
-  border-color: var(--bs-black);
+  border-color: var(--bs-white);
 }
 .sidebar-nav .sidebar-list .sidebar-list-item {
   padding: 8px 0;
@@ -34250,6 +34281,10 @@ body table.dataTable > tbody > tr.selected > * {
 .auth-max-width {
   width: 100%;
   max-width: 400px;
+}
+.auth-max-width-register {
+  width: 100%;
+  max-width: 600px;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -44180,50 +44215,95 @@ body .connect-sorting-content {
 @keyframes marquee2 {
   0% {
     transform: translate3d(-2086px, 0, 0);
-    -webkit-transform: translate3d(-2086px, 0, 0);
-    -moz-transform: translate3d(-2086px, 0, 0);
-    -ms-transform: translate3d(-2086px, 0, 0);
-    -o-transform: translate3d(-2086px, 0, 0);
-}
+  }
   100% {
     transform: translate3d(0, 0, 0);
   }
 }
 
 
-@media (max-width: 1300px) {
-  .desktop-logo img {
+.section-dark {
+    position: relative;
+    z-index: 1;
+}
+
+.section-dark::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: -10px;
-  }
-  .card-login {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-  }
-  .card-login .col {
-    flex: 1; 
-    min-width: 200px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Atur tingkat transparansi di sini */
+    z-index: -1; /* Agar berada di bawah konten utama */
+}
+
+.visi-misi-section {
+  background-color: #f9fafb;
+}
+
+.list-group-item {
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+h2, h3, h4 {
+  color: #212529;
+}
+
+p {
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .col-lg-6 img {
+    margin-top: 1rem;
   }
 }
 
-.form-floating > .select2-container{
-  padding-top: 3rem;
-}
-.form-floating > .select2-container .select2-selection {
-  height: calc(3.5rem + 2px);
-  padding: 1rem 0.75rem;
-}
-.form-floating > .select2-container .select2-selection .select2-selection__arrow {
-  height: calc(3.5rem + 2px);
-  padding: 1rem 0rem;
-}
-.row-registration > .col-md-6 .mb-3 {
-  min-height: 3.4rem;
+.list-group-item {
+  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.1rem;
+  background-color: #ffffff;
+  margin-bottom: 0.5rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.ck-editor__editable {
-    min-height: 200px;
-    max-height: 200px;
+/* custom dots date pelatihan */
+
+
+.date-content {
+  background: transparent;
+  border: 1px solid white;
+}
+
+.active-day .date-content {
+  border: none;
+}
+
+.active-day {
+  background: #6f0516;
+  border-radius: 7px;
+}
+
+.date-event-carousel.owl-theme .owl-item .item .card:hover {
+  background-color: #6f0516;
+  border: 0;
+}
+
+.date-event-carousel.owl-theme .owl-dots .owl-dot.active span {
+  width: 20px;
+  height: 8px;
+  background: #6f0516;
+}
+
+.date-event-carousel.owl-theme .owl-dots .owl-dot span {
+  width: 8px;
+  height: 8px;
+  margin: 0 5px;
+  background: #C8C8D6;
 }
