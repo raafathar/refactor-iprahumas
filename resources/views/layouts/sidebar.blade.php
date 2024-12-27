@@ -65,6 +65,24 @@
                     </a>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Tampilan -->
+                <!-- ---------------------------------- -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Tampilan</span>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Banner -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('banners.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="hide-menu">Banner</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
                 <!-- Frontend page -->
                 <!-- ---------------------------------- -->
                 <li class="sidebar-item">
