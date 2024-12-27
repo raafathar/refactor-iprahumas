@@ -155,12 +155,13 @@ class RegistrationController extends Controller
         $additional_data = [
             'chairperson_name' => 'FACHRUDIN ALI',
             'general_secretary_name' => 'LIZZATUL FARHATININGSIH',
-            'chairperson_signature' => $data->form->dob,
-            'general_secretary_signature' => $data->form->dob,
+            'chairperson_signature' => 'images/profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg',
+            'general_secretary_signature' => 'images/profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg',
+            'letter_number' => '1212/IPRAHUMAS/SK.ANGGOTA/1/2025'
         ];
 
         try {
-            $pdf = Pdf::loadView('pdf.letter_of_acceptance', ['data' => $data])
+            $pdf = Pdf::loadView('pdf.letter_of_acceptance', ['data' => $data, 'additional_data' => $additional_data])
                 ->save('storage/letter_of_acceptance/' . $name . '_' . $data->id . '.pdf');
         } catch (\Exception $th) {
             return back()->with('error', 'Internal Error');

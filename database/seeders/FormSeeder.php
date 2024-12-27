@@ -37,11 +37,14 @@ class FormSeeder extends Seeder
 
             $status = ['pending', 'pending', 'approved', 'approved', 'rejected', 'rejected'];
 
+            $lastNumber = Form::count();
+
             foreach ($users as $key => $user) {
                 Form::create([
                     'user_id' => $user->id,
                     'nip' => fake()->numerify('####################'),
                     'dob' => fake()->date('Y-m-d', '2003-12-31'),
+                    'new_member_number' => date('Y') . str_pad($lastNumber + $key + 1, 5, '0', STR_PAD_LEFT),
                     'religion' => fake()->randomElement(["islam", "christian", "catholic", "hindu", "buddha", "konghucu", "other"]),
                     'phone' => '08' . fake()->numerify('#########'),
                     'last_education' => fake()->randomElement(['sma', 'd3', 'd4/s1', 's2', 's3']),

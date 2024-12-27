@@ -76,7 +76,7 @@
     <!-- Isi Surat -->
     <div class="isi-surat">
         <h2>KEPUTUSAN KETUA UMUM IKATAN PRANATA HUMAS INDONESIA</h2>
-        <h2>NOMOR: 1212/IPRAHUMAS/SK.ANGGOTA/1/2024</h2>
+        <h2>NOMOR: {{ $additional_data['letter_number'] }}</h2>
         <h2>TENTANG</h2>
         <h2>KEANGGOTAAN IKATAN PRANATA HUBUNGAN MASYARAKAT</h2>
 
@@ -130,7 +130,7 @@
                 <td style="width: 5%">7.</td>
                 <td style="width: 30%">Nomor Anggota Baru</td>
                 <td style="width: 5%">:</td>
-                <td>-</td>
+                <td>{{ $data->form->new_member_number }}</td>
             </tr>
         </table>
 
@@ -138,9 +138,10 @@
             <tr>
                 <td style="width: 15%;">KESATU</td>
                 <td style="width: 5%;">:</td>
-                <td style="width: 80%;">Terhitung sejak {{ date('d F Y', strtotime($data->form->period->start_date)) }}
+                <td style="width: 80%;">Terhitung sejak
+                    {{ \Carbon\Carbon::parse($data->form->period->start_date)->translatedFormat('d F Y') }}
                     s.d.
-                    {{ date('d F Y', strtotime($data->form->period->end_date)) }}
+                    {{ \Carbon\Carbon::parse($data->form->period->end_date)->translatedFormat('d F Y') }}
                     disahkan sebagai anggota
                     aktif Ikatan Pranata
                     Humas Indonesia (IPRAHUMAS).</td>
@@ -171,7 +172,7 @@
             <tr>
                 <td style="width: 50%"></td>
                 <td style="width: 17%">Pada Tanggal</td>
-                <td>{{ date('d F Y', strtotime(now())) }}</td>
+                <td>{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</td>
             </tr>
         </table>
 
@@ -185,19 +186,19 @@
             </tr>
             <tr>
                 <td>
-                    <img src="{{ storage_path('profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg') }}"
+                    <img src="{{ public_path('storage/' . $additional_data['chairperson_signature']) }}"
                         alt="{{ config('app.name') }}" style="max-height: 80px;">
                 </td>
                 <td></td>
                 <td>
-                    <img src="{{ public_path('assets/images/logos/logo_sk.png') }}" alt="{{ config('app.name') }}"
-                        style="max-height: 80px;">
+                    <img src="{{ public_path('storage/' . $additional_data['general_secretary_signature']) }}"
+                        alt="{{ config('app.name') }}" style="max-height: 80px;">
                 </td>
             </tr>
             <tr>
-                <td>FACHRUDIN ALI</td>
+                <td>{{ $additional_data['chairperson_name'] }}</td>
                 <td></td>
-                <td>LIZZATUL FARHATININGSIH</td>
+                <td>{{ $additional_data['general_secretary_name'] }}</td>
             </tr>
         </table>
     </div>

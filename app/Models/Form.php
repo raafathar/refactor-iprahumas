@@ -15,6 +15,7 @@ class Form extends Model
         'user_id',
         'nip',
         'dob',
+        'new_member_number',
         'religion',
         'phone',
         'last_education',

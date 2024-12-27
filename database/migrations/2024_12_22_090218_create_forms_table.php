@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid("user_id")->constrained("users");
             $table->string('nip')->unique()->nullable();
             $table->date('dob')->nullable();
+            $table->string('new_member_number')->unique()->nullable();
             $table->enum("religion", ["islam", "christian", "catholic", "hindu", "buddha", "konghucu", "other"])->nullable();
             $table->string('phone')->unique()->nullable();
             $table->enum('last_education', ['sma', 'd3', 'd4/s1', 's2', 's3'])->nullable();
