@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
@@ -9,9 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 // For guest
 Route::prefix('/')->group(function () {
-    Route::get('/', function () { return view('landingpage.index'); })->name('landingpage');
+    Route::get('/', [BerandaController::class, 'index'])->name('landingpage');
+    Route::get('/berita', [BerandaController::class, 'get_berita'])->name('berita');
+    Route::get('/berita/detail/{slug}', [BerandaController::class, 'detail_berita'])->name('detail.berita');
     Route::get('/kontak', function () { return view('landingpage.contact');})->name('kontak');
-    Route::get('/berita', function () { return view('landingpage.berita.index');})->name('berita');
     Route::get('/pelatihan', function () { return view('landingpage.pelatihan.index');})->name('pelatihan');
     Route::get('/panduan-pendaftaran', function () { return view('landingpage.keangotaan.panduan');})->name('panduan');
     Route::get('/syarat-keanggotaan', function () { return view('landingpage.keangotaan.syarat');})->name('syarat');

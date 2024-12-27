@@ -279,265 +279,50 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card rounded-3 overflow-hidden">
-                            <a href="/berita/1" class="position-relative">
-                                <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
-                                    alt="blog image" class="w-100 img-fluid">
-                                <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                    <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min Read</p>
-                                </div>
-                                <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                    <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                        width="44px" height="44px">
-                                </div>
-                            </a>
-                            <div class="mt-10 px-7 pb-7 h-100">
-                                <div class="d-flex gap-3 flex-column h-100 justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                                            Web Development
-                                        </p>
+                    @foreach ($beritaTerbaru as $berita)                        
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card rounded-3 overflow-hidden">
+                                <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="position-relative">
+                                    <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+                                        alt="blog image" class="w-100 img-fluid">
+                                    <div class="position-absolute bottom-0 end-0 me-9 mb-3">
+                                        <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min read</p>
                                     </div>
-                                    <a href="/berita/1" class="fs-15 fw-bolder">
-                                        The future of web: what's next in 2024?
-                                    </a>
-                                    <p class="mb-0 fs-4 truncated-text">
-                                        Explore the latest trends and technologies that are shaping the future of web
-                                        development, including AI-driven design and serverless architectures.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-9">
-                                            <div class="d-flex gap-2">
-                                                <i class="ti ti-eye fs-5 text-dark"></i>
-                                                <p class="mb-0 fs-2 fw-semibold text-dark">6941</p>
-                                            </div>
+                                    <div class="position-absolute bottom-0 ms-7 mb-n9">
+                                        <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
+                                            width="44px" height="44px">
+                                    </div>
+                                </a>
+                                <div class="mt-10 px-7 pb-7 h-100">
+                                    <div class="d-flex gap-3 flex-column h-100 justify-content-between">
+                                        <div class="d-flex">
+                                            <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
+                                                {{ $berita->user_name }}
+                                            </p>
                                         </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ti ti-circle fs-2"></i>
-                                            <p class="mb-0 fs-2 fw-semibold text-dark">Tue, May 2</p>
+                                        <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="fs-15 fw-bolder">
+                                            {{ $berita->b_title }}
+                                        </a>
+                                        <p class="mb-0 fs-4 truncated-text">
+                                            {{ $berita->b_content }}
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex gap-9">
+                                                <div class="d-flex gap-2">
+                                                    <i class="ti ti-eye fs-5 text-dark"></i>
+                                                    <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_view }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <i class="ti ti-circle fs-2"></i>
+                                                <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_date }}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card rounded-3 overflow-hidden">
-                            <a href="/berita/1" class="position-relative">
-                                <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
-                                    alt="blog image" class="w-100 img-fluid">
-                                <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                    <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min Read</p>
-                                </div>
-                                <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                    <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                        width="44px" height="44px">
-                                </div>
-                            </a>
-                            <div class="mt-10 px-7 pb-7 h-100">
-                                <div class="d-flex gap-3 flex-column h-100 justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                                            Web Development
-                                        </p>
-                                    </div>
-                                    <a href="/berita/1" class="fs-15 fw-bolder">
-                                        The future of web: what's next in 2024?
-                                    </a>
-                                    <p class="mb-0 fs-4 truncated-text">
-                                        Explore the latest trends and technologies that are shaping the future of web
-                                        development, including AI-driven design and serverless architectures.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-9">
-                                            <div class="d-flex gap-2">
-                                                <i class="ti ti-eye fs-5 text-dark"></i>
-                                                <p class="mb-0 fs-2 fw-semibold text-dark">6941</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ti ti-circle fs-2"></i>
-                                            <p class="mb-0 fs-2 fw-semibold text-dark">Tue, May 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card rounded-3 overflow-hidden">
-                            <a href="/berita/1" class="position-relative">
-                                <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
-                                    alt="blog image" class="w-100 img-fluid">
-                                <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                    <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min Read</p>
-                                </div>
-                                <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                    <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                        width="44px" height="44px">
-                                </div>
-                            </a>
-                            <div class="mt-10 px-7 pb-7 h-100">
-                                <div class="d-flex gap-3 flex-column h-100 justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                                            Web Development
-                                        </p>
-                                    </div>
-                                    <a href="/berita/1" class="fs-15 fw-bolder">
-                                        The future of web: what's next in 2024?
-                                    </a>
-                                    <p class="mb-0 fs-4 truncated-text">
-                                        Explore the latest trends and technologies that are shaping the future of web
-                                        development, including AI-driven design and serverless architectures.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-9">
-                                            <div class="d-flex gap-2">
-                                                <i class="ti ti-eye fs-5 text-dark"></i>
-                                                <p class="mb-0 fs-2 fw-semibold text-dark">6941</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ti ti-circle fs-2"></i>
-                                            <p class="mb-0 fs-2 fw-semibold text-dark">Tue, May 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card rounded-3 overflow-hidden">
-                            <a href="/berita/1" class="position-relative">
-                                <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
-                                    alt="blog image" class="w-100 img-fluid">
-                                <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                    <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min Read</p>
-                                </div>
-                                <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                    <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                        width="44px" height="44px">
-                                </div>
-                            </a>
-                            <div class="mt-10 px-7 pb-7 h-100">
-                                <div class="d-flex gap-3 flex-column h-100 justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                                            Web Development
-                                        </p>
-                                    </div>
-                                    <a href="/berita/1" class="fs-15 fw-bolder">
-                                        The future of web: what's next in 2024?
-                                    </a>
-                                    <p class="mb-0 fs-4 truncated-text">
-                                        Explore the latest trends and technologies that are shaping the future of web
-                                        development, including AI-driven design and serverless architectures.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-9">
-                                            <div class="d-flex gap-2">
-                                                <i class="ti ti-eye fs-5 text-dark"></i>
-                                                <p class="mb-0 fs-2 fw-semibold text-dark">6941</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ti ti-circle fs-2"></i>
-                                            <p class="mb-0 fs-2 fw-semibold text-dark">Tue, May 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card rounded-3 overflow-hidden">
-                            <a href="/berita/1" class="position-relative">
-                                <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
-                                    alt="blog image" class="w-100 img-fluid">
-                                <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                    <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min Read</p>
-                                </div>
-                                <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                    <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                        width="44px" height="44px">
-                                </div>
-                            </a>
-                            <div class="mt-10 px-7 pb-7 h-100">
-                                <div class="d-flex gap-3 flex-column h-100 justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                                            Web Development
-                                        </p>
-                                    </div>
-                                    <a href="/berita/1" class="fs-15 fw-bolder">
-                                        The future of web: what's next in 2024?
-                                    </a>
-                                    <p class="mb-0 fs-4 truncated-text">
-                                        Explore the latest trends and technologies that are shaping the future of web
-                                        development, including AI-driven design and serverless architectures.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-9">
-                                            <div class="d-flex gap-2">
-                                                <i class="ti ti-eye fs-5 text-dark"></i>
-                                                <p class="mb-0 fs-2 fw-semibold text-dark">6941</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ti ti-circle fs-2"></i>
-                                            <p class="mb-0 fs-2 fw-semibold text-dark">Tue, May 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card rounded-3 overflow-hidden">
-                            <a href="/berita/1" class="position-relative">
-                                <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
-                                    alt="blog image" class="w-100 img-fluid">
-                                <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                    <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min Read</p>
-                                </div>
-                                <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                    <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                        width="44px" height="44px">
-                                </div>
-                            </a>
-                            <div class="mt-10 px-7 pb-7 h-100">
-                                <div class="d-flex gap-3 flex-column h-100 justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                                            Web Development
-                                        </p>
-                                    </div>
-                                    <a href="/berita/1" class="fs-15 fw-bolder">
-                                        The future of web: what's next in 2024?
-                                    </a>
-                                    <p class="mb-0 fs-4 truncated-text">
-                                        Explore the latest trends and technologies that are shaping the future of web
-                                        development, including AI-driven design and serverless architectures.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex gap-9">
-                                            <div class="d-flex gap-2">
-                                                <i class="ti ti-eye fs-5 text-dark"></i>
-                                                <p class="mb-0 fs-2 fw-semibold text-dark">6941</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ti ti-circle fs-2"></i>
-                                            <p class="mb-0 fs-2 fw-semibold text-dark">Tue, May 2</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="ml-3 text-center">
                     <a href="{{ route('berita') }}" class="btn btn-primary px-9 py-6">Lihat Lebih Banyak</a>

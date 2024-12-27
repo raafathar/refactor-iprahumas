@@ -2,140 +2,172 @@
 @include('landingpage.layouts.header')
 @include('landingpage.layouts.footer')
 
-
-
 @section('contents')
-<div class="main-wrapper overflow-hidden">
-    <!-- ------------------------------------- -->
-    <!-- banner Start -->
-    <!-- ------------------------------------- -->
-    <section class="bg-primary py-5 mb-5">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="text-left">
-                    <h4 class="fw-bolder fs-9 text-white">Berita</h4>
-                </div>
-                <div class="d-flex justify-content-right align-items-center gap-2">
-                    <select class="form-select w-auto bg-white">
-                        <option value="news">Urutkan berdasarkan</option>
-                        <option value="news">Berita Terbaru</option>
-                        <option value="top">Berita Terpopuler</option>
-                    </select>
+    <div class="main-wrapper overflow-hidden">
+        <!-- ------------------------------------- -->
+        <!-- banner Start -->
+        <!-- ------------------------------------- -->
+        <section class="bg-primary py-5 mb-5">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-left">
+                        <h4 class="fw-bolder fs-9 text-white">Berita</h4>
+                    </div>
+                    <div class="d-flex justify-content-right align-items-center gap-2">
+                        <select class="form-select w-auto bg-white" id="sort-by">
+                            <option>Urutkan berdasarkan</option>
+                            <option value="newest">Berita Terbaru</option>
+                            <option value="popular">Berita Terpopuler</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- ------------------------------------- -->
-    <!-- banner End -->
-    <!-- ------------------------------------- -->
+        </section>
+        <!-- ------------------------------------- -->
+        <!-- banner End -->
+        <!-- ------------------------------------- -->
 
-    <!-- ------------------------------------- -->
-    <!-- List Start -->
-    <!-- ------------------------------------- -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-8">
-                <div class="card blog blog-img-one position-relative overflow-hidden hover-img">
-                    <div class="card-body position-relative">
-                        <div class="d-flex flex-column justify-content-between h-100">
-                            <div class="d-flex align-items-start justify-content-between">
-                                <div class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="Mollie Underwood">
-                                    <img src="../assets/images/profile/user-4.jpg" alt="modernize-img"
-                                        class="rounded-circle img-fluid" width="40" height="40">
-                                </div>
-                                <span class="badge text-bg-primary fs-2 fw-semibold">Gadget</span>
-                            </div>
-                            <div>
-                                <a href="../main/blog-detail.html"
-                                    class="fs-7 my-4 fw-semibold text-white d-block lh-sm text-primary">Early Black
-                                    Friday
-                                    Amazon deals: cheap TVs, headphones, laptops</a>
-                                <div class="d-flex align-items-center gap-4">
-                                    <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal">
-                                        <i class="ti ti-eye fs-5"></i>
-                                        6006
-                                    </div>
-                                    <div class="d-flex align-items-center gap-1 text-white fw-normal ms-auto">
-                                        <i class="ti ti-point"></i>
-                                        <small>Fri, Jan 13</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card blog blog-img-two position-relative overflow-hidden hover-img">
-                    <div class="card-body position-relative">
-                        <div class="d-flex flex-column justify-content-between h-100">
-                            <div class="d-flex align-items-start justify-content-between">
-                                <div class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="Francisco Quinn">
-                                    <img src="../assets/images/profile/user-5.jpg" alt="modernize-img"
-                                        class="rounded-circle img-fluid" width="40" height="40">
-                                </div>
-                                <span class="badge text-bg-primary fs-2 fw-semibold">Health</span>
-                            </div>
-                            <div>
-                                <a href="../main/blog-detail.html"
-                                    class="fs-7 my-4 fw-semibold text-white d-block lh-sm">Presented by Max
-                                    Rushden with Barry Glendenning, Philippe Auclair</a>
-                                <div class="d-flex align-items-center gap-4">
-                                    <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal">
-                                        <i class="ti ti-eye fs-5"></i>
-                                        713
-                                    </div>
-                                    <div class="d-flex align-items-center gap-1 text-white fw-normal ms-auto">
-                                        <i class="ti ti-point"></i>
-                                        <small>Wed, Jan 18</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card overflow-hidden hover-img">
-                    <div class="position-relative">
-                        <a href="../main/blog-detail.html">
-                            <img src="../assets/images/blog/blog-img6.jpg" class="card-img-top" alt="modernize-img">
-                        </a>
-                        <span
-                            class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
-                            min Read</span>
-                        <img src="../assets/images/profile/user-3.jpg" alt="modernize-img"
-                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9" width="40"
-                            height="40" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Addie Keller">
-                    </div>
-                    <div class="card-body p-4">
-                        <span class="badge text-bg-light fs-2 py-1 px-2 lh-sm  mt-3">Gadget</span>
-                        <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary"
-                            href="../main/blog-detail.html">As yen
-                            tumbles, gadget-loving Japan goes
-                            for iPhones</a>
-                        <div class="d-flex align-items-center gap-4">
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="ti ti-eye text-dark fs-5"></i>9,125
-                            </div>
-                            <div class="d-flex align-items-center fs-2 ms-auto">
-                                <i class="ti ti-point text-dark"></i>Mon, Jan 16
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- ------------------------------------- -->
+        <!-- List Start -->
+        <!-- ------------------------------------- -->
+        <div class="container">
+            <div class="row" id="news-list">
+                <!-- News articles will be dynamically inserted here -->
             </div>
         </div>
+        <!-- ------------------------------------- -->
+        <!-- List End -->
+        <!-- ------------------------------------- -->
+
+        <!-- ------------------------------------- -->
+        <!-- Pagination Start -->
+        <!-- ------------------------------------- -->
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center mb-0 mt-4" id="pagination">
+                <!-- Pagination links will be dynamically inserted here -->
+            </ul>
+        </nav>
+        <!-- ------------------------------------- -->
+        <!-- Pagination End -->
+        <!-- ------------------------------------- -->
     </div>
-    <!-- ------------------------------------- -->
-    <!-- List End -->
-    <!-- ------------------------------------- -->
-    <!-- ------------------------------------- -->
-    <!-- Pagination Start -->
-    <!-- ------------------------------------- -->
-    <!-- ------------------------------------- -->
-    <!-- Pagination End -->
-    <!-- ------------------------------------- -->
-    @endsection
+
+    <script>
+        const beritas = @json($beritas);
+        const itemsPerPage = 6; // Number of news items per page
+        let currentPage = 1;
+
+        // Function to render news articles
+        function renderNews(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const paginatedData = beritas.slice(start, end);
+
+            const newsListContainer = document.getElementById('news-list');
+            newsListContainer.innerHTML = ''; // Clear previous content
+
+            paginatedData.forEach(function(berita) {
+                const articleElement = document.createElement('div');
+                articleElement.classList.add('col-lg-4', 'col-md-6');
+                articleElement.innerHTML = `
+                    <div class="card rounded-3 overflow-hidden">
+                        <a href="/berita/detail/${berita.b_slug}" class="position-relative">
+                            <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc=" alt="blog image" class="w-100 img-fluid">
+                            <div class="position-absolute bottom-0 end-0 me-9 mb-3">
+                                <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min read</p>
+                            </div>
+                            <div class="position-absolute bottom-0 ms-7 mb-n9">
+                                <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle" width="44px" height="44px">
+                            </div>
+                        </a>
+                        <div class="mt-10 px-7 pb-7 h-100">
+                            <div class="d-flex gap-3 flex-column h-100 justify-content-between">
+                                <div class="d-flex">
+                                    <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
+                                        ${berita.user_name}
+                                    </p>
+                                </div>
+                                <a href="/berita/detail/${berita.b_slug}" class="fs-15 fw-bolder">
+                                    ${berita.b_title}
+                                </a>
+                                <p class="mb-0 fs-4 truncated-text">
+                                    ${berita.b_content}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex gap-9">
+                                        <div class="d-flex gap-2">
+                                            <i class="ti ti-eye fs-5 text-dark"></i>
+                                            <p class="mb-0 fs-2 fw-semibold text-dark">${berita.b_view}</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="ti ti-circle fs-2"></i>
+                                        <p class="mb-0 fs-2 fw-semibold text-dark">${berita.b_date}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                newsListContainer.appendChild(articleElement);
+            });
+        }
+
+        // Function to render pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(beritas.length / itemsPerPage);
+            const paginationContainer = document.getElementById('pagination');
+            paginationContainer.innerHTML = ''; // Clear previous pagination
+
+            // Previous button
+            const prevPageButton = document.createElement('li');
+            prevPageButton.classList.add('page-item');
+            prevPageButton.innerHTML = `
+                <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center" href="javascript:void(0)" onclick="changePage(${currentPage - 1})">
+                    <i class="ti ti-chevron-left"></i>
+                </a>
+            `;
+            paginationContainer.appendChild(prevPageButton);
+
+            // Page number buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.classList.add('page-item');
+                pageItem.innerHTML = `
+                    <a class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center" href="javascript:void(0)" onclick="changePage(${i})">${i}</a>
+                `;
+                if (i === currentPage) {
+                    pageItem.classList.add('active');
+                }
+                paginationContainer.appendChild(pageItem);
+            }
+
+            // Next button
+            const nextPageButton = document.createElement('li');
+            nextPageButton.classList.add('page-item');
+            nextPageButton.innerHTML = `
+                <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center" href="javascript:void(0)" onclick="changePage(${currentPage + 1})">
+                    <i class="ti ti-chevron-right"></i>
+                </a>
+            `;
+            paginationContainer.appendChild(nextPageButton);
+        }
+
+        // Function to change page
+        function changePage(page) {
+            const totalPages = Math.ceil(beritas.length / itemsPerPage);
+
+            // Prevent going out of bounds
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+
+            currentPage = page;
+            renderNews(currentPage);
+            renderPagination();
+        }
+
+        // Initial rendering
+        renderNews(currentPage);
+        renderPagination();
+    </script>
+@endsection
