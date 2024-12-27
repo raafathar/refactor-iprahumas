@@ -2,19 +2,19 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets/css/ckeditor5.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/css/ckeditor5-premium-features.css') }}">
-        <style>
-            .ck-editor__editable {
-                height: 50rem !important;
-            }
-        </style>
     @endpush
 
     <x-breadcrumb :items="['Data Master', 'Tambah Berita']" />
 
     <div class="card card-body" style="height: auto">
+
+
         <form action="{{ route('beritas.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
+            <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-primary">Ubah Berita</button>
+            </div>
             {{-- Judul --}}
             <div class="form-group mb-3">
                 <label for="b_title">Judul Berita</label>
@@ -56,8 +56,6 @@
                 <x-input-error messages="{{ $errors->first('b_content') }}" />
             </div>
 
-
-            <button class="btn btn-primary">Ubah Berita</button>
         </form>
     </div>
 

@@ -20,9 +20,6 @@
     </ul>
 </div>
 
-
-<x-modal-detail />
-
 <div class="modal fade" id="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
     aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

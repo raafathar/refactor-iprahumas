@@ -35,11 +35,11 @@ class BeritaController extends Controller
      */
     public function store(BeritaRequest $request)
     {
-        $validation = $request->validated();
+        $validation = $request->all();
 
         $validation["id"] = Str::uuid()->toString();
         $validation["user_id"] = auth()->user()->id;
-        $validation["b_is_active"] = $validation["b_is_active"] == "on" ? 1 : 0;
+        $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
         $validation["b_image"] = $this->fileImageHandler($request, "b_image", "berita");
         $validation["b_slug"] = Str::slug($validation["b_title"] . "-" . explode("-", $validation["id"])[0]);
 
@@ -68,11 +68,6 @@ class BeritaController extends Controller
      */
     public function edit($slug)
     {
-        // $file = new Filesystem();
-        // $imagePath = public_path("berita");
-
-        // dd($file->files($imagePath)[1]);
-        // dd(file_get_contents($imagePath));
         $berita = Berita::whereBSlug($slug)->first();
         return view("dashboard.datamaster.berita.edit", compact("berita"));
     }
@@ -86,9 +81,12 @@ class BeritaController extends Controller
 
         try {
             $berita = Berita::findOrFail($id)->first();
-            $validation["b_is_active"] = $validation["b_is_active"] == "on" ? 1 : 0;
-            $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $berita->b_image, "berita");
-            $validation["b_slug"] = Str::slug($validation["b_title"] . "-" . explode("-", $berita->id)[0]);
+            $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
+            if ($request->hasFile("b_image")) {
+                $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $berita->b_image, "berita");
+            }
+            $validation["b_slug"] = Str::slug($validation["b_title"]);
+
             Berita::whereId($id)->update($validation);
         } catch (\InvalidArgumentException $th) {
             return back()->with("error", "Ups ada yang salah!");
