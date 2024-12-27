@@ -1,39 +1,16 @@
 <x-app-layout>
 
-    <x-breadcrumb :items="['Data Master', 'Data Anggota']" />
+    <x-breadcrumb :items="['Data Master', 'Data Pendaftaran', $current_status]" />
 
     <div class="card card-body">
         <div class="row">
             <div class="col-md-4 col-xl-3">
                 <form class="position-relative">
                     <input type="text" class="form-control product-search ps-5" id="input-search"
-                        placeholder="Cari Anggota..." />
+                        placeholder="Cari Pendaftar..." />
                     <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
                 </form>
             </div>
-            <div
-                class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
-                <a href="javascript:void(0)" id="btn-add" class="btn btn-primary d-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#modal" onclick="onStore(event)">
-                    <i class="ti ti-file-import text-white me-1 fs-5"></i>
-                    Import Anggota
-                </a>
-                <a href="javascript:void(0)" id="btn-add" class="btn btn-primary d-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#modal" onclick="onStore(event)">
-                    <i class="ti ti-plus text-white me-1 fs-5"></i>
-                    Tambah Anggota
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="alert bg-primary-subtle fade show" role="alert">
-        <div class="d-flex align-items-center">
-            <i class="ti ti-info-circle me-2 fs-4"></i>
-            <span>User yang baru saja ditambahkan dapat dilihat pada
-                <a href="{{ route('registration.index', ['status' => 'pending']) }}"
-                    class="alert-link text-primary">Data Pendaftaran</a>.
-            </span>
         </div>
     </div>
 
@@ -43,7 +20,7 @@
         </div>
     </div>
 
-    @include('dashboard.datamaster.user.form')
+    @include('dashboard.datamaster.registration.form')
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
@@ -61,6 +38,6 @@
 
         {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-        <script src="{{ asset('assets/js/feature/datamaster/users.js') }}"></script>
+        <script src="{{ asset('assets/js/feature/datamaster/registration.js') }}"></script>
     @endpush
 </x-app-layout>

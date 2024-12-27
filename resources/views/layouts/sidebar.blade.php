@@ -54,6 +54,43 @@
                     </a>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Data Pendaftaran -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-checkup-list"></i>
+                        </span>
+                        <span class="hide-menu">Data Pendaftaran</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ route('registration.index', ['status' => 'pending']) }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Diproses</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('registration.index', ['status' => 'approved']) }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Diterima</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('registration.index', ['status' => 'rejected']) }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Ditolak</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- ---------------------------------- -->
                 <!-- Frontend page -->
                 <!-- ---------------------------------- -->
                 <li class="sidebar-item">

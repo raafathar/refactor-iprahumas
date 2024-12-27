@@ -189,7 +189,7 @@
     </div>
 
     <div class="dark-transparent sidebartoggler"></div>
-    {{-- <script src="{{ asset('assets/js/vendor.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
     <!-- Import Js Files -->
     <script src="{{ asset('assets/js/jquery-3.7.1.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>

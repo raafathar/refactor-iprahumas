@@ -38,18 +38,32 @@ $(document).ready(() => {
         form.find('input[name="address"]').val(data.form.address).trigger('change');
     }
 
+    function convertReligion(religion) {
+        const religionMap = {
+            islam: "Islam",
+            christian: "Kristen",
+            catholic: "Katolik",
+            hindu: "Hindu",
+            buddha: "Buddha",
+            konghucu: "Konghucu",
+            other: "Lainnya"
+        };
+
+        return religionMap[religion];
+    }
+
     function generateDetailHTML(json) {
         const formatDate = (date) => 
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
-        const upperCase = (string) => string.charAt(0).toUpperCase() + string.slice(1);
-
+        const upperCase = (string) => string.toUpperCase();
+        
         const fields = [
             { label: 'Nama Lengkap', value: json.name },
             { label: 'Email', value: json.email },
             { label: 'NIP', value: json.form.nip },
             { label: 'Tanggal Lahir', value: formatDate(json.form.dob) },
-            { label: 'Agama', value: json.form.religion },
+            { label: 'Agama', value: convertReligion(json.form.religion) },
             { label: 'Nomor Telepon', value: json.form.phone },
             { label: 'Pendidikan Terakhir', value: upperCase(json.form.last_education) },
             { label: 'Jurusan', value: json.form.last_education_major },

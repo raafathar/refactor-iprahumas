@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UsersDataTable extends DataTable
+class RegistrationDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,9 +24,42 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function (User $users) {
-                return view('dashboard.datamaster.user.action', compact('users'));
+                $users->form->payment_proof_url = $users->form->payment_proof
+                    ? asset('storage/' . $users->form->payment_proof)
+                    : null;
+                return view('dashboard.datamaster.registration.action', compact('users'));
             })
-            ->rawColumns(['name', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'updated_by', 'created_at', 'updated_at'])
+            ->rawColumns(['payment_proof', 'name', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'status', 'reason', 'updated_by', 'created_at', 'updated_at'])
+            ->editColumn('payment_proof', function (User $users) {
+                $paymentProof = $users->form->payment_proof
+                    ? asset('storage/' . $users->form->payment_proof)
+                    : null;
+
+                if ($paymentProof) {
+                    return '
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#paymentProofModal-' . $users->id . '">
+                            Lihat
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="paymentProofModal-' . $users->id . '" tabindex="-1" aria-labelledby="paymentProofLabel-' . $users->id . '" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="paymentProofLabel-' . $users->id . '">Bukti Pembayaran ' . $users->name . '</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center" style="height: 600px; overflow-x: hidden; overflow-y: auto;">
+                                        <img src="' . $paymentProof . '" alt="Bukti Pembayaran" class="img-fluid" style="width: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ';
+                } else {
+                    return '<span class="text-danger">Belum Melakukan Pembayaran</span>';
+                }
+            })
             ->editColumn('name', function (User $users) {
                 $profilePicture = $users->profile_picture
                     ? asset('storage/' . $users->profile_picture)
@@ -55,6 +89,19 @@ class UsersDataTable extends DataTable
             })
             ->editColumn('work_unit', function (User $users) {
                 return $users->form->work_unit;
+            })
+            ->editColumn('status', function (User $users) {
+                if ($users->form->status == 'approved') {
+                    return '<span class="badge bg-primary">Diterima </span>';
+                } else if ($users->form->status == 'rejected') {
+                    return
+                        '<span class="badge bg-danger">Ditolak</span>';
+                } else if ($users->form->status == 'pending') {
+                    return '<span class="badge bg-warning">Diproses</span>';
+                }
+            })
+            ->editColumn('reason', function (User $users) {
+                return $users->form->reason;
             })
             ->editColumn('skill_id', function (User $users) {
                 return $users->form->skill->name;
@@ -88,10 +135,12 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
+        $status = request()->segment(2);
+
         return $model->newQuery()
             ->where('role', 'user')
-            ->whereHas('form', function ($query) {
-                $query->where('status', 'approved');
+            ->whereHas('form', function ($query) use ($status) {
+                $query->where('status', $status);
             });
     }
 
@@ -101,7 +150,7 @@ class UsersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('users-table')
+            ->setTableId('registration-table')
             ->setTableAttributes([
                 'class' => 'table table-striped table-bordered',
                 'cellspacing' => '0',
@@ -112,7 +161,7 @@ class UsersDataTable extends DataTable
             ->responsive(true)
             ->columns($this->getColumns())
             ->minifiedAjax()
-            // ->dom('Bfrtip')
+            //->dom('Bfrtip')
             ->parameters([
                 'searching' => false,
             ])
@@ -134,7 +183,7 @@ class UsersDataTable extends DataTable
                     });
                 });
             }')
-            ->orderBy(9, 'desc')
+            ->orderBy('9', 'desc')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -151,13 +200,17 @@ class UsersDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
+        $status = request()->segment(2);
+
+        $columns = [
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center')
                 ->title('Aksi'),
+            Column::computed('payment_proof')
+                ->title('Bukti Pembayaran'),
             Column::make('name')
                 ->title('Nama Lengkap'),
             Column::computed('email')
@@ -175,16 +228,27 @@ class UsersDataTable extends DataTable
             Column::computed('work_unit')
                 ->width(110)
                 ->title('Unit Kerja'),
-            Column::computed('updated_by')
+            Column::computed('status')
                 ->width(110)
-                ->title('Diperbarui Oleh'),
+                ->title('Status'),
+        ];
+
+        if ($status === 'rejected') {
+            $columns[] = Column::computed('reason')
+                ->width(150)
+                ->title('Alasan');
+        }
+
+        $columns = array_merge($columns, [
             Column::make('created_at')
                 ->width(110)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
                 ->width(110)
                 ->title('Diperbarui Pada'),
-        ];
+        ]);
+
+        return $columns;
     }
 
     /**
@@ -192,6 +256,6 @@ class UsersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Users_' . date('YmdHis');
+        return 'Registration_' . date('YmdHis');
     }
 }

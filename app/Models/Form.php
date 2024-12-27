@@ -32,6 +32,7 @@ class Form extends Model
         'address',
         'payment_proof',
         'status',
+        'reason',
         'period_id',
         'updated_by',
     ];

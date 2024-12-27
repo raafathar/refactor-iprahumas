@@ -54,9 +54,9 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            $activePeriod = Period::where('status', 'active')->first();
+            $active_period = Period::where('status', 'active')->first();
 
-            if (!$activePeriod) {
+            if (!$active_period) {
                 throw new Exception('Periode pendaftaran telah berakhir');
             }
 

@@ -34,6 +34,7 @@ return new class extends Migration
             $table->foreignUuid('period_id')->constrained('periods')->nullable();
             $table->text('payment_proof')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->text('reason')->nullable();
             $table->foreignUuid('updated_by')->constrained('users')->nullable();
             $table->timestamps();
         });
