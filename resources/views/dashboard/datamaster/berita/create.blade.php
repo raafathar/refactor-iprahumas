@@ -14,6 +14,9 @@
     <div class="card card-body">
         <form action="{{ route('beritas.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-primary">Tambah Berita</button>
+            </div>
             {{-- Judul --}}
             <div class="form-group mb-3">
                 <label for="b_title">Judul Berita</label>
@@ -49,8 +52,6 @@
             <textarea id="editor" name="b_content">{{ old('b_content') }}</textarea>
             <x-input-error messages="{{ $errors->first('b_content') }}" />
 
-
-            <button class="btn btn-primary">Tambahkan Berita</button>
         </form>
     </div>
 

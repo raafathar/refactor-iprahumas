@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BeritaRequest extends FormRequest
@@ -21,11 +22,24 @@ class BeritaRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->method() == "PUT") {
+            return [
+                "b_title" => [
+                    "required",
+                    "string",
+                    "unique" => Rule::unique("beritas", "b_title")->ignore($this->route()->beritum)
+                ],
+                "b_image" => "image|mimes:jpeg,jpg,png,gif|max:10000",
+                "b_date" => "required|date",
+                "b_is_active" => "nullable",
+                "b_content" => "required"
+            ];
+        }
         return [
-            "b_title" => "required|string",
+            "b_title" => "required|string|unique:beritas,b_title",
             "b_image" => "image|required|mimes:jpeg,jpg,png,gif|max:10000",
             "b_date" => "required|date",
-            "b_is_active" => "required",
+            "b_is_active" => "nullable",
             "b_content" => "required"
         ];
     }
