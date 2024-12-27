@@ -25,13 +25,13 @@ class BannerRequest extends FormRequest
             return [
                 "b_title" => "required|max:30",
                 "b_image" => "mimes:jpeg,png,jpg",
-                "b_is_active"
+                "b_is_active" => "nullable"
             ];
         }
         return [
             "b_title" => "required|max:30",
             "b_image" => "required|mimes:jpeg,png,jpg",
-            "b_is_active"
+            "b_is_active" => "nullable"
         ];
     }
 }

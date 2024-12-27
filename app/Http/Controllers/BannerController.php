@@ -36,7 +36,7 @@ class BannerController extends Controller
     {
         try {
             $validation = $request->validated();
-            $validation["b_is_active"] = isset($validation["b_is_active"]) && $validation["b_is_active"] == "on" ? 1 : 0;
+            $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
 
             if (!$this->fileImageCheckRatio($request, "b_image", 16, 9)) {
                 return back()->withInput(["b_image", "Ratio harus 16x9"]);
