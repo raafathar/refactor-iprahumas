@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AccountDetail extends Notification
+class RegistrationRejected extends Notification
 {
     use Queueable;
 
     protected $request;
-    protected $password;
+    protected $registration;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($request, $password)
+    public function __construct($request, $registration)
     {
         $this->request = $request;
-        $this->password = $password;
+        $this->registration = $registration;
     }
 
     /**
@@ -39,16 +39,12 @@ class AccountDetail extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting('Halo ' . $this->request->name . '!')
-            ->line('')
-            ->subject('Detail Akun')
-            ->line('Berikut adalah detail akun yang telah berhasil dibuat:')
-            ->line('**Email:** ' . $this->request->email)
-            ->line('**Password:** ' . $this->password)
-            ->line('Silakan login untuk melanjutkan proses pendaftaran Anda.')
-            ->action('Login Sekarang', url('/login'))
+            ->greeting('Halo ' . $this->registration->name . '!')
+            ->line('Terima kasih atas minat dan antusiasme Anda untuk bergabung dengan Ikatan Pranata Humas Indonesia (IPRAHUMAS).')
+            ->line('Namun, dengan berat hati, kami harus memberitahukan bahwa pendaftaran Anda belum dapat kami terima karena alasan berikut:')
+            ->line('"' . $this->request->reason . '"')
             ->line('Jika Anda memiliki pertanyaan, jangan ragu untuk menghubungi kami di [support@iprahumas.id](mailto:support@iprahumas.id).')
-            ->line('')
+            ->subject('Pendaftaran Anggota Ditolak')
             ->salutation('Salam hangat,  
             ' . config('app.name'));
     }

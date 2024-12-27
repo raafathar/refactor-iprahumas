@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Dashboard\DataMaster;
 
 use App\DataTables\RegistrationDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateRegistrationRequest;
 use App\Http\Resources\DefaultResource;
 use App\Models\Form;
 use App\Models\User;
+use App\Notifications\RegistrationApproved;
+use App\Notifications\RegistrationRejected;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -70,9 +74,45 @@ class RegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRegistrationRequest $request, User $registration)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+
+            $form = Form::where('user_id', $registration->id)->first();
+
+            if ($request->status == 'approved') {
+                $this->generateSKRegistration($registration);
+                // $registration->notify(new RegistrationApproved($request, $registration));
+            } else if ($request->status == 'rejected') {
+                // $registration->notify(new RegistrationRejected($request, $registration));
+            }
+
+            $form->update([
+                'status' => $request->status,
+                'reason' => $request->input('reason') ?? null,
+            ]);
+
+
+            DB::commit();
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil diperbarui', $form);
+            }
+
+            toastr()->success('Data berhasil diperbarui');
+
+            return redirect()->back();
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500, $e->getMessage());
+        }
     }
 
     /**
@@ -105,6 +145,25 @@ class RegistrationController extends Controller
             }
 
             abort(500, $e->getMessage());
+        }
+    }
+
+    public function generateSKRegistration($data)
+    {
+        $name =   str_replace(' ', '_', $data->name);
+
+        $additional_data = [
+            'chairperson_name' => 'FACHRUDIN ALI',
+            'general_secretary_name' => 'LIZZATUL FARHATININGSIH',
+            'chairperson_signature' => $data->form->dob,
+            'general_secretary_signature' => $data->form->dob,
+        ];
+
+        try {
+            $pdf = Pdf::loadView('pdf.letter_of_acceptance', ['data' => $data])
+                ->save('storage/letter_of_acceptance/' . $name . '_' . $data->id . '.pdf');
+        } catch (\Exception $th) {
+            return back()->with('error', 'Internal Error');
         }
     }
 }
