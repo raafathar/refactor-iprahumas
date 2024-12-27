@@ -56,10 +56,13 @@ class BannerDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
+            ->parameters([
+                'searching' => false,
+            ])
             ->orderBy(1)
             ->selectStyleSingle()
             ->initComplete('function(settings, json) {
-                var table = window.LaravelDataTables[\'users-table\'];
+                var table = window.LaravelDataTables[\'banner-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
                     var searchTerm = $(this).val().toLowerCase();
@@ -90,8 +93,11 @@ class BannerDataTable extends DataTable
                 ->width(60)
                 ->addClass('text-center'),
             Column::make('b_title')->title("Judul"),
-            Column::make('b_image')->title("Gambar"),
-            Column::make('aktif')->title("Status"),
+            Column::make('b_image')->title("Gambar")
+                ->searchable(false)
+                ->orderable(false),
+            Column::make('aktif')->title("Status")
+                ->orderable(false),
             Column::make('created_at')->title("Dibuat Pada"),
         ];
     }

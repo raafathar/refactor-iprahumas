@@ -1,13 +1,13 @@
 <x-app-layout>
 
-    <x-breadcrumb :items="['Data Master', 'Data Anggota']" />
+    <x-breadcrumb :items="['Tampilan', 'Banner']" />
 
     <div class="card card-body">
         <div class="row">
             <div class="col-md-4 col-xl-3">
                 <form class="position-relative">
                     <input type="text" class="form-control product-search ps-5" id="input-search"
-                        placeholder="Cari Berita..." />
+                        placeholder="Cari Banner..." />
                     <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
                 </form>
             </div>
@@ -27,8 +27,8 @@
         role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form method="POST" class="p-3" id="users-form" action="{{ route('banners.store') }}"
-                    class="needs-validation" novalidate enctype="multipart/form-data">
+                <form method="POST" class="p-3" id="users-form" action="{{ route('banners.store') }}" novalidate
+                    enctype="multipart/form-data">
                     @csrf
 
                     {{-- Judul --}}

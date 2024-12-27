@@ -73,21 +73,20 @@ class BannerController extends Controller
      */
     public function update(BannerRequest $request, Banner $banner)
     {
-        // try {
-        $validation = $request->all();
+        try {
+            $validation = $request->all();
 
-        // dd($validation);
-        $validation["b_is_active"] = isset($validation["b_is_active"]) && $validation["b_is_active"] == "on" ? 1 : 0;
-        if ($request->hasFile("b_image")) {
-            if (!$this->fileImageCheckRatio($request, "b_image", 16, 9)) {
-                return back()->with("error", "Ratio harus 16x9");
+            $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
+            if ($request->hasFile("b_image")) {
+                if (!$this->fileImageCheckRatio($request, "b_image", 16, 9)) {
+                    return back()->with("error", "Ratio harus 16x9");
+                }
+                $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $banner->b_image, "banner");
             }
-            $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $banner->b_image, "banner");
+            $banner->update($validation);
+        } catch (\Exception $th) {
+            return back()->with("error", "Ups ada yang salah !");
         }
-        $banner->update($validation);
-        // } catch (\Exception $th) {
-        //     return back()->with("error", "Ups ada yang salah !");
-        // }
 
         return back()->with("success", "berhasil mengubah banner " . $banner->b_title);
     }
