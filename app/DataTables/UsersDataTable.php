@@ -25,7 +25,7 @@ class UsersDataTable extends DataTable
             ->addColumn('action', function (User $users) {
                 return view('dashboard.datamaster.user.action', compact('users'));
             })
-            ->rawColumns(['name', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'updated_by', 'created_at', 'updated_at'])
+            ->rawColumns(['name', 'nip', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'updated_by', 'created_at', 'updated_at'])
             ->editColumn('name', function (User $users) {
                 $profilePicture = $users->profile_picture
                     ? asset('storage/' . $users->profile_picture)
@@ -36,10 +36,13 @@ class UsersDataTable extends DataTable
                         <img src="' . $profilePicture . '" class="rounded-circle object-fit-fill me-2" width="40" height="40" alt="Profile Picture" />
                         <div>
                             <div class="fw-bold">' . e($users->name) . '</div>
-                            <div class="text-muted small">' . e($users->form->nip) . '</div>
+                            <div class="text-muted small">' . e($users->form->new_member_number) . '</div>
                         </div>
                     </div>
                 ';
+            })
+            ->editColumn('nip', function (User $users) {
+                return $users->form->nip;
             })
             ->editColumn('email', function (User $users) {
                 return '<a href="mailto:' . e($users->email) . '">' . e($users->email) . '</a>';
@@ -134,7 +137,7 @@ class UsersDataTable extends DataTable
                     });
                 });
             }')
-            ->orderBy(9, 'desc')
+            ->orderBy(10, 'desc')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -159,7 +162,11 @@ class UsersDataTable extends DataTable
                 ->addClass('text-center')
                 ->title('Aksi'),
             Column::make('name')
+                ->width(200)
                 ->title('Nama Lengkap'),
+            Column::computed('nip')
+                ->width(110)
+                ->title('NIP'),
             Column::computed('email')
                 ->width(110)
                 ->title('Email'),

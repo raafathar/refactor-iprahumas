@@ -83,10 +83,18 @@ class RegistrationController extends Controller
             $form = Form::where('user_id', $registration->id)->first();
 
             if ($request->status == 'approved') {
-                $this->generateSKRegistration($registration);
-                // $registration->notify(new RegistrationApproved($request, $registration));
+                try {
+                    $this->generateSKRegistration($registration);
+                    $registration->notify(new RegistrationApproved($request, $registration));
+                } catch (Throwable $e) {
+                    if ($request->expectsJson()) {
+                        return new DefaultResource(false, $e->getMessage(), []);
+                    }
+
+                    abort(500, $e->getMessage());
+                }
             } else if ($request->status == 'rejected') {
-                // $registration->notify(new RegistrationRejected($request, $registration));
+                $registration->notify(new RegistrationRejected($request, $registration));
             }
 
             $form->update([

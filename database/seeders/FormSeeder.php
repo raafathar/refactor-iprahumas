@@ -61,6 +61,7 @@ class FormSeeder extends Seeder
                     'village_id' => $village->id,
                     'address' => fake()->address(),
                     'period_id' => period::where('status', 'active')->first()->id,
+                    'payment_proof' => $status[$key] === 'approved' ?  'images/payment_proof/payment_proof.jpeg' : null,
                     'status' => $status[$key],
                     'reason' => $status[$key] === 'rejected' ? fake()->sentence() : null,
                     'updated_by' => User::where('role', 'admin')->first()->id,

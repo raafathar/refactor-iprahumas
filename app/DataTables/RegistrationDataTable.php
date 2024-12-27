@@ -29,7 +29,7 @@ class RegistrationDataTable extends DataTable
                     : null;
                 return view('dashboard.datamaster.registration.action', compact('users'));
             })
-            ->rawColumns(['payment_proof', 'name', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'status', 'reason', 'updated_by', 'created_at', 'updated_at'])
+            ->rawColumns(['payment_proof', 'name', 'nip', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'status', 'reason', 'updated_by', 'created_at', 'updated_at'])
             ->editColumn('payment_proof', function (User $users) {
                 $paymentProof = $users->form->payment_proof
                     ? asset('storage/' . $users->form->payment_proof)
@@ -70,10 +70,13 @@ class RegistrationDataTable extends DataTable
                         <img src="' . $profilePicture . '" class="rounded-circle object-fit-fill me-2" width="40" height="40" alt="Profile Picture" />
                         <div>
                             <div class="fw-bold">' . e($users->name) . '</div>
-                            <div class="text-muted small">' . e($users->form->nip) . '</div>
+                            <div class="text-muted small">' . e($users->form->new_member_number) . '</div>
                         </div>
                     </div>
                 ';
+            })
+            ->editColumn('nip', function (User $users) {
+                return $users->form->nip;
             })
             ->editColumn('email', function (User $users) {
                 return '<a href="mailto:' . e($users->email) . '">' . e($users->email) . '</a>';
@@ -183,7 +186,7 @@ class RegistrationDataTable extends DataTable
                     });
                 });
             }')
-            ->orderBy('9', 'desc')
+            ->orderBy('10', 'asc')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -212,7 +215,11 @@ class RegistrationDataTable extends DataTable
             Column::computed('payment_proof')
                 ->title('Bukti Pembayaran'),
             Column::make('name')
+                ->width(200)
                 ->title('Nama Lengkap'),
+            Column::computed('nip')
+                ->width(110)
+                ->title('NIP'),
             Column::computed('email')
                 ->width(110)
                 ->title('Email'),

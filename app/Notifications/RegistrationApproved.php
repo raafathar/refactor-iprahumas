@@ -38,6 +38,8 @@ class RegistrationApproved extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $name =   str_replace(' ', '_', $this->registration->name);
+
         return (new MailMessage)
             ->greeting('Halo ' . $this->registration->name . '!')
             ->line('Kami dengan senang hati menginformasikan bahwa pendaftaran Anda untuk menjadi anggota Ikatan Pranata Humas Indonesia (IPRAHUMAS) telah diterima.')
@@ -46,7 +48,7 @@ class RegistrationApproved extends Notification
             ->subject('Pendaftaran Anggota Diterima')
             ->salutation('Salam hangat,  
             ' . config('app.name'))
-            ->attach(storage_path('app/public/letter_of_acceptance/loa.pdf'), [
+            ->attach(storage_path('app/public/letter_of_acceptance/' . $name . '_' . $this->registration->id . '.pdf'), [
                 'as' => 'Surat Keputusan Pendaftaran.pdf',
                 'mime' => 'application/pdf',
             ]);

@@ -50,6 +50,7 @@ class RegisteredUserController extends Controller
 
         try {
             $activePeriod = Period::where('status', 'active')->first();
+            $lastNumber = Form::count();
 
             if (!$activePeriod) {
                 toastr()->warning('Periode pendaftaran telah berakhir');
@@ -72,6 +73,7 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'nip' => $request->nip,
                 'dob' => $request->dob,
+                'new_member_number' => date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT),
                 'religion' => $request->religion,
                 'phone' => $request->phone,
                 'last_education' => $request->last_education,

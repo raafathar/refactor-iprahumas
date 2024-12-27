@@ -55,6 +55,7 @@ class UserController extends Controller
 
         try {
             $active_period = Period::where('status', 'active')->first();
+            $lastNumber = Form::count();
 
             if (!$active_period) {
                 throw new Exception('Periode pendaftaran telah berakhir');
@@ -75,6 +76,7 @@ class UserController extends Controller
                 'user_id' => $user->id,
                 'nip' => $request->nip,
                 'dob' => $request->dob,
+                'new_member_number' => date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT),
                 'religion' => $request->religion,
                 'phone' => $request->phone,
                 'last_education' => $request->last_education,
