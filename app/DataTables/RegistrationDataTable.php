@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Registration;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -125,10 +126,10 @@ class RegistrationDataTable extends DataTable
                 return $users->form->village->name;
             })
             ->editColumn('created_at', function (User $users) {
-                return $users->created_at->timezone('Asia/Jakarta')->format('d-m-Y H:i:s T');
+                return Carbon::parse($users->form->created_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
             })
             ->editColumn('updated_at', function (User $users) {
-                return $users->updated_at->timezone('Asia/Jakarta')->format('d-m-Y H:i:s T');
+                return Carbon::parse($users->form->updated_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
             })
             ->setRowId('id');
     }
@@ -169,7 +170,7 @@ class RegistrationDataTable extends DataTable
                 'searching' => false,
             ])
             ->initComplete('function(settings, json) {
-                var table = window.LaravelDataTables[\'users-table\'];
+                var table = window.LaravelDataTables[\'registration-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
                     var searchTerm = $(this).val().toLowerCase();
@@ -248,10 +249,10 @@ class RegistrationDataTable extends DataTable
 
         $columns = array_merge($columns, [
             Column::make('created_at')
-                ->width(110)
+                ->width(150)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
-                ->width(110)
+                ->width(150)
                 ->title('Diperbarui Pada'),
         ]);
 

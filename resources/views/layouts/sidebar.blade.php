@@ -61,7 +61,7 @@
                         <span class="d-flex">
                             <i class="ti ti-checkup-list"></i>
                         </span>
-                        <span class="hide-menu">Data Pendaftaran</span>
+                        <span class="hide-menu">Data Pendaftar</span>
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
@@ -89,6 +89,17 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Periode Pendaftaran -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('periods.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-calendar-time"></i>
+                        </span>
+                        <span class="hide-menu">Periode Pendaftaran</span>
+                    </a>
                 </li>
                 <!-- ---------------------------------- -->
                 <!-- Frontend page -->

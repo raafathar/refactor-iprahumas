@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\ProfileController;
@@ -22,9 +23,11 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     // Data Master
     // Data Anggota
     Route::resource('users', UserController::class)->middleware(['user.access:superadmin,admin'])->names('users');
-    // Data Pendaftaran
+    // Data Pendaftar
     Route::get('registration/{status}', [RegistrationController::class, 'index'])->name('registration.index')->middleware(['user.access:superadmin,admin']);
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');
+    // Periode Pendaftaran
+    Route::resource('periods', PeriodController::class)->middleware(['user.access:superadmin,admin'])->names('periods');
 });
 
 
