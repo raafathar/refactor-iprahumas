@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 class BerandaController extends Controller
 {
-
     private function formatBeritaData($berita)
     {
         $berita->b_date = Carbon::parse($berita->b_date)->translatedFormat('d F Y');
         $berita->user_name = $berita->user->name;
+
+        if ($berita->b_image && Storage::exists($berita->b_image)) {
+            $berita->b_image_url = asset('storage/' . $berita->b_image);
+        } else {
+            $berita->b_image_url = asset('assets/images/frontend-pages/default.svg');
+        }
     }
 
     private function getFormattedBerita($beritas)
@@ -21,6 +27,12 @@ class BerandaController extends Controller
         return $beritas->map(function ($berita) {
             $this->formatBeritaData($berita);
             $berita->b_content = strip_tags($berita->b_content);
+            
+            if ($berita->b_image && Storage::exists($berita->b_image)) {
+                $berita->b_image_url = asset('storage/' . $berita->b_image);
+            } else {
+                $berita->b_image_url = asset('assets/images/frontend-pages/default.svg');
+            }
             return $berita;
         });
     }
@@ -54,5 +66,4 @@ class BerandaController extends Controller
 
         return view('landingpage.berita.detail', compact('berita', 'beritaLainnya'));
     }
-
 }

@@ -9,12 +9,15 @@
         <!-- ------------------------------------- -->
         <!-- Banner Start -->
         <!-- ------------------------------------- -->
-        <section class="bg-primary-subtle pt-lg-14 py-lg-0">
+        <section class="bg-primary-subtle pt-lg-14 py-lg-0 py-5">
             <div class="container">
                 <div class="text-center">
                     <div class="d-flex justify-content-center">
                         {{-- <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">Web Development</p> --}}
                     </div>
+                    <h2 class="text-dark fs-12 fw-bolder px-xl-12 my-9">
+                        {{ $berita->b_title }}
+                    </h2>
                     <div class="d-flex justify-content-center align-items-center gap-3">
                         <div class="d-flex gap-2">
                             <i class="ti ti-user fs-5 text-dark"></i>
@@ -29,12 +32,9 @@
                             <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_view }}</p>
                         </div>
                     </div>
-                    <h2 class="text-dark fs-12 fw-bolder px-xl-12 my-9">
-                        {{ $berita->b_title }}
-                    </h2>
                 </div>
                 <div class="mt-7 mt-md-5 d-flex justify-content-center align-items-center">
-                    <img src="https://www.kemendag.go.id/albums/m8Q7n5skK4rGgFeoAUcoH1TURYVjFIurNFcGjreO.jpg"
+                    <img src="{{ $berita->b_image_url }}"
                         alt="blog detail banner" class="img-fluid rounded-3 mb-n11 img-berita">
                 </div>
             </div>
@@ -92,7 +92,7 @@
                             <div class="card overflow-hidden hover-img">
                                 <div class="position-relative">
                                     <a href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">
-                                        <img src="https://www.kemendag.go.id/albums/m8Q7n5skK4rGgFeoAUcoH1TURYVjFIurNFcGjreO.jpg" class="card-img-top" alt="modernize-img">
+                                        <img src="{{ $beritaContent->b_image_url }}" class="card-img-top" alt="modernize-img">
                                     </a>
                                     <span
                                         class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2

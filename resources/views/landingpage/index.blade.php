@@ -283,7 +283,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="card rounded-3 overflow-hidden">
                                 <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="position-relative">
-                                    <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+                                    <img src="{{ $berita->b_image_url }}"
                                         alt="blog image" class="w-100 img-fluid">
                                     <div class="position-absolute bottom-0 end-0 me-9 mb-3">
                                         <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min read</p>

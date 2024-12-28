@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 
 
 // For guest
