@@ -14,7 +14,7 @@
             <div
                 class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
                 <a href="{{ route('beritas.create') }}" id="btn-add"
-                    class="btn   btn-primary d-flex align-items-center" data-bs-toggle="modal"
+                    class="btn btn-primary d-flex align-items-center" data-bs-toggle="modal"
                     data-bs-target="#modal-created">
                     <i class="ti ti-plus text-white me-1 fs-5"></i>
                     Tambah Banner
@@ -27,36 +27,42 @@
         role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form method="POST" class="p-3" id="users-form" action="{{ route('banners.store') }}" novalidate
-                    enctype="multipart/form-data">
-                    @csrf
-
-                    {{-- Judul --}}
-                    <div class="form-group mb-3">
-                        <label for="b_title">Judul Banner</label>
-                        <input id="b_title" name="b_title" value="{{ old('b_title') }}" type="text"
-                            class="form-control">
-                        <x-input-error messages="{{ $errors->first('b_title') }}" />
+                <div class="modal-header d-flex align-items-center">
+                    <h5 class="modal-title" id="exampleModalLabel1">
+                    Tambah Banner
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" id="users-form" action="{{ route('banners.store') }}" novalidate
+                enctype="multipart/form-data">
+                @csrf
+                    <div class="modal-body">
+                        {{-- Judul --}}
+                        <div class="form-group mb-3">
+                            <x-input-label for="b_title" :value="__('Judul Banner')" required />
+                            <x-text-input id="b_title" type="text" name="b_title" :value="old('b_title')"
+                                required autofocus autocomplete="name" />
+                            <x-input-error messages="{{ $errors->first('b_title') }}" />
+                        </div>
+    
+                        {{-- Gambar --}}
+                        <div class="form-group mb-3">
+                            <x-input-label for="b_image" :value="__('Upload Gambar (JPEG, PNG, JPG)')" required />
+                            <x-text-input id="formFile" type="file" name="b_image" :value="old('b_image')"
+                                required autofocus autocomplete="name" />
+                            <x-input-error messages="{{ $errors->first('b_image') }}" />
+                        </div>
+    
+                        {{-- is Active --}}
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" name="b_is_active" type="checkbox" id="color-primary" checked>
+                            <label class="form-check-label" for="color-primary">Aktif</label>
+                            <x-input-error messages="{{ $errors->first('b_is_active') }}" />
+                        </div>
                     </div>
-
-                    {{-- Gambar --}}
-                    <div class="mb-3">
-                        <label for="b_image">Gambar Banner</label>
-                        <input name="b_image" class="form-control" type="file" id="formFile">
-                        <x-input-error messages="{{ $errors->first('b_image') }}" />
-                    </div>
-
-                    {{-- is Active --}}
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" name="b_is_active" type="checkbox" id="color-primary" checked>
-                        <label class="form-check-label" for="color-primary">Aktif</label>
-                    </div>
-                    <x-input-error messages="{{ $errors->first('b_is_active') }}" />
-
-
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tidak</button>
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="button" class="btn bg-danger-subtle text-danger" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>
