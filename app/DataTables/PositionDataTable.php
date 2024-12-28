@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Period;
+use App\Models\Position;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -13,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class PeriodDataTable extends DataTable
+class PositionDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,32 +23,21 @@ class PeriodDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function (Period $period) {
-                return view('dashboard.datamaster.period.action', compact('period'));
+            ->addColumn('action', function (Position $position) {
+                return view('dashboard.datamaster.position.action', compact('position'));
             })
-            ->rawColumns(['name', 'start_date', 'end_date', 'status', 'created_at', 'updated_at'])
-            ->editColumn('name', function (Period $period) {
-                return $period->name;
+            ->rawColumns(['name', 'sort_order', 'created_at', 'updated_at'])
+            ->editColumn('name', function (Position $position) {
+                return $position->name;
             })
-            ->editColumn('start_date', function (Period $period) {
-                return Carbon::parse($period->start_date)->timezone('Asia/Jakarta')->translatedFormat('d F Y');
+            ->editColumn('sort_order', function (Position $position) {
+                return $position->sort_order;
             })
-            ->editColumn('end_date', function (Period $period) {
-                return Carbon::parse($period->end_date)->timezone('Asia/Jakarta')->translatedFormat('d F Y');
+            ->editColumn('created_at', function (Position $position) {
+                return Carbon::parse($position->created_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
             })
-            ->editColumn('status', function (Period $period) {
-                if ($period->status == 'active') {
-                    return '<span class="badge bg-primary">Aktif</span>';
-                } else if ($period->status == 'inactive') {
-                    return
-                        '<span class="badge bg-danger">Tidak Aktif</span>';
-                }
-            })
-            ->editColumn('created_at', function (Period $period) {
-                return Carbon::parse($period->created_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
-            })
-            ->editColumn('updated_at', function (Period $period) {
-                return Carbon::parse($period->updated_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
+            ->editColumn('updated_at', function (Position $position) {
+                return Carbon::parse($position->updated_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
             })
             ->setRowId('id');
     }
@@ -56,7 +45,7 @@ class PeriodDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Period $model): QueryBuilder
+    public function query(Position $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -67,13 +56,13 @@ class PeriodDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('period-table')
+            ->setTableId('position-table')
             ->setTableAttributes([
                 'class' => 'table table-striped table-bordered',
                 'cellspacing' => '0',
             ])
             ->stateSave(true)
-            ->autoWidth(true)
+            ->autoWidth(false)
             ->scrollX(true)
             ->responsive(true)
             ->columns($this->getColumns())
@@ -83,7 +72,7 @@ class PeriodDataTable extends DataTable
                 'searching' => false,
             ])
             ->initComplete('function(settings, json) {
-                var table = window.LaravelDataTables[\'period-table\'];
+                var table = window.LaravelDataTables[\'position-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
                     var searchTerm = $(this).val().toLowerCase();
@@ -100,7 +89,7 @@ class PeriodDataTable extends DataTable
                     });
                 });
             }')
-            ->orderBy('6', 'desc')
+            ->orderBy('2', 'asc')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -125,17 +114,9 @@ class PeriodDataTable extends DataTable
                 ->addClass('text-center')
                 ->title('Aksi'),
             Column::make('name')
-                ->width(200)
-                ->title('Nama Periode'),
-            Column::computed('start_date')
-                ->width(150)
-                ->title('Tanggal Mulai'),
-            Column::computed('end_date')
-                ->width(150)
-                ->title('Tanggal Berakhir'),
-            Column::computed('status')
-                ->width(110)
-                ->title('Status'),
+                ->title('Nama Jabatan'),
+            Column::make('sort_order')
+                ->title('Urutan'),
             Column::make('created_at')
                 ->width(150)
                 ->title('Dibuat Pada'),
@@ -150,6 +131,6 @@ class PeriodDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Period_' . date('YmdHis');
+        return 'Position_' . date('YmdHis');
     }
 }

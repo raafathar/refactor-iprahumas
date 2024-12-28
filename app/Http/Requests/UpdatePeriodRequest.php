@@ -28,4 +28,28 @@ class UpdatePeriodRequest extends FormRequest
             'status' => 'required|in:active,inactive',
         ];
     }
+
+    /**
+     * Get custom error messages for validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama periode wajib diisi.',
+            'name.string' => 'Nama periode harus berupa teks.',
+            'name.max' => 'Nama periode tidak boleh lebih dari 255 karakter.',
+            'name.unique' => 'Nama periode sudah digunakan.',
+
+            'start_date.required' => 'Tanggal mulai wajib diisi.',
+            'start_date.date' => 'Tanggal mulai harus berupa tanggal yang valid.',
+
+            'end_date.required' => 'Tanggal berakhir wajib diisi.',
+            'end_date.date' => 'Tanggal berakhir harus berupa tanggal yang valid.',
+
+            'status.required' => 'Status wajib diisi.',
+            'status.in' => 'Status harus salah satu dari: active atau inactive.',
+        ];
+    }
 }

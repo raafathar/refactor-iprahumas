@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
+use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,8 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');
     // Periode Pendaftaran
     Route::resource('periods', PeriodController::class)->middleware(['user.access:superadmin,admin'])->names('periods');
+    // Jabatan
+    Route::resource('positions', PositionController::class)->middleware(['user.access:superadmin,admin'])->names('positions');
 });
 
 

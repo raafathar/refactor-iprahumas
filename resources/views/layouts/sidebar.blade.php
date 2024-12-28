@@ -113,11 +113,11 @@
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="../main/frontend-landingpage.html" class="sidebar-link">
+                            <a href="{{ route('positions.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Homepage</span>
+                                <span class="hide-menu">Jabatan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -125,7 +125,7 @@
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">About Us</span>
+                                <span class="hide-menu">Instansi</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -133,7 +133,7 @@
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Contact Us</span>
+                                <span class="hide-menu">Pangkat/Golongan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -141,15 +141,7 @@
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Blog</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="../main/frontend-blogdetailpage.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Blog Details</span>
+                                <span class="hide-menu">Keahlian</span>
                             </a>
                         </li>
                     </ul>
