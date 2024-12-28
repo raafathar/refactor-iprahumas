@@ -121,7 +121,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="../main/frontend-aboutpage.html" class="sidebar-link">
+                            <a href="{{ route('instances.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>

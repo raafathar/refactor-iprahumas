@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
 use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
@@ -28,9 +29,11 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::get('registration/{status}', [RegistrationController::class, 'index'])->name('registration.index')->middleware(['user.access:superadmin,admin']);
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');
     // Periode Pendaftaran
-    Route::resource('periods', PeriodController::class)->middleware(['user.access:superadmin,admin'])->names('periods');
+    Route::resource('periods', PeriodController::class)->middleware(['user.access:superadmin'])->names('periods');
     // Jabatan
-    Route::resource('positions', PositionController::class)->middleware(['user.access:superadmin,admin'])->names('positions');
+    Route::resource('positions', PositionController::class)->middleware(['user.access:superadmin'])->names('positions');
+    // Instansi
+    Route::resource('instances', InstanceController::class)->middleware(['user.access:superadmin'])->names('instances');
 });
 
 
