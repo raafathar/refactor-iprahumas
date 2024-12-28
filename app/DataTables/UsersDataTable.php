@@ -118,25 +118,17 @@ class UsersDataTable extends DataTable
             ->minifiedAjax()
             // ->dom('Bfrtip')
             ->parameters([
-                'searching' => false,
+                'searching' => true,
             ])
             ->initComplete('function(settings, json) {
                 var table = window.LaravelDataTables[\'users-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
-                    var searchTerm = $(this).val().toLowerCase();
-
-                    table.rows().every(function() {
-                        var row = this.node();
-                        var rowText = row.textContent.toLowerCase();
-
-                        if (rowText.indexOf(searchTerm) === -1) {
-                            $(row).hide();
-                        } else {
-                            $(row).show();
-                        }
-                    });
+                    var searchTerm = $(this).val();
+                    table.search(searchTerm).draw();
                 });
+
+                $(\'#users-table_filter\').remove();
             }')
             ->orderBy(10, 'desc')
             ->selectStyleSingle()
@@ -163,6 +155,8 @@ class UsersDataTable extends DataTable
                 ->addClass('text-center')
                 ->title('Aksi'),
             Column::make('name')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(200)
                 ->title('Nama Lengkap'),
             Column::computed('nip')
@@ -187,9 +181,13 @@ class UsersDataTable extends DataTable
                 ->width(110)
                 ->title('Diperbarui Oleh'),
             Column::make('created_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Diperbarui Pada'),
         ];

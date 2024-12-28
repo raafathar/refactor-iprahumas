@@ -66,25 +66,17 @@ class InstanceDataTable extends DataTable
             ->minifiedAjax()
             //->dom('Bfrtip')
             ->parameters([
-                'searching' => false,
+                'searching' => true,
             ])
             ->initComplete('function(settings, json) {
                 var table = window.LaravelDataTables[\'instance-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
-                    var searchTerm = $(this).val().toLowerCase();
-
-                    table.rows().every(function() {
-                        var row = this.node();
-                        var rowText = row.textContent.toLowerCase();
-
-                        if (rowText.indexOf(searchTerm) === -1) {
-                            $(row).hide();
-                        } else {
-                            $(row).show();
-                        }
-                    });
+                    var searchTerm = $(this).val();
+                    table.search(searchTerm).draw();
                 });
+
+                $(\'#instance-table_filter\').remove();
             }')
             ->orderBy('3', 'desc')
             ->selectStyleSingle()
@@ -111,11 +103,17 @@ class InstanceDataTable extends DataTable
                 ->addClass('text-center')
                 ->title('Aksi'),
             Column::make('name')
+                ->searchable(true)
+                ->orderable(true)
                 ->title('Nama Instansi'),
             Column::make('created_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Diperbarui Pada'),
         ];

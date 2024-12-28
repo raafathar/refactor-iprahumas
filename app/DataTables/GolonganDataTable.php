@@ -69,25 +69,17 @@ class GolonganDataTable extends DataTable
             ->minifiedAjax()
             //->dom('Bfrtip')
             ->parameters([
-                'searching' => false,
+                'searching' => true,
             ])
             ->initComplete('function(settings, json) {
                 var table = window.LaravelDataTables[\'golongan-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
-                    var searchTerm = $(this).val().toLowerCase();
-
-                    table.rows().every(function() {
-                        var row = this.node();
-                        var rowText = row.textContent.toLowerCase();
-
-                        if (rowText.indexOf(searchTerm) === -1) {
-                            $(row).hide();
-                        } else {
-                            $(row).show();
-                        }
-                    });
+                    var searchTerm = $(this).val();
+                    table.search(searchTerm).draw();
                 });
+
+                $(\'#golongan-table_filter\').remove();
             }')
             ->orderBy('2', 'asc')
             ->selectStyleSingle()
@@ -114,13 +106,21 @@ class GolonganDataTable extends DataTable
                 ->addClass('text-center')
                 ->title('Aksi'),
             Column::make('name')
+                ->searchable(true)
+                ->orderable(true)
                 ->title('Nama Pangkat/Golongan'),
             Column::make('sort_order')
+                ->searchable(true)
+                ->orderable(true)
                 ->title('Urutan'),
             Column::make('created_at')
                 ->width(150)
+                ->searchable(true)
+                ->orderable(true)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Diperbarui Pada'),
         ];

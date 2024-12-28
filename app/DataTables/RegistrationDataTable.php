@@ -167,25 +167,17 @@ class RegistrationDataTable extends DataTable
             ->minifiedAjax()
             //->dom('Bfrtip')
             ->parameters([
-                'searching' => false,
+                'searching' => true,
             ])
             ->initComplete('function(settings, json) {
                 var table = window.LaravelDataTables[\'registration-table\'];
 
                 $(\'#input-search\').on(\'keyup\', function() {
-                    var searchTerm = $(this).val().toLowerCase();
-
-                    table.rows().every(function() {
-                        var row = this.node();
-                        var rowText = row.textContent.toLowerCase();
-
-                        if (rowText.indexOf(searchTerm) === -1) {
-                            $(row).hide();
-                        } else {
-                            $(row).show();
-                        }
-                    });
+                    var searchTerm = $(this).val();
+                    table.search(searchTerm).draw();
                 });
+
+                $(\'#registration-table_filter\').remove();
             }')
             ->orderBy('10', 'asc')
             ->selectStyleSingle()
@@ -216,6 +208,8 @@ class RegistrationDataTable extends DataTable
             Column::computed('payment_proof')
                 ->title('Bukti Pembayaran'),
             Column::make('name')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(200)
                 ->title('Nama Lengkap'),
             Column::computed('nip')
@@ -249,9 +243,13 @@ class RegistrationDataTable extends DataTable
 
         $columns = array_merge($columns, [
             Column::make('created_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Dibuat Pada'),
             Column::make('updated_at')
+                ->searchable(true)
+                ->orderable(true)
                 ->width(150)
                 ->title('Diperbarui Pada'),
         ]);

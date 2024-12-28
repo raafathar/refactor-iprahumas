@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
 use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
+use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,8 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('instances', InstanceController::class)->middleware(['user.access:superadmin'])->names('instances');
     // Pangkat/Golongan
     Route::resource('golongans', GolonganController::class)->middleware(['user.access:superadmin'])->names('golongans');
+    // Keahlian
+    Route::resource('skills', SkillController::class)->middleware(['user.access:superadmin'])->names('skills');
 });
 
 
