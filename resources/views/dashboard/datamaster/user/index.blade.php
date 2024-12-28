@@ -15,11 +15,6 @@
                 class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0 gap-2">
                 <a href="javascript:void(0)" id="btn-add" class="btn btn-primary d-flex align-items-center"
                     data-bs-toggle="modal" data-bs-target="#modal" onclick="onStore(event)">
-                    <i class="ti ti-file-import text-white me-1 fs-5"></i>
-                    Import Anggota
-                </a>
-                <a href="javascript:void(0)" id="btn-add" class="btn btn-primary d-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#modal" onclick="onStore(event)">
                     <i class="ti ti-plus text-white me-1 fs-5"></i>
                     Tambah Anggota
                 </a>

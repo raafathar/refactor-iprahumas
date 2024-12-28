@@ -49,10 +49,10 @@ class RegisteredUserController extends Controller
         DB::beginTransaction();
 
         try {
-            $activePeriod = Period::where('status', 'active')->first();
+            $active_period = Period::where('status', 'active')->first();
             $lastNumber = Form::count();
 
-            if (!$activePeriod) {
+            if (!$active_period) {
                 toastr()->warning('Periode pendaftaran telah berakhir');
 
                 return redirect()->back();
