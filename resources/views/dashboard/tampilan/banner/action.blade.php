@@ -6,7 +6,7 @@
         <li>
             <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
                 data-bs-target="#modal-detai-{{ $banner->id }}" id="btn-detail">
-                <i class="fs-4 ti ti-eye"></i>Detail
+                Detail
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
                 data-bs-target="#modal-update-{{ $banner->id }}">
