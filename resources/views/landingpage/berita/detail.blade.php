@@ -5,56 +5,59 @@
 
 
 @section('contents')
-<div class="main-wrapper overflow-hidden">
-    <!-- ------------------------------------- -->
-    <!-- Banner Start -->
-    <!-- ------------------------------------- -->
-    <section class="bg-primary-subtle pt-lg-14 py-lg-0 py-5">
-        <div class="container">
-            <div class="text-center">
-                <div class="d-flex justify-content-center">
-                    {{-- <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                        Web Development
-                    </p> --}}
+    <div class="main-wrapper overflow-hidden">
+        <!-- ------------------------------------- -->
+        <!-- Banner Start -->
+        <!-- ------------------------------------- -->
+        <section class="bg-primary-subtle pt-lg-14 py-lg-0">
+            <div class="container">
+                <div class="text-center">
+                    <div class="d-flex justify-content-center">
+                        {{-- <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">Web Development</p> --}}
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center gap-3">
+                        <div class="d-flex gap-2">
+                            <i class="ti ti-user fs-5 text-dark"></i>
+                            <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->user_name }}</p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="ti ti-circle fs-2"></i>
+                            <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_date }}</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <i class="ti ti-eye fs-5 text-dark"></i>
+                            <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_view }}</p>
+                        </div>
+                    </div>
+                    <h2 class="text-dark fs-12 fw-bolder px-xl-12 my-9">
+                        {{ $berita->b_title }}
+                    </h2>
                 </div>
-                <h2 class="text-dark fs-12 fw-bolder px-xl-12 my-9">
-                    {{ $berita->b_title }}
-                </h2>
-                <div class="d-flex justify-content-center align-items-center gap-10">
-                    <div class="d-flex gap-2">
-                        <i class="ti ti-eye fs-5 text-dark"></i>
-                        <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_view }}</p>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="ti ti-circle fs-2"></i>
-                        <p class="mb-0 fs-2 fw-semibold text-dark">{{ $berita->b_date }}</p>
-                    </div>
+                <div class="mt-7 mt-md-5 d-flex justify-content-center align-items-center">
+                    <img src="https://www.kemendag.go.id/albums/m8Q7n5skK4rGgFeoAUcoH1TURYVjFIurNFcGjreO.jpg"
+                        alt="blog detail banner" class="img-fluid rounded-3 mb-n11 img-berita">
                 </div>
             </div>
-            <div class="mt-7 mt-md-5 d-flex justify-content-center align-items-center">
-                <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/frontend-pages/blog-detail-banner.jpg"
-                    alt="blog detail banner" class="img-fluid rounded-3 mb-n11 img-berita">
-            </div>
-        </div>
-    </section>
-    <!-- ------------------------------------- -->
-    <!-- Banner End -->
-    <!-- ------------------------------------- -->
-    <!-- ------------------------------------- -->
-    <!-- Details Start -->
-    <!-- ------------------------------------- -->
-    <section class="mt-11 pb-5 pt-lg-14">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 mb-lg-0 mb-7">
-                    <div class="div">
-                        {!! $berita->b_content !!}
+        </section>
+        <!-- ------------------------------------- -->
+        <!-- Banner End -->
+        <!-- ------------------------------------- -->
+        <!-- ------------------------------------- -->
+        <!-- Details Start -->
+        <!-- ------------------------------------- -->
+        <section class="mt-11 pb-5 pt-lg-14">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="div">
+                            {!! $berita->b_content !!}
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="d-flex flex-column gap-3">
-                        <div class="py-9">
-                            <h4 class="text-uppercase fs-3 fw-bold mb-3">Bagikan</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="py-9 d-flex justify-content-end align-items-center gap-6">
+                            <h3 class="fs-4 fw-semibold">Bagikan</h3>
                             <div class="d-flex gap-6">
                                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="border round-40 hstack justify-content-center rounded-circle"
                                     data-bs-toggle="tooltip" data-bs-title="Facebook">
@@ -73,53 +76,52 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- ------------------------------------- -->
-    <!-- Details End -->
-    <!-- ------------------------------------- -->
-    <!-- ------------------------------------- -->
-    <!-- Berita Lainnya -->
-    <!-- ------------------------------------- -->
-    <section>
-        <div class="container">
-            <h3 class="fw-bolder fs-7 text-left mb-5">Berita Lainnya</h3>
-            <div class="row">
-                @foreach ($beritaLainnya as $beritaContent)                    
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card overflow-hidden hover-img">
-                            <div class="position-relative">
-                                <a href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">
-                                    <img src="{{ asset('assets/images/blog/blog-img6.jpg') }}" class="card-img-top" alt="modernize-img">
-                                </a>
-                                <span
-                                    class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
-                                    min Read</span>
-                                <img src="../assets/images/profile/user-3.jpg" alt="modernize-img"
-                                    class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
-                                    width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-title="Addie Keller">
-                            </div>
-                            <div class="card-body p-4">
-                                <span class="badge text-bg-light fs-2 py-1 px-2 lh-sm  mt-3">Gadget</span>
-                                <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary truncated-text"
-                                    href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">{{ $beritaContent->b_title }}</a>
-                                <div class="d-flex align-items-center gap-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i class="ti ti-eye text-dark fs-5"></i>{{ $beritaContent->b_view }}
-                                    </div>
-                                    <div class="d-flex align-items-center fs-2 ms-auto">
-                                        <i class="ti ti-point text-dark"></i>{{ $beritaContent->b_date }}
+        </section>
+        <!-- ------------------------------------- -->
+        <!-- Details End -->
+        <!-- ------------------------------------- -->
+        <!-- ------------------------------------- -->
+        <!-- Berita Lainnya -->
+        <!-- ------------------------------------- -->
+        <section>
+            <div class="container">
+                <h3 class="fw-bolder fs-7 text-left mb-5">Berita Lainnya</h3>
+                <div class="row">
+                    @foreach ($beritaLainnya as $beritaContent)                    
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card overflow-hidden hover-img">
+                                <div class="position-relative">
+                                    <a href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">
+                                        <img src="https://www.kemendag.go.id/albums/m8Q7n5skK4rGgFeoAUcoH1TURYVjFIurNFcGjreO.jpg" class="card-img-top" alt="modernize-img">
+                                    </a>
+                                    <span
+                                        class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                                        min Read</span>
+                                    <img src="../assets/images/profile/user-3.jpg" alt="modernize-img"
+                                        class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                                        width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="Addie Keller">
+                                </div>
+                                <div class="card-body p-4">
+                                    <span class="badge text-bg-light fs-2 py-1 px-2 lh-sm  mt-3">{{ $beritaContent->user_name }}</span>
+                                    <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary truncated-text"
+                                        href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">{{ $beritaContent->b_title }}</a>
+                                    <div class="d-flex align-items-center gap-4">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="ti ti-eye text-dark fs-5"></i>{{ $beritaContent->b_view }}
+                                        </div>
+                                        <div class="d-flex align-items-center fs-2 ms-auto">
+                                            <i class="ti ti-point text-dark"></i>{{ $beritaContent->b_date }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- Berita Lainnya End -->
-    <!-- ------------------------------------- -->
-</div>
+        </section>
+        <!-- Berita Lainnya End -->
+        <!-- ------------------------------------- -->
+    </div>
 @endsection

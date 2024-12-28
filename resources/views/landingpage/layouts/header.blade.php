@@ -6,8 +6,8 @@
         <nav class="navbar navbar-expand-lg bg-white-subtle py-2 py-lg-9">
             <div class="custom-container d-flex align-items-center justify-content-between">
                 <a href="/" class="text-nowrap logo-img">
-                    <img src="../assets/images/logos/logo.png" class="dark-logo" alt="Logo-Dark" height="58" />
-                    <img src="../assets/images/logos/logo.png" class="light-logo" alt="Logo-light" height="58" />
+                    <img src="{{ asset('assets/images/logos/logo.png') }}" class="dark-logo" alt="Logo-Dark" height="58" />
+                    <img src="{{ asset('assets/images/logos/logo.png') }}" class="light-logo" alt="Logo-light" height="58" />
                 </a>
                 <button class="navbar-toggler border-0 p-0 shadow-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">

@@ -44311,6 +44311,12 @@ p {
 .img-berita {
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 60vh; /* Menggunakan 40% dari tinggi layar */
   background-position: center;
+}
+
+@media (max-width: 768px) {
+  .img-berita {
+    height: 30vh; /* Mengurangi tinggi untuk layar kecil */
+  }
 }
