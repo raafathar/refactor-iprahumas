@@ -129,7 +129,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="../main/frontend-contactpage.html" class="sidebar-link">
+                            <a href="{{ route('golongans.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
