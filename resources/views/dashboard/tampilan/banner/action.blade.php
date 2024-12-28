@@ -5,10 +5,6 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
             <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
-                data-bs-target="#modal-detai-{{ $banner->id }}" id="btn-detail">
-                Detail
-            </a>
-            <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
                 data-bs-target="#modal-update-{{ $banner->id }}">
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
@@ -66,8 +62,7 @@
                 <div class="mb-3">
                     <label for="b_image">Gambar Banner</label>
                     <input name="b_image" class="form-control" type="file" id="formFile">
-                    <img src="{{ Storage::url($banner->b_image) }}" class="img-fluid img-thumbnail"
-                        alt="Banner update">
+                    <img src="{{ Storage::url($banner->b_image) }}" class="img-fluid img-thumbnail" alt="Banner update">
                     <x-input-error messages="{{ $errors->first('b_image') }}" />
                 </div>
 
@@ -85,22 +80,6 @@
                     <button type="submit" class="btn btn-danger">Update</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-{{-- Modal Detail --}}
-<div class="modal fade" id="modal-detail-{{ $banner->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <img src="{{ Storage::url($banner->b_image) }}" class="img-fluid img-thumbnail" alt="Banner Image">
-                <h5 class="text-center p-2">{{ $banner->b_title }}</h5>
-            </div>
         </div>
     </div>
 </div>
