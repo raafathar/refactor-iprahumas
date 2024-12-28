@@ -5,15 +5,15 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
             <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
-                data-bs-target="#modal-detail" id="btn-detail">
+                data-bs-target="#modal-detai-{{ $banner->id }}" id="btn-detail">
                 <i class="fs-4 ti ti-eye"></i>Detail
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
-                data-bs-target="#modal-update">
+                data-bs-target="#modal-update-{{ $banner->id }}">
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
-            <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="btn-delete"
-                data-bs-toggle="modal" data-bs-target="#modal">
+            <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)"
+                id="btn-delete-{{ $banner->id }}" data-bs-toggle="modal" data-bs-target="#modal">
                 <i class="fs-4 ti ti-trash"></i>Hapus
             </a>
         </li>
@@ -21,8 +21,8 @@
 </div>
 
 {{-- Modal Delete --}}
-<div class="modal fade" id="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
-    aria-labelledby="modalTitle" aria-hidden="true">
+<div class="modal fade" id="modal-delete-{{ $banner->id }}" tabindex="-1" data-bs-backdrop="static"
+    data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form method="POST" id="users-form" action="{{ route('banners.destroy', $banner->id) }}"
@@ -46,8 +46,8 @@
 </div>
 
 {{-- Modal Update --}}
-<div class="modal fade text-start" id="modal-update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade text-start" id="modal-update-{{ $banner->id }}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form method="POST" action="{{ route('banners.update', $banner->id) }}" class="p-3" novalidate
@@ -66,7 +66,8 @@
                 <div class="mb-3">
                     <label for="b_image">Gambar Banner</label>
                     <input name="b_image" class="form-control" type="file" id="formFile">
-                    <img src="{{ Storage::url($banner->b_image) }}" class="img-fluid img-thumbnail" alt="Banner update">
+                    <img src="{{ Storage::url($banner->b_image) }}" class="img-fluid img-thumbnail"
+                        alt="Banner update">
                     <x-input-error messages="{{ $errors->first('b_image') }}" />
                 </div>
 
@@ -89,8 +90,8 @@
 </div>
 
 {{-- Modal Detail --}}
-<div class="modal fade" id="modal-detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modal-detail-{{ $banner->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
