@@ -144,6 +144,14 @@
                                 <span class="hide-menu">Keahlian</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('letter-logs.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Log Surat</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- ---------------------------------- -->

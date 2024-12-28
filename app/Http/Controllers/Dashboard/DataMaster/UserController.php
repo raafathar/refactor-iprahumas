@@ -10,6 +10,7 @@ use App\Http\Resources\DefaultResource;
 use App\Models\Form;
 use App\Models\Golongan;
 use App\Models\Instance;
+use App\Models\LetterHistory;
 use App\Models\Period;
 use App\Models\Position;
 use App\Models\Skill;

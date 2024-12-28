@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateRegistrationRequest;
 use App\Http\Resources\DefaultResource;
 use App\Models\Form;
+use App\Models\LetterHistory;
 use App\Models\User;
 use App\Notifications\RegistrationApproved;
 use App\Notifications\RegistrationRejected;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -84,7 +86,8 @@ class RegistrationController extends Controller
 
             if ($request->status == 'approved') {
                 try {
-                    $this->generateSKRegistration($registration);
+                    $letter_number = $this->generateLetterNumber($registration);
+                    $this->generateSKRegistration($registration, $letter_number);
                     $registration->notify(new RegistrationApproved($request, $registration));
                 } catch (Throwable $e) {
                     if ($request->expectsJson()) {
@@ -156,7 +159,28 @@ class RegistrationController extends Controller
         }
     }
 
-    public function generateSKRegistration($data)
+    public function generateLetterNumber($data)
+    {
+        $new_sequence = (LetterHistory::max('number_sequence') ?? 0) + 1;
+        $formatted_sequence = str_pad($new_sequence, 4, '0', STR_PAD_LEFT);
+        $letter_type = "SK.ANGGOTA";
+
+        $letter_number = "{$formatted_sequence}/" . config('app.name') . "/{$letter_type}/" . now()->month . "/" . now()->year;
+
+        LetterHistory::create([
+            'letter_number' => $letter_number,
+            'number_sequence' => $new_sequence,
+            'sender' => config('app.name'),
+            'letter_type' => $letter_type,
+            'letter_date' => now(),
+            'recipient' => $data->name,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        return $letter_number;
+    }
+
+    public function generateSKRegistration($data, $letter_number)
     {
         $name =   str_replace(' ', '_', $data->name);
 
@@ -165,7 +189,7 @@ class RegistrationController extends Controller
             'general_secretary_name' => 'LIZZATUL FARHATININGSIH',
             'chairperson_signature' => 'images/profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg',
             'general_secretary_signature' => 'images/profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg',
-            'letter_number' => '1212/IPRAHUMAS/SK.ANGGOTA/1/2025'
+            'letter_number' => $letter_number
         ];
 
         try {

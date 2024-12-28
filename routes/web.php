@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataMaster\GolonganController;
 use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
+use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
 use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
@@ -40,6 +41,8 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('golongans', GolonganController::class)->middleware(['user.access:superadmin'])->names('golongans');
     // Keahlian
     Route::resource('skills', SkillController::class)->middleware(['user.access:superadmin'])->names('skills');
+    // Keahlian
+    Route::resource('letter-logs', LetterLogController::class)->middleware(['user.access:superadmin'])->names('letter-logs');
 });
 
 
