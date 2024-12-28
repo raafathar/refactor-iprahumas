@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Berita;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
@@ -42,9 +43,23 @@ class BerandaController extends Controller
         $beritaTerbaru = $this->getFormattedBerita(
             Berita::with('user')->latest()->take(6)->get()
         );
-
-        return view('landingpage.index', compact('beritaTerbaru'));
+    
+        $banners = Banner::where('b_is_active', 1)
+                        ->select('id', 'b_title', 'b_image')
+                        ->orderBy('created_at', 'desc')
+                        ->get()
+                        ->map(function ($banner) {
+                            
+                            $banner->b_image_url = $banner->b_image && Storage::exists($banner->b_image)
+                                ? asset('storage/' . $banner->b_image)
+                                : asset('assets/images/frontend-pages/default.svg');
+                            
+                            return $banner;
+                        });
+    
+        return view('landingpage.index', compact('beritaTerbaru', 'banners'));
     }
+    
 
     public function get_berita()
     {

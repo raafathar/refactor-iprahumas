@@ -9,28 +9,20 @@
         <section class="pt-7 py-lg-0">
             <div id="carouselHero" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselHero" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselHero" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
+                    @foreach ($banners as $index => $banner)
+                        <button type="button" data-bs-target="#carouselHero" data-bs-slide-to="{{ $index }}" 
+                            class="{{ $index == 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                    @endforeach
                 </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc"
-                            class="d-block w-100 object-fit-cover" alt="..." style="height: 80vh;">
-                        <div class="carousel-caption d-none d-md-block custom-caption">
-                            <h5 class="text-white">First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+                    @foreach ($banners as $index => $banner)
+                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                            <img src="{{ $banner->b_image_url }}" class="d-block w-100 object-fit-cover" alt="..." style="height: 80vh;">
+                            <div class="carousel-caption d-none d-md-block custom-caption">
+                                <h5 class="text-white fs-5">{{ $banner->b_title }}</h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzExLzAzLzY4YTQ0ZDVkLWIxMjMtNDBhMy04ZjU2LTQxMTY1ODBhMzJkZi5qcGVn"
-                            class="d-block w-100 object-fit-cover" alt="..." style="height: 80vh;">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5 class="text-white">Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselHero" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -42,6 +34,7 @@
                 </button>
             </div>
         </section>
+        
         <!-- ------------------------------------- -->
         <!-- banner End -->
         <!-- ------------------------------------- -->
