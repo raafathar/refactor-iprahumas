@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 trait FileHandler
 {
@@ -57,5 +58,20 @@ trait FileHandler
         if (Storage::disk($type)->exists($oldData)) {
             Storage::disk($type)->delete($oldData);
         }
+    }
+
+    private function fileImageCheckRatio($request, $name, $width, $height)
+    {
+        $image = $request->file($name);
+        $imageDimensions = Image::read($image);
+
+        // Check Ratio
+        $widthDimension = $imageDimensions->width();
+        $heightDimension = $imageDimensions->height();
+        $aspectRatio = $widthDimension / $heightDimension;
+        if (round($aspectRatio, 2) != round($width / $height, 2)) {
+            return false;
+        }
+        return true;
     }
 }

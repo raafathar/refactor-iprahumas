@@ -16,7 +16,7 @@
                 <a href="{{ route('beritas.create') }}" id="btn-add"
                     class="btn   btn-primary d-flex align-items-center">
                     <i class="ti ti-plus text-white me-1 fs-5"></i>
-                    Tambah Berita
+                    Tambah Banner
                 </a>
             </div>
         </div>
