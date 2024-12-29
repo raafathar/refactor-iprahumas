@@ -9,9 +9,9 @@ $(document).ready(() => {
         window.LaravelDataTables['users-table'].draw(false);
     }
 
-    function hideAddModal() {
+    function resetForm() {
         $('#users-form').trigger('reset');
-        modalInstance.hide();
+        $('#users-form select').val(null).trigger('change');
     }
 
     function populateFormFields(formSelector, data) {
@@ -38,18 +38,34 @@ $(document).ready(() => {
         form.find('input[name="address"]').val(data.form.address).trigger('change');
     }
 
+    function convertReligion(religion) {
+        const religionMap = {
+            islam: "Islam",
+            christian: "Kristen",
+            catholic: "Katolik",
+            hindu: "Hindu",
+            buddha: "Buddha",
+            konghucu: "Konghucu",
+            other: "Lainnya"
+        };
+
+        return religionMap[religion];
+    }
+
     function generateDetailHTML(json) {
         const formatDate = (date) =>
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
+        const upperCase = (string) => string.toUpperCase();
+        
         const fields = [
             { label: 'Nama Lengkap', value: json.name },
             { label: 'Email', value: json.email },
             { label: 'NIP', value: json.form.nip },
             { label: 'Tanggal Lahir', value: formatDate(json.form.dob) },
-            { label: 'Agama', value: json.form.religion },
+            { label: 'Agama', value: convertReligion(json.form.religion) },
             { label: 'Nomor Telepon', value: json.form.phone },
-            { label: 'Pendidikan Terakhir', value: json.form.last_education },
+            { label: 'Pendidikan Terakhir', value: upperCase(json.form.last_education) },
             { label: 'Jurusan', value: json.form.last_education_major },
             { label: 'Universitas', value: json.form.last_education_institution },
             { label: 'Unit Kerja', value: json.form.work_unit },
@@ -79,7 +95,7 @@ $(document).ready(() => {
     }
 
     function onCreated() {
-        hideAddModal();
+        modalInstance.hide();
         reloadTable();
     }
 
@@ -106,10 +122,15 @@ $(document).ready(() => {
     };
 
     window.onStore = function (event) {
+        resetForm();
         $('#users-form h5#modal-title').text('Tambah Anggota');
 
         // field form
-        $('#users-form').find('label[for="profile_picture"]').append('<span class="text-danger">*</span>');
+        $('#users-form').find('label[for="profile_picture"]').each(function() {
+            if ($(this).find('.text-danger').length === 0) {
+                $(this).append('<span class="text-danger">*</span>');
+            }
+        });
         $('#users-form').find('input[name="profile_picture"]').prop('required', true);
 
         $('#users-form')
@@ -118,6 +139,7 @@ $(document).ready(() => {
     };
 
     window.onEdit = function (event) {
+        resetForm();
         const target = $(event.currentTarget).closest('[data-json]');
         if (target.length > 0) {
             const json = target.data('json');

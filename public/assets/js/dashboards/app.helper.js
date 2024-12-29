@@ -61,8 +61,13 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             } else {
                 location.reload();
             }
+
             if (response.message) {
-                toastr.success(response.message);
+                if (response.success) { 
+                    toastr.success(response.message); 
+                } else { 
+                    toastr.warning(response.message); 
+                }
             }
             form.trigger("reset");
         },
@@ -70,7 +75,9 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             btn.html(originalBtnContent).prop("disabled", false);
             form.removeAttr('inert');
             const errorMessage = response.responseJSON?.message || "Terjadi kesalahan! Silahkan coba lagi.";
-            toastr.error(errorMessage);
+
+            // Show error notification
+            toastr.error(errorMessage); 
 
             if (response.status === 422) {
                 handleValidationErrors(form, response.responseJSON.errors);
@@ -127,13 +134,17 @@ function deleteForm(route, onSuccess = null) {
         if (result.isConfirmed) {
             $.ajax({
                 url: route,
-                type: "delete",
+                type: "DELETE",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr("content"),
                 },
                 success: (response) => {
                     if (response.message) {
-                        toastr.success(response.message);
+                        if (response.success) {
+                            toastr.success(response.message);
+                        } else {
+                            toastr.warning(response.message);
+                        }
                     }
                     if (onSuccess) {
                         onSuccess(response);
@@ -141,7 +152,8 @@ function deleteForm(route, onSuccess = null) {
                         location.reload();
                     }
                 },
-                error: () => {
+                error: (response) => {
+                    toastr.error("Terjadi kesalahan! Data gagal dihapus.");
                     Swal.fire({
                         title: "Gagal!",
                         text: "Data gagal dihapus.",

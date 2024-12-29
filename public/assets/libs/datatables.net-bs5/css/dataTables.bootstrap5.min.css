@@ -455,3 +455,34 @@ div.table-responsive
     --dt-row-stripe: 255, 255, 255;
     --dt-column-ordering: 255, 255, 255;
 }
+
+/* Default (desktop) */
+#users-table_info {
+    margin-bottom: 1rem;
+}
+
+#users-table_paginate {
+    margin-top: -2rem;
+}
+
+/* Responsif untuk layar kecil (mobile) */
+@media (max-width: 768px) {
+    #users-table_info {
+        margin-bottom: 0.5rem;
+        text-align: center;
+        /* Pusatkan teks */
+    }
+
+    #users-table_paginate {
+        margin-top: 0;
+        text-align: center;
+        /* Pusatkan navigasi */
+    }
+
+    /* Jika perlu, letakkan _info dan _paginate secara vertikal */
+    #users-table_wrapper .row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

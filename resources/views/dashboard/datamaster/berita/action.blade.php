@@ -13,14 +13,14 @@
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="btn-delete"
-                data-bs-toggle="modal" data-bs-target="#modal">
+                data-json="{{ $berita }}" onclick="onDelete(event)">
                 <i class="fs-4 ti ti-trash"></i>Hapus
             </a>
         </li>
     </ul>
 </div>
 
-<div class="modal fade" id="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+{{-- <div class="modal fade" id="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
     aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -42,4 +42,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
