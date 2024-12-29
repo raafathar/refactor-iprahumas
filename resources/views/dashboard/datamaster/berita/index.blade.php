@@ -41,6 +41,7 @@
     @endpush
 
     @push('scripts')
+        <script src="{{ asset('assets/js/dashboards/berita.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/toastr-init.js') }}"></script>
         <script src="{{ asset('assets/js/dashboards/app.helper.js') }}"></script>
         <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>

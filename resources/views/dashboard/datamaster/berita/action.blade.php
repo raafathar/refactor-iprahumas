@@ -13,7 +13,7 @@
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="btn-delete"
-                data-bs-toggle="modal" data-bs-target="#modal">
+                data-bs-toggle="modal" data-bs-target="#modal" data-json="{{ $berita }}" onclick="onDelete()">
                 <i class="fs-4 ti ti-trash"></i>Hapus
             </a>
         </li>
