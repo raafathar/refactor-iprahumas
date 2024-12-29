@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('letter_histories', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string('letter_number')->unique();
-            $table->unsignedInteger('number_sequence')->unique();
+            $table->unsignedInteger('number_sequence');
             $table->string('sender');
             $table->string('letter_type');
             $table->date('letter_date');
