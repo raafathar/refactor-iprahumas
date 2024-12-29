@@ -206,3 +206,10 @@ ClassicEditor.create(document.querySelector('#editor'), {
     .catch((error) => {
         console.error(error.stack);
     });
+
+
+$(document).ready(function () {
+    $.map($("#contain-editor").find("table"), function (elm) {
+        $(elm).addClass(" table table-striped table-hover ")
+    });
+});

@@ -65,7 +65,15 @@ class BeritaDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('berita-table')
+            ->setTableId('beritas-table')
+            ->setTableAttributes([
+                'class' => 'table table-striped table-bordered',
+                'cellspacing' => '0',
+            ])
+            ->stateSave(true)
+            ->autoWidth(true)
+            ->scrollX(true)
+            ->responsive(true)
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')

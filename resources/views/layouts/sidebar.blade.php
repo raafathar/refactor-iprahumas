@@ -53,17 +53,7 @@
                         <span class="hide-menu">Data Anggota</span>
                     </a>
                 </li>
-                <!-- ---------------------------------- -->
-                <!-- Data Berita -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-users"></i>
-                        </span>
-                        <span class="hide-menu">Data Berita</span>
-                    </a>
-                </li>
+
                 <!-- Data Pendaftar -->
                 <!-- ---------------------------------- -->
                 <li class="sidebar-item">
@@ -163,8 +153,19 @@
                             </a>
                         </li>
                     </ul>
-                </li>
 
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Berita -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-receipt"></i>
+                        </span>
+                        <span class="hide-menu">Berita</span>
+                    </a>
+                </li>
                 <!-- ---------------------------------- -->
                 <!-- Tampilan -->
                 <!-- ---------------------------------- -->
