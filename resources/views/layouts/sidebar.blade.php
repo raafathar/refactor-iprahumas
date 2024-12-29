@@ -64,6 +64,107 @@
                         <span class="hide-menu">Data Berita</span>
                     </a>
                 </li>
+                <!-- Data Pendaftar -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-checkup-list"></i>
+                        </span>
+                        <span class="hide-menu">Data Pendaftar</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ route('registration.index', ['status' => 'pending']) }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Diproses</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('registration.index', ['status' => 'approved']) }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Diterima</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('registration.index', ['status' => 'rejected']) }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Ditolak</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Periode Pendaftaran -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('periods.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-calendar-time"></i>
+                        </span>
+                        <span class="hide-menu">Periode Pendaftaran</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Data Master -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-file-database"></i>
+                        </span>
+                        <span class="hide-menu">Data Master</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ route('positions.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Jabatan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('instances.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Instansi</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('golongans.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Pangkat/Golongan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('skills.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Keahlian</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('letter-logs.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Log Surat</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- ---------------------------------- -->
                 <!-- Tampilan -->
                 <!-- ---------------------------------- -->
@@ -81,10 +182,9 @@
                         </span>
                         <span class="hide-menu">Banner</span>
                     </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Frontend page -->
-                <!-- ---------------------------------- -->
+                    <!-- ---------------------------------- -->
+                    <!-- Frontend page -->
+                    <!-- ---------------------------------- -->
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <span class="d-flex">

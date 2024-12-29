@@ -12,6 +12,7 @@ use App\Models\Position;
 use App\Models\Skill;
 use App\Models\User;
 use App\Notifications\AccountDetail;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
@@ -48,6 +49,15 @@ class RegisteredUserController extends Controller
         DB::beginTransaction();
 
         try {
+            $active_period = Period::where('status', 'active')->first();
+            $lastNumber = Form::count();
+
+            if (!$active_period) {
+                toastr()->warning('Periode pendaftaran telah berakhir');
+
+                return redirect()->back();
+            }
+
             $path_profile_picture = $request->file('profile_picture')->store('images/profile_pictures');
             $password_rand = Str::random(8);
 
@@ -63,6 +73,7 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'nip' => $request->nip,
                 'dob' => $request->dob,
+                'new_member_number' => date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT),
                 'religion' => $request->religion,
                 'phone' => $request->phone,
                 'last_education' => $request->last_education,

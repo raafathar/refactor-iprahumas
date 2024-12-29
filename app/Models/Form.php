@@ -15,6 +15,7 @@ class Form extends Model
         'user_id',
         'nip',
         'dob',
+        'new_member_number',
         'religion',
         'phone',
         'last_education',
@@ -32,6 +33,7 @@ class Form extends Model
         'address',
         'payment_proof',
         'status',
+        'reason',
         'period_id',
         'updated_by',
     ];

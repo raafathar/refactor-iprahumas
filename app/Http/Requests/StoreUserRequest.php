@@ -38,7 +38,7 @@ class StoreUserRequest extends FormRequest
             'last_education_institution' => 'required|string',
             'province_id' => 'required|exists:provinces,id',
             'district_id' => 'required|exists:districts,id',
-            'subdistrict_id' => 'required|exists:districts,id',
+            'subdistrict_id' => 'required|exists:subdistricts,id',
             'village_id' => 'required|exists:villages,id',
             'address' => 'required|string',
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:1024',
