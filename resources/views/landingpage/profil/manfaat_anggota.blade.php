@@ -1,6 +1,6 @@
-@extends('frontend.layouts.main')
-@include('frontend.layouts.header')
-@include('frontend.layouts.footer')
+@extends('landingpage.layouts.main')
+@include('landingpage.layouts.header')
+@include('landingpage.layouts.footer')
 
 
 @section('contents')

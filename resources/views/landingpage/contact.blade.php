@@ -10,11 +10,7 @@
         <!-- ------------------------------------- -->
         <section class="bg-primary-subtle mb-md-11 mb-15 pb-sm-0 pb-1 pt-sm-5 pt-0">
             <div class="container">
-                <div class="text-center mb-sm-14 mb-5 pt-5 pt-lg-0">
-                    <p class="text-primary fw-bolder fs-4 mb-1">Contact Us</p>
-                    <h1 class="text-dark fs-13 fw-bolder">We'd love to hear from you</h1>
-                </div>
-                <div class="rounded-3">
+                <div class="rounded-3 mb-sm-14 mb-5 pt-5 pt-lg-0">
                     <iframe class="mb-md-n11 mb-n15 rounded-3 overflow-hidden"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d300.67204610448823!2d106.82225262441432!3d-6.175043046951885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d47c71fdaf%3A0x56d2a62dc19ddbc9!2sMinistry%20of%20Communication%20and%20Informatics!5e0!3m2!1sen!2sid!4v1729097274617!5m2!1sen!2sid"
                         width="100%" height="439" style="border:0;" allowfullscreen="" loading="lazy"
@@ -103,7 +99,7 @@
                                         <i class="fas fa-phone-alt"></i> Telp/Faks: +62 21 345 9191
                                     </p>
                                     <p class="fs-4 mb-0 text-white">
-                                        <i class="fas fa-envelope"></i> e-mail: <a href="mailto:admin@iprahumas.go.id"
+                                        e-mail: <a href="mailto:admin@iprahumas.go.id"
                                             class="text-white text-decoration-none">admin@iprahumas.go.id</a>
                                     </p>
 

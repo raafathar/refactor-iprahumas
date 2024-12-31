@@ -16,8 +16,10 @@ Route::prefix('/')->group(function () {
     Route::get('/berita/detail/{slug}', [BerandaController::class, 'detail_berita'])->name('detail.berita');
     Route::get('/kontak', function () { return view('landingpage.contact');})->name('kontak');
     Route::get('/pelatihan', function () { return view('landingpage.pelatihan.index');})->name('pelatihan');
-    Route::get('/panduan-pendaftaran', function () { return view('landingpage.keangotaan.panduan');})->name('panduan');
-    Route::get('/syarat-keanggotaan', function () { return view('landingpage.keangotaan.syarat');})->name('syarat');
+    Route::get('/keangotaan/panduan-pendaftaran', function () { return view('landingpage.keangotaan.panduan');})->name('panduan');
+    Route::get('/keangotaan/syarat-keanggotaan', function () { return view('landingpage.keangotaan.syarat');})->name('syarat');
+    Route::get('/profil/sejarah', function () { return view('landingpage.profil.sejarah');})->name('sejarah');
+    Route::get('/profil/manfaat-anggota', function () { return view('landingpage.profil.manfaat_anggota');})->name('manfaat_anggota');
 });
 
 

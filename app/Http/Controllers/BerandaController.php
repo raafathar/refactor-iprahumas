@@ -64,8 +64,11 @@ class BerandaController extends Controller
     public function get_berita()
     {
         $beritas = $this->getFormattedBerita(
-            Berita::with('user')->orderBy('b_date', 'desc')->get()
-        );
+            Berita::with('user')
+                ->where('b_is_active', 1)
+                ->orderBy('b_date', 'desc')
+                ->get()
+        );        
 
         return view('landingpage.berita.index', compact('beritas'));
     }
