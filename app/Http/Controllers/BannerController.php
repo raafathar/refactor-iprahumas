@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use InvalidArgumentExceptions;
 use App\DataTables\BannerDataTable;
 use App\Http\Requests\BannerRequest;
+use App\Http\Resources\DefaultResource;
 
 class BannerController extends Controller
 {
@@ -39,17 +40,33 @@ class BannerController extends Controller
             $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
 
             if (!$this->fileImageCheckRatio($request, "b_image", 16, 9)) {
-                return back()->withInput(["b_image", "Ratio harus 16x9"]);
+                return response()->json([
+                    "message" => "Ratio gambar harus 16x9",
+                    "errors" => [
+                        "b_image" => ["Gambar harus memiliki ratio 16x9!"]
+                    ]
+                ], 422);
             }
 
             $validation["b_image"] = $this->fileImageHandler($request, "b_image", "banner");
 
             Banner::create($validation);
-        } catch (\InvalidArgumentExceptions $th) {
-            return back()->with("error", "Ups ada yang salah !");
-        }
 
-        return back()->with("success", "berhasil menambahkan");
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil ditambahkan', []);
+            }
+
+            toastr()->success('Data berhasil ditambahkan');
+
+            return redirect()->route('dashboard.datamaster.user.index');
+        } catch (\Throwable $e) {
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500, $e->getMessage());
+        }
     }
 
     /**
@@ -79,29 +96,57 @@ class BannerController extends Controller
             $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
             if ($request->hasFile("b_image")) {
                 if (!$this->fileImageCheckRatio($request, "b_image", 16, 9)) {
-                    return back()->with("error", "Ratio harus 16x9");
+                    return response()->json([
+                        "message" => "Ratio gambar harus 16x9",
+                        "errors" => [
+                            "b_image" => ["Gambar harus memiliki ratio 16x9!"]
+                        ]
+                    ], 422);
                 }
                 $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $banner->b_image, "banner");
             }
             $banner->update($validation);
-        } catch (\Exception $th) {
-            return back()->with("error", "Ups ada yang salah !");
-        }
 
-        return back()->with("success", "berhasil mengubah banner " . $banner->b_title);
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil diubah', []);
+            }
+
+            toastr()->success('Data berhasil ditambahkan');
+
+            return redirect()->route('dashboard.datamaster.user.index');
+        } catch (\Throwable $e) {
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500, $e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Banner $banner)
+    public function destroy(Request $request, Banner $banner)
     {
         try {
             $banner->delete();
             $this->isExistFile($banner->b_image);
-        } catch (\InvalidArgumentException $th) {
-            return back()->with("error", "Ups ada yang salah !");
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil dihapus', []);
+            }
+
+            toastr()->success('Data berhasil dihapus ' . $banner->b_title);
+
+            return redirect()->route('dashboard.datamaster.user.index');
+        } catch (\Throwable $e) {
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500, $e->getMessage());
         }
-        return back()->with("success", "Berhasil menghapus " . $banner->b_title);
     }
 }

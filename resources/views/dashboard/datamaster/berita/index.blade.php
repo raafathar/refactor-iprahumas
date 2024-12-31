@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <x-breadcrumb :items="['Data Master', 'Data Berita']" />
+    <x-breadcrumb :items="['Data Master', 'Data Banner']" />
 
     <div class="card card-body">
         <div class="row">

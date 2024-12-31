@@ -63,10 +63,10 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             }
 
             if (response.message) {
-                if (response.success) { 
-                    toastr.success(response.message); 
-                } else { 
-                    toastr.warning(response.message); 
+                if (response.success) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.warning(response.message);
                 }
             }
             form.trigger("reset");
@@ -77,7 +77,7 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             const errorMessage = response.responseJSON?.message || "Terjadi kesalahan! Silahkan coba lagi.";
 
             // Show error notification
-            toastr.error(errorMessage); 
+            toastr.error(errorMessage);
 
             if (response.status === 422) {
                 handleValidationErrors(form, response.responseJSON.errors);
@@ -172,4 +172,28 @@ function isJsonString(str) {
     } catch {
         return false;
     }
+}
+
+const resetReadImage = (form) => {
+    console.log($(form).find("img"));
+
+    $(form).find("img").removeAttr("src")
+}
+
+const readImage = (event, imageTarget) => {
+    var tgt = event.target
+
+    var files = tgt.files
+
+    if (FileReader && files && files.length) {
+        var fr = new FileReader()
+        fr.onload = event => {
+            $(imageTarget).attr('src', event.target.result)
+        }
+        fr.readAsDataURL(event.currentTarget.files[0])
+    }
+}
+
+const storage_path = (url) => {
+    return `${window.location.origin}/storage/${url}`
 }

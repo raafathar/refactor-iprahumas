@@ -34,7 +34,7 @@ class BannerDataTable extends DataTable
             ->rawColumns(["b_image", "aktif"])
             ->editColumn("b_image", fn(Banner $banner) => "<img class='img-fluid img-thumbnail' src='" . Storage::url($banner->b_image) . "' alt='banner' />")
             ->editColumn("aktif", fn(Banner $banner) => $banner->b_is_active == 1 ? "Aktif" : "Non Aktif")
-            ->editColumn("created_at", fn(Banner $banner) => \Carbon\Carbon::parse($banner->created_at)->setTimezone("Asia/Jakarta")->isoFormat("dddd, d MMMM Y , HH:mm") . " WIB")
+            ->editColumn("created_at", fn(Banner $banner) => \Carbon\Carbon::parse($banner->created_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T'))
             ->setRowId('id');
     }
 
@@ -53,6 +53,10 @@ class BannerDataTable extends DataTable
     {
         return $this->builder()
             ->setTableId('banner-table')
+            ->setTableAttributes([
+                'class' => 'table table-striped table-bordered',
+                'cellspacing' => '0',
+            ])
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
