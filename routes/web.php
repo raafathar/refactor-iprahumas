@@ -12,7 +12,8 @@ use App\Http\Controllers\Dashboard\DataMaster\UserController;
 // For guest
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'index'])->name('landingpage');
-    Route::get('/berita', [BerandaController::class, 'get_berita'])->name('berita');
+    Route::get('/beritas', [BerandaController::class, 'get_berita'])->name('get.berita');
+    Route::get('/berita', [BerandaController::class, 'berita_view'])->name('berita');
     Route::get('/berita/detail/{slug}', [BerandaController::class, 'detail_berita'])->name('detail.berita');
     Route::get('/kontak', function () { return view('landingpage.contact');})->name('kontak');
     Route::get('/pelatihan', function () { return view('landingpage.pelatihan.index');})->name('pelatihan');

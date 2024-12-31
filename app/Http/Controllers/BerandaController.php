@@ -59,19 +59,42 @@ class BerandaController extends Controller
     
         return view('landingpage.index', compact('beritaTerbaru', 'banners'));
     }
-    
 
-    public function get_berita()
+    public function get_berita(Request $request)
     {
-        $beritas = $this->getFormattedBerita(
-            Berita::with('user')
-                ->where('b_is_active', 1)
-                ->orderBy('b_date', 'desc')
-                ->get()
-        );        
+        $page = $request->input('page.number', 1);
+        $size = $request->input('page.size', 6);
 
-        return view('landingpage.berita.index', compact('beritas'));
+        $posts =  Berita::with('user')->paginate(6);
+        $this->getFormattedBerita($posts);
+
+
+        return response()->json([
+            'meta' => [
+                'page' => [
+                    'current-page' => $posts->currentPage(),
+                    'per-page' => $posts->perPage(),
+                    'from' => $posts->firstItem(),
+                    'to' => $posts->lastItem(),
+                    'total' => $posts->total(),
+                    'last-page' => $posts->lastPage(),
+                ],
+            ],
+            'links' => [
+                'first' => url()->current() . '?page[number]=1&page[size]=' . $size,
+                'prev' => $posts->previousPageUrl() ? url()->current() . '?page[number]=' . $posts->currentPage() - 1 . '&page[size]=' . $size : null,
+                'next' => $posts->nextPageUrl() ? url()->current() . '?page[number]=' . $posts->currentPage() + 1 . '&page[size]=' . $size : null,
+                'last' => url()->current() . '?page[number]=' . $posts->lastPage() . '&page[size]=' . $size,
+            ],
+            'data' => $posts->items(), // Data posts pada halaman saat ini
+        ]);
     }
+
+    public function berita_view () {
+        return view('landingpage.berita.index');
+
+    }
+
 
     public function detail_berita($slug)
     {
