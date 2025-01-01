@@ -22,6 +22,16 @@
         </div>
     </div>
 
+    <div class="alert bg-primary-subtle fade show" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="ti ti-info-circle me-2 fs-4"></i>
+            <span>User yang baru saja ditambahkan dapat dilihat pada
+                <a href="{{ route('registration.index', ['status' => 'pending']) }}"
+                    class="alert-link text-primary">Data Pendaftar</a>.
+            </span>
+        </div>
+    </div>
+
     <div class="card card-body">
         <div class="table-responsive">
             {{ $dataTable->table() }}
@@ -34,12 +44,6 @@
         <link rel="stylesheet" href="{{ asset('assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
         <link id="themeColors" rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/css/sweetalert2.min.css') }}" />
-
-        <style>
-            #users-table_info {
-                margin-bottom: 1rem;
-            }
-        </style>
     @endpush
 
     @push('scripts')

@@ -10,13 +10,18 @@ use App\Http\Resources\DefaultResource;
 use App\Models\Form;
 use App\Models\Golongan;
 use App\Models\Instance;
+use App\Models\LetterHistory;
+use App\Models\Period;
 use App\Models\Position;
 use App\Models\Skill;
 use App\Models\User;
+use App\Notifications\AccountDetail;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Throwable;
 
 class UserController extends Controller
@@ -47,22 +52,72 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        dd($request);
-        // DB::beginTransaction();
+        DB::beginTransaction();
 
-        // try {
-        //     if ($request->hasFile('profile_picture')) {
-        //         $path_profile_picture = $request->file('profile_picture')->store('images/profile_pictures');
-        //     }
-        // } catch (Throwable $e) {
-        //     DB::rollBack();
+        try {
+            $active_period = Period::where('status', 'active')->first();
+            $lastNumber = Form::count();
 
-        //     if ($request->expectsJson()) {
-        //         return new DefaultResource(false, $e->getMessage(), []);
-        //     }
+            if (!$active_period) {
+                throw new Exception('Periode pendaftaran telah berakhir');
+            }
 
-        //     abort(500, $e->getMessage());
-        // }
+            $path_profile_picture = $request->file('profile_picture')->store('images/profile_pictures');
+            $password_rand = Str::random(8);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'profile_picture' => $path_profile_picture,
+                'password' => bcrypt($password_rand),
+                'role' => 'user',
+            ]);
+
+            $form = Form::create([
+                'user_id' => $user->id,
+                'nip' => $request->nip,
+                'dob' => $request->dob,
+                'new_member_number' => date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT),
+                'religion' => $request->religion,
+                'phone' => $request->phone,
+                'last_education' => $request->last_education,
+                'last_education_major' => $request->last_education_major,
+                'last_education_institution' => $request->last_education_institution,
+                'work_unit' => $request->work_unit,
+                'position_id' => $request->position_id,
+                'instance_id' => $request->instance_id,
+                'golongan_id' => $request->golongan_id,
+                'skill_id' => $request->skill_id,
+                'province_id' => $request->province_id,
+                'district_id' => $request->district_id,
+                'subdistrict_id' => $request->subdistrict_id,
+                'village_id' => $request->village_id,
+                'address' => $request->address,
+                'period_id' => Period::where('status', 'active')->first()->id,
+                'status' => 'pending',
+                'updated_by' => Auth::user()->id,
+            ]);
+
+            DB::commit();
+
+            $user->notify(new AccountDetail($request, $password_rand));
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil ditambahkan', $user);
+            }
+
+            toastr()->success('Registrasi berhasil, silakan cek email Anggota untuk melihat detail akun.');
+
+            return redirect()->route('dashboard.datamaster.user.index');
+        } catch (Throwable $e) {
+            DB::rollBack();
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500, $e->getMessage());
+        }
     }
 
     /**
@@ -150,7 +205,6 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-
             $form = Form::where('user_id', $user->id)->first();
             $form->delete();
             $user->delete();

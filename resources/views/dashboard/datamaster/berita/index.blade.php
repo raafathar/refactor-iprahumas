@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <x-breadcrumb :items="['Data Master', 'Data Anggota']" />
+    <x-breadcrumb :items="['Data Master', 'Data Banner']" />
 
     <div class="card card-body">
         <div class="row">
@@ -16,7 +16,7 @@
                 <a href="{{ route('beritas.create') }}" id="btn-add"
                     class="btn   btn-primary d-flex align-items-center">
                     <i class="ti ti-plus text-white me-1 fs-5"></i>
-                    Tambah Banner
+                    Tambah Berita
                 </a>
             </div>
         </div>

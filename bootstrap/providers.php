@@ -6,4 +6,5 @@ return [
     Yajra\DataTables\DataTablesServiceProvider::class,
     Yajra\DataTables\ButtonsServiceProvider::class,
     Barryvdh\Debugbar\ServiceProvider::class,
+    Maatwebsite\Excel\ExcelServiceProvider::class,
 ];

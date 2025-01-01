@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Berita;
+use App\Helper\FileHandler;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\DataTables\BeritaDataTable;
-use App\Helper\FileHandler;
 use App\Http\Requests\BeritaRequest;
 use Illuminate\Filesystem\Filesystem;
+use App\Http\Resources\DefaultResource;
 
 class BeritaController extends Controller
 {
@@ -97,17 +99,29 @@ class BeritaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try {
-            $berita = Berita::whereId($id)->first();
+            $berita = Berita::whereId($id);
             $beritaOld = $berita->first();
+            $this->isExistFile($beritaOld->b_image);
             $berita->delete();
 
-            $this->isExistFile($beritaOld->b_image);
-        } catch (\InvalidArgumentException $th) {
-            return back()->with("error", "Ups ada yang salah ni");
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil dihapus', []);
+            }
+
+            toastr()->success('Data berhasil dihapus ' . $beritaOld->b_title);
+
+            return redirect()->route('dashboard.datamaster.user.index');
+        } catch (Throwable $e) {
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500, $e->getMessage());
         }
-        return back()->with("success", "Berhasil menghapus berita " . $beritaOld->b_title);
     }
 }
