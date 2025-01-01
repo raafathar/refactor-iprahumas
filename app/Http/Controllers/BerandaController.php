@@ -62,13 +62,16 @@ class BerandaController extends Controller
 
     public function get_berita(Request $request)
     {
-        $page = $request->input('page.number', 1);
-        $size = $request->input('page.size', 6);
-
-        $posts =  Berita::with('user')->paginate(6);
+        $size = $request->size;  // Default size is 6
+        $page = $request->number; // Default page is 1
+    
+        $posts = Berita::with('user')
+            ->orderBy('b_date', 'desc')
+            ->paginate($size, ['*'], 'page[number]', $page);
+    
         $this->getFormattedBerita($posts);
-
-
+    
+        // Return the formatted JSON response
         return response()->json([
             'meta' => [
                 'page' => [
@@ -81,18 +84,19 @@ class BerandaController extends Controller
                 ],
             ],
             'links' => [
-                'first' => url()->current() . '?page[number]=1&page[size]=' . $size,
-                'prev' => $posts->previousPageUrl() ? url()->current() . '?page[number]=' . $posts->currentPage() - 1 . '&page[size]=' . $size : null,
-                'next' => $posts->nextPageUrl() ? url()->current() . '?page[number]=' . $posts->currentPage() + 1 . '&page[size]=' . $size : null,
-                'last' => url()->current() . '?page[number]=' . $posts->lastPage() . '&page[size]=' . $size,
+                'first' => $posts->url(1),
+                'prev'  => $posts->previousPageUrl(),
+                'next'  => $posts->nextPageUrl(),
+                'last'  => $posts->url($posts->lastPage()),
             ],
-            'data' => $posts->items(), // Data posts pada halaman saat ini
+            'data' => $posts->items(),
         ]);
     }
+    
+    
 
     public function berita_view () {
         return view('landingpage.berita.index');
-
     }
 
 
