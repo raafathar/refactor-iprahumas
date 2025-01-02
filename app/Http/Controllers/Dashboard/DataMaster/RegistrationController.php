@@ -87,6 +87,10 @@ class RegistrationController extends Controller
 
             if ($request->status == 'approved') {
                 try {
+                    // cek apakah sudah upload payment_proof
+                    if (!$form->payment_proof) {
+                        throw new \Exception('Bukti Pembayaran belum diupload');
+                    }
                     $letter_number = generate_letter_number($registration);
                     $this->generateSKRegistration($registration, $letter_number);
                     $registration->notify(new RegistrationApproved($request, $registration));
@@ -179,7 +183,6 @@ class RegistrationController extends Controller
 
             $pdf = Pdf::loadView('pdf.letter_of_acceptance', ['data' => $data, 'additional_data' => $additional_data])
                 ->save('storage/letter_of_acceptance/' . $name . '_' . $data->id . '.pdf');
-
         } catch (\Exception $th) {
             return back()->with('error', 'Internal Error');
         }

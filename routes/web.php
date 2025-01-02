@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
 use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
+use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,19 +44,9 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('skills', SkillController::class)->middleware(['user.access:superadmin'])->names('skills');
     // Keahlian
     Route::resource('letter-logs', LetterLogController::class)->middleware(['user.access:superadmin'])->names('letter-logs');
-});
 
-
-
-
-
-
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Setting
+    Route::resource('account-setting', AccountSettingController::class)->only(['index', 'update'])->names('account-setting');
 });
 
 require __DIR__ . '/auth.php';

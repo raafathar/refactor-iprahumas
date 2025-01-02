@@ -145,11 +145,11 @@ $(document).ready(() => {
     function getFilterValue(category) {
         switch (category) {
             case "districts":
-                return $("#province_id").val(); 
+                return $("#province_id").val();
             case "subdistricts":
-                return $("#district_id").val(); 
+                return $("#district_id").val();
             case "villages":
-                return $("#subdistrict_id").val(); 
+                return $("#subdistrict_id").val();
             default:
                 return null;
         }

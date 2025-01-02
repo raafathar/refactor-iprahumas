@@ -155,6 +155,24 @@
                     </ul>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Pengaturan -->
+                <!-- ---------------------------------- -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Pengaturan</span>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Pengaturan Akun -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('account-setting.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-circle"></i>
+                        </span>
+                        <span class="hide-menu">Pengaturan Akun</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
                 <!-- Frontend page -->
                 <!-- ---------------------------------- -->
                 <li class="sidebar-item">

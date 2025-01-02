@@ -59,14 +59,14 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             if (onSuccess) {
                 onSuccess(response);
             } else {
-                location.reload();
+                // location.reload();
             }
 
             if (response.message) {
-                if (response.success) { 
-                    toastr.success(response.message); 
-                } else { 
-                    toastr.warning(response.message); 
+                if (response.success) {
+                    toastr.success(response.message);
+                } else {
+                    toastr.warning(response.message);
                 }
             }
             form.trigger("reset");
@@ -77,7 +77,7 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             const errorMessage = response.responseJSON?.message || "Terjadi kesalahan! Silahkan coba lagi.";
 
             // Show error notification
-            toastr.error(errorMessage); 
+            toastr.error(errorMessage);
 
             if (response.status === 422) {
                 handleValidationErrors(form, response.responseJSON.errors);

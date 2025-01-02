@@ -10,14 +10,12 @@ use App\Http\Resources\DefaultResource;
 use App\Models\Form;
 use App\Models\Golongan;
 use App\Models\Instance;
-use App\Models\LetterHistory;
 use App\Models\Period;
 use App\Models\Position;
 use App\Models\Skill;
 use App\Models\User;
 use App\Notifications\AccountDetail;
 use Exception;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +54,6 @@ class UserController extends Controller
 
         try {
             $active_period = Period::where('status', 'active')->first();
-            $lastNumber = Form::count();
 
             if (!$active_period) {
                 throw new Exception('Periode pendaftaran telah berakhir');
