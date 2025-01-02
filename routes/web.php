@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
 use \App\Http\Controllers\Dashboard\Setting\UserSettingController;
+use App\Http\Controllers\Dashboard\Home\BiographyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,7 +25,11 @@ Route::prefix('/')->group(function () {
 
 // For authenticated users
 Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
+    // Home
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Biodata Anggota
+    Route::get('/biography', [BiographyController::class, 'index'])->middleware(['user.access:superadmin,admin,user'])->name('biography.index');
 
     // Data Master
     // Data Anggota

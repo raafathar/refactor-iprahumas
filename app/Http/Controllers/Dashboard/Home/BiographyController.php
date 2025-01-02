@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Dashboard\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DefaultResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
-class UserController extends Controller
+class BiographyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +21,8 @@ class UserController extends Controller
             $search = str_replace(' ', '', $request->input('search'));
 
             if ($search) {
-                $user = User::where('role', 'user')->whereHas('form', function ($query) use ($search) {
-                    $query->where('nip', 'like', '%' . $search . '%')
-                        ->where('status', 'approved');
+                $users = User::where('role', 'user')->where('name', 'like', '%' . $search . '%')->whereHas('form', function ($query) {
+                    $query->where('status', 'approved');
                 })->with([
                     'form.province',
                     'form.district',
@@ -29,7 +30,7 @@ class UserController extends Controller
                     'form.village'
                 ])->paginate(10);
             } else {
-                $user = User::where('role', 'user')->whereHas('form', function ($query) {
+                $users = User::where('role', 'user')->whereHas('form', function ($query) {
                     $query->where('status', 'approved');
                 })->with([
                     'form.province',
@@ -39,22 +40,25 @@ class UserController extends Controller
                 ])->paginate(10);
             }
 
-            if ($request->expectsJson()) {
-                if ($user->isEmpty()) {
-                    return new DefaultResource(false, "Data User Tidak Ditemukan untuk NIP $search", []);
-                }
+            return view('dashboard.home.biography.index', compact('users'));
 
-                return new DefaultResource(true, "List Data User", $user);
-            }
-
-            abort(500);
         } catch (Throwable $e) {
+            DB::rollBack();
+
             if ($request->expectsJson()) {
                 return new DefaultResource(false, $e->getMessage(), []);
             }
 
-            abort(500);
+            abort(500, $e->getMessage());
         }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -69,6 +73,14 @@ class UserController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         //
     }
