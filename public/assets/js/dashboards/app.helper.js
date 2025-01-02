@@ -59,7 +59,9 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             if (onSuccess) {
                 onSuccess(response);
             } else {
-                // location.reload();
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             }
 
             if (response.message) {
