@@ -4,43 +4,75 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdministrativeResource;
+use App\Http\Resources\DefaultResource;
 use App\Models\Subdistrict;
 use Illuminate\Http\Request;
+use Throwable;
 
 class SubdistrictController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        try {
+            $search = $request->input('search');
+            $filter = $request->input('filter');
 
-        if ($search) {
-            $subdistricts = Subdistrict::where('name', 'like', '%' . $search . '%')->paginate(10);
-        } else {
-            $subdistricts = Subdistrict::paginate(10);
+            if ($search && $filter) {
+                $subdistricts = Subdistrict::where('name', 'like', '%' . $search . '%')->where('district_id', $filter)->paginate(10);
+            } else {
+                $subdistricts = Subdistrict::paginate(10);
+            }
+
+            if ($request->expectsJson()) {
+                if ($subdistricts->isEmpty()) {
+                    return new DefaultResource(false, "Data Kecamatan Tidak Ditemukan untuk $search", []);
+                }
+
+                return new DefaultResource(true, "List Data Kecamatan", $subdistricts);
+            }
+
+            abort(500);
+        } catch (Throwable $e) {
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500);
         }
-
-        return new AdministrativeResource(true, "List Data Kecamatan", $subdistricts);
     }
 
-    public function show($id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $subdistrict = Subdistrict::find($id);
-
-        if ($subdistrict) {
-            return new AdministrativeResource(true, "Detail Data Kecamatan", $subdistrict);
-        }
-
-        return new AdministrativeResource(false, "Data Kecamatan Tidak Ditemukan", null);
+        //
     }
 
-    public function getByDistrict($district_id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $subdistricts = Subdistrict::where('district_id', $district_id)->get();
+        //
+    }
 
-        if ($subdistricts->count() > 0) {
-            return new AdministrativeResource(true, "List Data Kecamatan Berdasarkan Kabupaten ID $district_id", $subdistricts);
-        }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
 
-        return new AdministrativeResource(false, "Data Kecamatan Tidak Ditemukan untuk Kabupaten ID $district_id", null);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

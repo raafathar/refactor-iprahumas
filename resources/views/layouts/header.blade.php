@@ -128,6 +128,7 @@
                                     </div>
                                 </div>
                             </a>
+
                             <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
                                 aria-labelledby="drop1">
                                 <div class="profile-dropdown position-relative" data-simplebar>

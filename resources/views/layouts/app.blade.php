@@ -3,6 +3,7 @@
     data-color-theme="Blue_Theme" data-layout="vertical">
 
 <head>
+    @routes
     <!-- Required meta tags -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -105,30 +106,30 @@
                         </div>
                     </label>
 
-                    <input type="radio" class="btn-check" name="color-theme-layout" id="green-theme-layout"
+                    <input type="radio" class="btn-check" name="color-theme-layout" id="Green_Theme"
                         autocomplete="off" />
                     <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center"
-                        onclick="handleColorTheme('Green_Theme')" for="green-theme-layout" data-bs-toggle="tooltip"
+                        onclick="handleColorTheme('Green_Theme')" for="Green_Theme" data-bs-toggle="tooltip"
                         data-bs-placement="top" data-bs-title="GREEN_THEME">
                         <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-4">
                             <i class="ti ti-check text-white d-flex icon fs-5"></i>
                         </div>
                     </label>
 
-                    <input type="radio" class="btn-check" name="color-theme-layout" id="cyan-theme-layout"
+                    <input type="radio" class="btn-check" name="color-theme-layout" id="Cyan_Theme"
                         autocomplete="off" />
                     <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center"
-                        onclick="handleColorTheme('Cyan_Theme')" for="cyan-theme-layout" data-bs-toggle="tooltip"
+                        onclick="handleColorTheme('Cyan_Theme')" for="Cyan_Theme" data-bs-toggle="tooltip"
                         data-bs-placement="top" data-bs-title="CYAN_THEME">
                         <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-5">
                             <i class="ti ti-check text-white d-flex icon fs-5"></i>
                         </div>
                     </label>
 
-                    <input type="radio" class="btn-check" name="color-theme-layout" id="orange-theme-layout"
+                    <input type="radio" class="btn-check" name="color-theme-layout" id="Orange_Theme"
                         autocomplete="off" />
                     <label class="btn p-9 btn-outline-primary d-flex align-items-center justify-content-center"
-                        onclick="handleColorTheme('Orange_Theme')" for="orange-theme-layout" data-bs-toggle="tooltip"
+                        onclick="handleColorTheme('Orange_Theme')" for="Orange_Theme" data-bs-toggle="tooltip"
                         data-bs-placement="top" data-bs-title="ORANGE_THEME">
                         <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-6">
                             <i class="ti ti-check text-white d-flex icon fs-5"></i>
@@ -190,6 +191,7 @@
     <div class="dark-transparent sidebartoggler"></div>
     <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
     <!-- Import Js Files -->
+    <script src="{{ asset('assets/js/jquery-3.7.1.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/js/theme/app.init.js') }}"></script>
@@ -200,8 +202,6 @@
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script src="{{ asset('assets/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dashboards/dashboard.js') }}"></script>
 
     <!-- Scripts -->
     @stack('scripts')

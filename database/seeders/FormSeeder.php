@@ -30,34 +30,40 @@ class FormSeeder extends Seeder
             $subdistrict = Subdistrict::where('district_id', $district->id)->first();
             $village = Village::where('subdistrict_id', $subdistrict->id)->first();
 
-            $forms = [
-                [
-                    'user_id' => User::where('role', 'user')->first()->id,
-                    'nip' => '12345678901234567890',
-                    'dob' => '2001-01-01',
-                    'religion' => 'islam',
-                    'phone' => '081234567890',
-                    'last_education' => 'd4/s1',
-                    'last_education_major' => 'Teknik Informatika',
-                    'last_education_institution' => 'Universitas Trunojoyo Madura',
-                    'work_unit' => 'Dinas Komunikasi dan Informatika',
-                    'position_id' => Position::first()->id,
-                    'instance_id' => Instance::first()->id,
-                    'golongan_id' => Golongan::first()->id,
-                    'skill_id' => Skill::first()->id,
+            $users = User::where('role', 'user')
+                ->where('name', '!=', 'User')
+                ->take(6)
+                ->get();
+
+            $status = ['pending', 'pending', 'approved', 'approved', 'rejected', 'rejected'];
+
+            foreach ($users as $key => $user) {
+                Form::create([
+                    'user_id' => $user->id,
+                    'nip' => fake()->numerify('####################'),
+                    'dob' => fake()->date('Y-m-d', '2003-12-31'),
+                    'new_member_number' => generate_new_member_number(),
+                    'religion' => fake()->randomElement(["islam", "christian", "catholic", "hindu", "buddha", "konghucu", "other"]),
+                    'phone' => '08' . fake()->numerify('#########'),
+                    'last_education' => fake()->randomElement(['sma', 'd3', 'd4/s1', 's2', 's3']),
+                    'last_education_major' => fake()->word(),
+                    'last_education_institution' => fake()->company(),
+                    'work_unit' => fake()->company(),
+                    'position_id' => Position::inRandomOrder()->first()->id,
+                    'instance_id' => Instance::inRandomOrder()->first()->id,
+                    'golongan_id' => Golongan::inRandomOrder()->first()->id,
+                    'skill_id' => Skill::inRandomOrder()->first()->id,
                     'province_id' => $province->id,
                     'district_id' => $district->id,
                     'subdistrict_id' => $subdistrict->id,
                     'village_id' => $village->id,
-                    'address' => 'Jl. Raya No. 1',
+                    'address' => fake()->address(),
                     'period_id' => period::where('status', 'active')->first()->id,
-                    'status' => 'pending',
+                    'payment_proof' => $status[$key] === 'approved' ?  'images/payment_proof/payment_proof.jpeg' : null,
+                    'status' => $status[$key],
+                    'reason' => $status[$key] === 'rejected' ? fake()->sentence() : null,
                     'updated_by' => User::where('role', 'admin')->first()->id,
-                ],
-            ];
-
-            foreach ($forms as $formData) {
-                Form::create($formData);
+                ]);
             }
         } catch (\Throwable $th) {
             throw $th;
