@@ -18,9 +18,10 @@ class SubdistrictController extends Controller
     {
         try {
             $search = $request->input('search');
+            $filter = $request->input('filter');
 
-            if ($search) {
-                $subdistricts = Subdistrict::where('name', 'like', '%' . $search . '%')->paginate(10);
+            if ($search && $filter) {
+                $subdistricts = Subdistrict::where('name', 'like', '%' . $search . '%')->where('district_id', $filter)->paginate(10);
             } else {
                 $subdistricts = Subdistrict::paginate(10);
             }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Form;
 use App\Models\LetterHistory;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,5 +62,21 @@ if (!function_exists('to_roman')) {
     }
 
     return $result;
+  }
+}
+
+if (!function_exists('generate_new_member_number')) {
+  function generate_new_member_number()
+  {
+    $last_form = Form::latest('new_member_number')->first();
+
+    if (!$last_form) {
+      return date('Y') . str_pad(1, 5, '0', STR_PAD_LEFT);
+    } else {
+      $last_member_number = (int) substr($last_form->new_member_number, 4);
+      $new_member_number = $last_member_number + 1;
+
+      return date('Y') . str_pad($new_member_number, 5, '0', STR_PAD_LEFT);
+    }
   }
 }
