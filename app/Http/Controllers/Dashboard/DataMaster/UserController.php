@@ -77,7 +77,7 @@ class UserController extends Controller
                 'user_id' => $user->id,
                 'nip' => $request->nip,
                 'dob' => $request->dob,
-                'new_member_number' => date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT),
+                'new_member_number' => generate_new_member_number(),
                 'religion' => $request->religion,
                 'phone' => $request->phone,
                 'last_education' => $request->last_education,

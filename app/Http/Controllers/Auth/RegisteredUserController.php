@@ -92,10 +92,6 @@ class RegisteredUserController extends Controller
                 ]);
             }
 
-            // Menghitung nomor anggota baru
-            $lastNumber = Form::count();
-            $new_member_number = date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT);
-
             $form = Form::updateOrCreate(
                 [
                     'nip' => $request->nip,
@@ -105,7 +101,7 @@ class RegisteredUserController extends Controller
                     'nip' => $request->nip,
                     'user_id' => $user->id,
                     'dob' => $request->dob,
-                    'new_member_number' => optional($user->form)->new_member_number ?? $new_member_number,
+                    'new_member_number' => generate_new_member_number(),
                     'religion' => $request->religion,
                     'phone' => $request->phone,
                     'last_education' => $request->last_education,

@@ -17,9 +17,10 @@ class VillageController extends Controller
     {
         try {
             $search = $request->input('search');
+            $filter = $request->input('filter');
 
-            if ($search) {
-                $villages = Village::where('name', 'like', '%' . $search . '%')->paginate(10);
+            if ($search && $filter) {
+                $villages = Village::where('name', 'like', '%' . $search . '%')->where('subdistrict_id', $filter)->paginate(10);
             } else {
                 $villages = Village::paginate(10);
             }
