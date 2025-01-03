@@ -18,13 +18,6 @@
                             {{ __('Selamat Datang, :name!', ['name' => Auth::user()->name]) }}
                         </h5>
                     </div>
-
-
-                    <p class="mb-9 opacity-75">
-                        You have earned 54% more than last month
-                        which is great thing.
-                    </p>
-                    <button type="button" class="btn btn-danger">Check</button>
                 </div>
                 <div class="col-sm-5">
                     <div class="position-relative mb-n7 text-end">
