@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
             PeriodSeeder::class,
             FormSeeder::class,
         ]);
+        $this->call(BeritasTableSeeder::class);
     }
 }

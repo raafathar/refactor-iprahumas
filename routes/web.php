@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DataMaster\GolonganController;
 use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
 use \App\Http\Controllers\Dashboard\Setting\UserSettingController;
 use App\Http\Controllers\Dashboard\Home\BiographyController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +37,9 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     // Data Master
     // Data Anggota
     Route::resource('users', UserController::class)->middleware(['user.access:superadmin,admin'])->names('users');
+    Route::resource('admin/berita', BeritaController::class)->middleware(['user.access:superadmin,admin'])->names('beritas');
+    Route::resource('admin/banner', BannerController::class)->middleware(['user.access:superadmin,admin'])->names('banners');
+    Route::resource('admin/pelatihan', TrainingController::class)->middleware(['user.access:superadmin,admin'])->names('trainings');
     // Data Pendaftar
     Route::get('registration/{status}', [RegistrationController::class, 'index'])->name('registration.index')->middleware(['user.access:superadmin,admin']);
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');

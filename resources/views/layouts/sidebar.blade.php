@@ -193,10 +193,50 @@
                         </span>
                         <span class="hide-menu">Pengaturan Akun</span>
                     </a>
+
                 </li>
                 <!-- ---------------------------------- -->
-                <!-- Frontend page -->
+                <!-- Berita -->
                 <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-receipt"></i>
+                        </span>
+                        <span class="hide-menu">Berita</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Pelatihan -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('trainings.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-clipboard"></i>
+                        </span>
+                        <span class="hide-menu">Pelatihan</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Tampilan -->
+                <!-- ---------------------------------- -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Tampilan</span>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Banner -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('banners.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="hide-menu">Banner</span>
+                    </a>
+                    <!-- ---------------------------------- -->
+                    <!-- Frontend page -->
+                    <!-- ---------------------------------- -->
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <span class="d-flex">

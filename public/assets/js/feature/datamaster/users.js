@@ -53,11 +53,11 @@ $(document).ready(() => {
     }
 
     function generateDetailHTML(json) {
-        const formatDate = (date) => 
+        const formatDate = (date) =>
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
         const upperCase = (string) => string.toUpperCase();
-        
+
         const fields = [
             { label: 'Nama Lengkap', value: json.name },
             { label: 'Email', value: json.email },
@@ -126,7 +126,7 @@ $(document).ready(() => {
         $('#users-form h5#modal-title').text('Tambah Anggota');
 
         // field form
-        $('#users-form').find('label[for="profile_picture"]').each(function() {
+        $('#users-form').find('label[for="profile_picture"]').each(function () {
             if ($(this).find('.text-danger').length === 0) {
                 $(this).append('<span class="text-danger">*</span>');
             }
@@ -134,8 +134,8 @@ $(document).ready(() => {
         $('#users-form').find('input[name="profile_picture"]').prop('required', true);
 
         $('#users-form')
-                .attr('action', route('users.store'))
-                .attr('method', 'POST');
+            .attr('action', route('users.store'))
+            .attr('method', 'POST');
     };
 
     window.onEdit = function (event) {
@@ -192,11 +192,11 @@ $(document).ready(() => {
 
             return {
                 results: items
-                .filter(item => item.province_id == $("#province_id").val())
-                .map(item => ({
-                    id: item.id,
-                    text: item.name
-                }))
+                    .filter(item => item.province_id == $("#province_id").val())
+                    .map(item => ({
+                        id: item.id,
+                        text: item.name
+                    }))
             };
         }),
         minimumInputLength: 2,
@@ -210,11 +210,11 @@ $(document).ready(() => {
 
             return {
                 results: items
-                .filter(item => item.district_id == $("#district_id").val())
-                .map(item => ({
-                    id: item.id,
-                    text: item.name
-                }))
+                    .filter(item => item.district_id == $("#district_id").val())
+                    .map(item => ({
+                        id: item.id,
+                        text: item.name
+                    }))
             };
         }),
         minimumInputLength: 2,
@@ -228,11 +228,11 @@ $(document).ready(() => {
 
             return {
                 results: items
-                .filter(item => item.subdistrict_id == $("#subdistrict_id").val())
-                .map(item => ({
-                    id: item.id,
-                    text: item.name
-                }))
+                    .filter(item => item.subdistrict_id == $("#subdistrict_id").val())
+                    .map(item => ({
+                        id: item.id,
+                        text: item.name
+                    }))
             };
         }),
         minimumInputLength: 2,
@@ -257,11 +257,11 @@ $(document).ready(() => {
     function getFilterValue(category) {
         switch (category) {
             case "districts":
-                return $("#province_id").val(); 
+                return $("#province_id").val();
             case "subdistricts":
-                return $("#district_id").val(); 
+                return $("#district_id").val();
             case "villages":
-                return $("#subdistrict_id").val(); 
+                return $("#subdistrict_id").val();
             default:
                 return null;
         }
