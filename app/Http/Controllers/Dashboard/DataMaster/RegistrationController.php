@@ -181,6 +181,10 @@ class RegistrationController extends Controller
                 File::makeDirectory("storage/letter_of_acceptance/");
             }
 
+             if (File::exists("storage/letter_of_acceptance/" . $name . '_' . $data->id . '.pdf')) {
+                 File::delete("storage/letter_of_acceptance/" . $name . '_' . $data->id . '.pdf');
+             }
+
             $pdf = Pdf::loadView('pdf.letter_of_acceptance', ['data' => $data, 'additional_data' => $additional_data])
                 ->save('storage/letter_of_acceptance/' . $name . '_' . $data->id . '.pdf');
         } catch (\Exception $th) {

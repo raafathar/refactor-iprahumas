@@ -9,7 +9,7 @@ trait FileHandler
 {
     /**
      * File Image Handler
-     * 
+     *
      * @param Illuminate\Http\Request $request
      * @param string $name
      * @param string $path
@@ -30,7 +30,7 @@ trait FileHandler
 
     /**
      * File Image Update Handler
-     * 
+     *
      * @param Illuminate\Http\Request $request
      * @param string $name
      * @param string $oldData
@@ -42,7 +42,9 @@ trait FileHandler
     {
         if ($request->hasFile($name)) {
 
-            $this->isExistFile($oldData, $type);
+            if ($oldData) {
+                $this->isExistFile($oldData, $type);
+            }
 
             $file = $request->file($name);
             $foto = $file->hashName();

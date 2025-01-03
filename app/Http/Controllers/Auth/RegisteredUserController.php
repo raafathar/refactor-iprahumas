@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\FileHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\DefaultResource;
@@ -28,6 +29,7 @@ use Throwable;
 
 class RegisteredUserController extends Controller
 {
+    use FileHandler;
     /**
      * Display the registration view.
      */
@@ -59,16 +61,17 @@ class RegisteredUserController extends Controller
                 return redirect()->back();
             }
 
-            // Mengambil path foto profil jika ada
-            $path_profile_picture = $request->file('profile_picture')
-                ? $request->file('profile_picture')->store('images/profile_pictures')
-                : null;
-
             // Mencari user berdasarkan NIP yang terkait
             $user = User::where('role', 'user')->whereHas('form', function ($query) use ($request) {
                 $query->where('nip', 'like', '%' . $request->nip . '%');
             })->first();
 
+            // Mengambil path foto profil jika ada
+            if ($request->hasFile('profile_picture')) {
+                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $user->profile_picture, "images/profile_pictures");
+            } else {
+                $path_profile_picture = $user->profile_picture;
+            }
 
             // Mengatur password untuk user baru
             $password_rand = !$user || $user->password == null ? Str::random(8) : null;

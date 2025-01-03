@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use App\Helper\FileHandler;
 
 class AccountSettingController extends Controller
 {
+    use FileHandler;
+
     /**
      * Display a listing of the resource.
      */
@@ -83,7 +86,7 @@ class AccountSettingController extends Controller
 
         try {
             if ($request->hasFile('profile_picture')) {
-                $path_profile_picture = $request->file('profile_picture')->store('images/profile_pictures');
+                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $account_setting->profile_picture, "images/profile_pictures");
             } else {
                 $path_profile_picture = $account_setting->profile_picture;
             }
