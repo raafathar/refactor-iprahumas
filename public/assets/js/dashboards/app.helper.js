@@ -195,13 +195,9 @@ const readImage = ({ event, input = null, imageTarget = null }) => {
     const image = document.createElement("img")
     image.className = "img-thumbnail"
 
-    console.log(files);
-
-    console.log($(imageTarget ?? image), (files.length));
     if (FileReader && files && files.length) {
         var fr = new FileReader()
         fr.onload = event => {
-
             $(imageTarget ?? image).attr('src', event.target.result)
         }
         fr.readAsDataURL(input == null ? event.currentTarget.files[0] : tgt.files[0])

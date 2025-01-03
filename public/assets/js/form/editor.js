@@ -53,7 +53,20 @@ import {
     ExportWord
 } from 'ckeditor5-premium-features';
 
-var ContentEditor;;
+var ContentEditor;
+
+const determinatePlaceholder = () => {
+    const url = window.location.pathname
+
+    switch (url.split("/")[2].toLowerCase().trim()) {
+        case "berita":
+            return "Tulis Berita di sini..."
+        case "pelatihan":
+            return "Tulis Deskripsi Pelatihan di sini..."
+        default:
+            return "Tulis konten di sini..."
+    }
+}
 
 ClassicEditor.create(document.querySelector('#editor'), {
     plugins: [
@@ -154,7 +167,7 @@ ClassicEditor.create(document.querySelector('#editor'), {
         }
         ]
     },
-    placeholder: 'Tulis Berita di sini...',
+    placeholder: determinatePlaceholder(),
     image: {
         resizeOptions: [{
             name: 'resizeImage:original',
@@ -206,7 +219,6 @@ ClassicEditor.create(document.querySelector('#editor'), {
     .catch((error) => {
         console.error(error.stack);
     });
-
 
 $(document).ready(function () {
     $.map($("#contain-editor").find("table"), function (elm) {

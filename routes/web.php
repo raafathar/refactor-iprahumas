@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
 use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,6 +33,7 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('users', UserController::class)->middleware(['user.access:superadmin,admin'])->names('users');
     Route::resource('admin/berita', BeritaController::class)->middleware(['user.access:superadmin,admin'])->names('beritas');
     Route::resource('admin/banner', BannerController::class)->middleware(['user.access:superadmin,admin'])->names('banners');
+    Route::resource('admin/pelatihan', TrainingController::class)->middleware(['user.access:superadmin,admin'])->names('trainings');
     // Data Pendaftar
     Route::get('registration/{status}', [RegistrationController::class, 'index'])->name('registration.index')->middleware(['user.access:superadmin,admin']);
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');

@@ -167,6 +167,17 @@
                     </a>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Pelatihan -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('trainings.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-clipboard"></i>
+                        </span>
+                        <span class="hide-menu">Pelatihan</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
                 <!-- Tampilan -->
                 <!-- ---------------------------------- -->
                 <li class="nav-small-cap">
