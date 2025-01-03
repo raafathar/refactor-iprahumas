@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Dashboard\DataMaster;
 
-use App\DataTables\RegistrationDataTable;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateRegistrationRequest;
-use App\Http\Resources\DefaultResource;
+use Throwable;
 use App\Models\Form;
-use App\Models\LetterHistory;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\LetterHistory;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use App\Http\Resources\DefaultResource;
+use App\DataTables\RegistrationDataTable;
 use App\Notifications\RegistrationApproved;
 use App\Notifications\RegistrationRejected;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Throwable;
+use App\Http\Requests\UpdateRegistrationRequest;
 
 class RegistrationController extends Controller
 {
@@ -172,8 +173,13 @@ class RegistrationController extends Controller
         ];
 
         try {
+            if (! File::exists("storage/letter_of_acceptance/")) {
+                File::makeDirectory("storage/letter_of_acceptance/");
+            }
+
             $pdf = Pdf::loadView('pdf.letter_of_acceptance', ['data' => $data, 'additional_data' => $additional_data])
                 ->save('storage/letter_of_acceptance/' . $name . '_' . $data->id . '.pdf');
+
         } catch (\Exception $th) {
             return back()->with('error', 'Internal Error');
         }

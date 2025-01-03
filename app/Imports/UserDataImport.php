@@ -19,6 +19,10 @@ class UserDataImport implements ToModel
         $active_period = Period::where('status', 'active')->first();
         $admin = User::where('role', 'superadmin')->first();
 
+        if (empty($row[1])) {
+            return null;  // Skipping the record, or you can log an error.
+        }
+
 
         // Buat atau cari user berdasarkan nama
         $user = User::firstOrCreate(

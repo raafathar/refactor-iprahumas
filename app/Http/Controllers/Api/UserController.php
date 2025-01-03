@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AdministrativeResource;
 use App\Http\Resources\DefaultResource;
-use App\Models\Subdistrict;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Throwable;
 
-class SubdistrictController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,21 +16,27 @@ class SubdistrictController extends Controller
     public function index(Request $request)
     {
         try {
-            $search = $request->input('search');
-            $filter = $request->input('filter');
+            $search = str_replace(' ', '', $request->input('search'));
 
-            if ($search && $filter) {
-                $subdistricts = Subdistrict::where('name', 'like', '%' . $search . '%')->where('district_id', $filter)->paginate(10);
+            if ($search) {
+                $user = User::where('role', 'user')->whereHas('form', function ($query) use ($search) {
+                    $query->where('nip', 'like', '%' . $search . '%');
+                })->with([
+                    'form.province',
+                    'form.district',
+                    'form.subdistrict',
+                    'form.village'
+                ])->paginate(10);
             } else {
-                $subdistricts = Subdistrict::paginate(10);
+                $user = User::where('role', 'user')->paginate(10);
             }
 
             if ($request->expectsJson()) {
-                if ($subdistricts->isEmpty()) {
-                    return new DefaultResource(false, "Data Kecamatan Tidak Ditemukan untuk $search", []);
+                if ($user->isEmpty()) {
+                    return new DefaultResource(false, "Data User Tidak Ditemukan untuk NIP $search", []);
                 }
 
-                return new DefaultResource(true, "List Data Kecamatan", $subdistricts);
+                return new DefaultResource(true, "List Data User", $user);
             }
 
             abort(500);

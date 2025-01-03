@@ -46,11 +46,27 @@
                     <div
                         class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
                         <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-4">
-                            <h2 class="mb-1 fs-6 fw-bolder">Pendaftaran Anggota IPRAHUMAS</h2>
-                            <p class="mb-7" id="navigator-count"></p>
+                            <h2 class="mb-2 fs-6 fw-bolder">Pendaftaran Anggota IPRAHUMAS</h2>
+
+                            <h2 class="mb-2 fs-3 fw-bolder">Anggota Lama?</h2>
+
+                            <!-- Search Section -->
+                            <div class="input-group mb-2">
+                                <x-text-input id="input-search" type="text" name="input_search" class="form-control"
+                                    placeholder="Cari berdasarkan NIP" required autofocus />
+                                <button id="search-btn" class="btn btn-primary" type="button">Cari</button>
+                            </div>
+
+                            <!-- Result Section -->
+                            <div id="user-result"></div>
+
+                            <p class="mb-2" id="navigator-count"></p>
+
                             <form method="POST" id="register-form" action="{{ route('register') }}"
                                 class="needs-validation" novalidate enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="_method" value="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div id="form-container">
                                     {{-- 1 --}}
                                     <div class="d-none mt-4">
@@ -305,13 +321,15 @@
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets/libs/select2/dist/css/select2.min.css') }}">
+        <link id="themeColors" rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/css/sweetalert2.min.css') }}" />
     @endpush
     @push('scripts')
+        <script src="{{ asset('assets/js/plugins/toastr-init.js') }}"></script>
+        <script src="{{ asset('assets/js/dashboards/app.helper.js') }}"></script>
         <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
         <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script>
-        {{-- Handle Group Form --}}
+        <script src="{{ asset('assets/libs/sweetalert2/js/sweetalert2.min.js') }}"></script>
         <script src="{{ asset('assets/js/feature/form-registration.js') }}"></script>
-        {{-- Handle Select2 Form --}}
-        <script src="{{ asset('assets/js/feature/administrative-registration.js') }}"></script>
+        <script src="{{ asset('assets/js/feature/auth/register.js') }}"></script>
     @endpush
 </x-guest-layout>

@@ -3,44 +3,75 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AdministrativeResource;
+use App\Http\Resources\DefaultResource;
 use App\Models\Village;
 use Illuminate\Http\Request;
+use Throwable;
 
 class VillageController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        try {
+            $search = $request->input('search');
+            $filter = $request->input('filter');
 
-        if ($search) {
-            $villages = Village::where('name', 'like', '%' . $search . '%')->paginate(10);
-        } else {
-            $villages = Village::paginate(10);
+            if ($search && $filter) {
+                $villages = Village::where('name', 'like', '%' . $search . '%')->where('subdistrict_id', $filter)->paginate(10);
+            } else {
+                $villages = Village::paginate(10);
+            }
+
+            if ($request->expectsJson()) {
+                if ($villages->isEmpty()) {
+                    return new DefaultResource(false, "Data Kelurahan Tidak Ditemukan untuk $search", []);
+                }
+
+                return new DefaultResource(true, "List Data Kelurahan", $villages);
+            }
+
+            abort(500);
+        } catch (Throwable $e) {
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500);
         }
-
-        return new AdministrativeResource(true, 'List Data Kelurahan', $villages);
     }
 
-    public function show($id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $village = Village::find($id);
-
-        if ($village) {
-            return new AdministrativeResource(true, 'Detail Data Kelurahan', $village);
-        }
-
-        return new AdministrativeResource(false, 'Data Kelurahan Tidak Ditemukan', null);
+        //
     }
 
-    public function getBySubdistrict($subdistrict_id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $villages = Village::where('subdistrict_id', $subdistrict_id)->get();
+        //
+    }
 
-        if ($villages->count() > 0) {
-            return new AdministrativeResource(true, "List Data Kelurahan Berdasarkan Kecamatan ID $subdistrict_id", $villages);
-        }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
 
-        return new AdministrativeResource(false, "Data Kelurahan Tidak Ditemukan untuk Kecamatan ID $subdistrict_id", null);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

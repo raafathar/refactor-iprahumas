@@ -1,71 +1,48 @@
-// Array berisi elemen dari children Form
-const listChildren = $("#form-container").children();
+document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll("#form-container > div");
+    const nextButton = document.getElementById("next");
+    const backButton = document.getElementById("back");
+    const navigatorCount = document.getElementById("navigator-count");
+    let currentSectionIndex = 0;
 
-// Panjang grup
-let lengthGroup = listChildren.length;
+    // Function to update the visibility of sections
+    function updateSectionVisibility() {
+        sections.forEach((section, index) => {
+            section.classList.toggle("d-none", index !== currentSectionIndex);
+        });
 
-// Index grup
-let currentGroup = 0;
+        // Update button states
+        backButton.style.display = currentSectionIndex === 0 ? "none" : "block";
+        if (currentSectionIndex === sections.length - 1) {
+            nextButton.textContent = "Daftar";
+            nextButton.type = "button";
+            nextButton.setAttribute("onclick", "onSubmit(event)");
+        } else {
+            nextButton.textContent = "Lanjut";
+            nextButton.type = "button";
+            nextButton.removeAttribute("onclick");
+        }
 
-// Reset grup, sembunyikan semua elemen
-const resetGroup = () => {
-    listChildren.each((_, elm) => {
-        $(elm).addClass("d-none");
+         // Update navigator count
+        navigatorCount.textContent = `Formulir pendaftaran anggota bagian ${currentSectionIndex + 1} dari ${sections.length}`;
+    }
+
+    // Event listener for the Next button
+    nextButton.addEventListener("click", function () {
+        if (currentSectionIndex < sections.length - 1) {
+            currentSectionIndex++;
+            updateSectionVisibility();
+        }
     });
-};
 
-// Menampilkan Group Form berdasarkan index
-const moveGroup = () => {
-    resetGroup();
-    $(listChildren[currentGroup]).removeClass("d-none");
-    changeNavigator();
-    changeNavigatorCounter();
-};
+    // Event listener for the Back button
+    backButton.addEventListener("click", function () {
+        if (currentSectionIndex > 0) {
+            currentSectionIndex--;
+            updateSectionVisibility();
+        }
+    });
 
-// Mengubah nama navigator form sudah mentok
-const changeNavigator = () => {
-    if (currentGroup >= lengthGroup - 1) {
-        $("#next").text("Daftar");
-    } else {
-        $("#next").text("Berikutnya");
-    }
-
-    if (currentGroup === 0) {
-        $("#back").addClass("disabled");
-    } else {
-        $("#back").removeClass("disabled");
-    }
-};
-
-// Mengubah index navigator
-const changeNavigatorCounter = () => {
-    $("#navigator-count").text(`Formulir pendaftaran anggota bagian ${currentGroup + 1} dari ${lengthGroup}`);
-};
-
-// Menambah index grup jika masih dalam range
-const addCurrentGroup = () => {
-    // Validasi jika perlu, misalnya form validation sebelum lanjut
-    // const isValidation = validationGroup(currentGroup);
-    // if (!isValidation) return;
-
-    if (currentGroup < lengthGroup - 1) {
-        currentGroup++;
-        moveGroup();
-    } else {
-        $("#register-form").submit();
-    }
-};
-
-// Mengurangi index grup
-const removeCurrentGroup = () => {
-    if (currentGroup > 0) {
-        currentGroup--;
-        moveGroup();
-    }
-};
-
-$("#next").on("click", addCurrentGroup);
-$("#back").on("click", removeCurrentGroup);
-
-// Menampilkan grup pertama saat halaman dimuat
-moveGroup();
+    // Initialize the form to show the first section
+    updateSectionVisibility();
+});

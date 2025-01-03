@@ -3,44 +3,75 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AdministrativeResource;
+use App\Http\Resources\DefaultResource;
 use App\Models\District;
 use Illuminate\Http\Request;
+use Throwable;
 
 class DistrictController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        try {
+            $search = $request->input('search');
+            $filter = $request->input('filter');
 
-        if ($search) {
-            $districts = District::where('name', 'like', '%' . $search . '%')->paginate(10);
-        } else {
-            $districts = District::paginate(10);
+            if ($search && $filter) {
+                $districts = District::where('name', 'like', '%' . $search . '%')->where('province_id', $filter)->paginate(10);
+            } else {
+                $districts = District::paginate(10);
+            }
+
+            if ($request->expectsJson()) {
+                if ($districts->isEmpty()) {
+                    return new DefaultResource(false, "Data Kabupaten Tidak Ditemukan untuk $search", []);
+                }
+
+                return new DefaultResource(true, "List Data Kabupaten", $districts);
+            }
+
+            abort(500);
+        } catch (Throwable $e) {
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, $e->getMessage(), []);
+            }
+
+            abort(500);
         }
-
-        return new AdministrativeResource(true, "List Data Kabupaten", $districts);
     }
 
-    public function show($id)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $district = District::find($id);
-
-        if ($district) {
-            return new AdministrativeResource(true, "Detail Data Kabupaten", $district);
-        }
-
-        return new AdministrativeResource(false, "Data Kabupaten Tidak Ditemukan", null);
+        //
     }
 
-    public function getByProvince($provinceId)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $districts = District::where('province_id', $provinceId)->get();
+        //
+    }
 
-        if ($districts->count() > 0) {
-            return new AdministrativeResource(true, "List Data Kabupaten Berdasarkan Province ID $provinceId", $districts);
-        }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
 
-        return new AdministrativeResource(false, "Data Kabupaten Tidak Ditemukan untuk Province ID $provinceId", null);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
