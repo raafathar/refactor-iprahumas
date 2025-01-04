@@ -5,16 +5,16 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
             <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="btn-detail"
-                data-bs-toggle="modal" data-bs-target="#modal-detail" data-json="{{ $training }}"
+                data-bs-toggle="modal" data-bs-target="#modal-detail" data-json="{{ $model }}"
                 onclick="onDetail(event)">
                 <i class="fs-4 ti ti-eye"></i>Detail
             </a>
-            <a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('trainings.edit', $training->id) }}"
+            <a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('trainings.edit', $model->id) }}"
                 id="btn-edit">
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="btn-delete"
-                data-json="{{ $training }}" onclick="onDelete(event)">
+                data-json="{{ $model }}" onclick="onDelete(event)">
                 <i class="fs-4 ti ti-trash"></i>Hapus
             </a>
         </li>

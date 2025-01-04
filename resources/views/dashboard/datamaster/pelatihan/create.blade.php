@@ -88,8 +88,10 @@
                         <label for="p_forum_scale">Cakupan Forum</label>
                         <select name="p_forum_scale" class="form-control" type="text">
                             <option selected disabled>-- PILIH CAKUPAN FORUM --</option>
-                            <option value="internal">Internal</option>
-                            <option value="eksternal">Eksternal</option>
+                            <option value="internal" {{ old('p_forum_scale') == 'internal' ? 'selected' : '' }}>
+                                Internal</option>
+                            <option value="eksternal" {{ old('p_forum_scale') == 'eksternal' ? 'selected' : '' }}>
+                                Eksternal</option>
                         </select>
                         <x-input-error messages="{{ $errors->first('p_forum_scale') }}" />
                     </div>

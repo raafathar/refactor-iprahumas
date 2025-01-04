@@ -55,5 +55,11 @@ $(document).ready(function () {
                 readImage({ event: event, input: "input[name='p_image']", imageTarget: "img#p_image-update" })
             });
         }
+
+        window.onSubmitRegistration = (event) => {
+            event.preventDefault()
+            if (document.activeElement) document.activeElement.blur();
+            submitForm('#form-registration', () => { });
+        }
     })
 });

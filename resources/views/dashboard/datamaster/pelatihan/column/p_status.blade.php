@@ -1,0 +1,1 @@
+{{ $model->p_status }}
