@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("p_title");
             $table->text("p_content");
             $table->string("p_image");
-            $table->integer("p_sort");
+            $table->integer("p_sort")->nullable();
             $table->integer("p_is_active");
             $table->string("p_slug");
             $table->timestamps();

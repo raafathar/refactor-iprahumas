@@ -4,14 +4,17 @@
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
-            <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
-                data-bs-target="#modal-update" data-json="{{ $page }}" onclick="onEdit(event)">
+            <a class="dropdown-item d-flex align-items-center gap-3" target="_blank" href="{{ route('detail.profil', ['slug' => $page->p_slug]) }}">
+                <i class="fs-4 ti ti-eye"></i>Detail
+            </a>
+            <a class="dropdown-item d-flex align-items-center gap-3"
+                href="{{ route('page-profile.edit', $page->p_slug) }}">
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)"
                 data-json="{{ $page }}" onclick="onDelete(event)">
                 <i class="fs-4 ti ti-trash"></i>Hapus
             </a>
-        </li>
+        </li> 
     </ul>
 </div>

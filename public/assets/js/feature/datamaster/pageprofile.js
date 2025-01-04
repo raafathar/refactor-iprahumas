@@ -9,6 +9,8 @@ $(document).ready(() => {
         if (target.length > 0) {
             const json = target.data('json');
 
+            console.log(json);
+
             deleteForm(route('page-profile.destroy', json.id), reloadTable);
         } else {
             console.warn('Data JSON tidak ditemukan');
