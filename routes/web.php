@@ -5,29 +5,31 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\DataMaster\UserController;
+use App\Http\Controllers\Dashboard\DataMaster\SkillController;
+use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\GolonganController;
 use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
-use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
-use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
+use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
-use App\Http\Controllers\Dashboard\DataMaster\SkillController;
-use App\Http\Controllers\Dashboard\DataMaster\UserController;
 
 
 // For guest
 Route::prefix('/')->group(function () {
     Route::get('/', [BerandaController::class, 'index'])->name('landingpage');
     Route::get('/beritas', [BerandaController::class, 'get_berita'])->name('get.berita');
+    Route::get('/pages', [BerandaController::class, 'get_pages'])->name('get.pages');
+    Route::get('/profil/{slug}', [BerandaController::class, 'detail_profil'])->name('detail.profil');
     Route::get('/berita', [BerandaController::class, 'berita_view'])->name('berita');
     Route::get('/berita/detail/{slug}', [BerandaController::class, 'detail_berita'])->name('detail.berita');
     Route::get('/kontak', function () { return view('landingpage.contact');})->name('kontak');
     Route::get('/pelatihan', function () { return view('landingpage.pelatihan.index');})->name('pelatihan');
     Route::get('/keangotaan/panduan-pendaftaran', function () { return view('landingpage.keangotaan.panduan');})->name('panduan');
     Route::get('/keangotaan/syarat-keanggotaan', function () { return view('landingpage.keangotaan.syarat');})->name('syarat');
-    Route::get('/profil/sejarah', function () { return view('landingpage.profil.sejarah');})->name('sejarah');
-    Route::get('/profil/manfaat-anggota', function () { return view('landingpage.profil.manfaat_anggota');})->name('manfaat_anggota');
+
 });
 
 
@@ -40,6 +42,7 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('users', UserController::class)->middleware(['user.access:superadmin,admin'])->names('users');
     Route::resource('admin/berita', BeritaController::class)->middleware(['user.access:superadmin,admin'])->names('beritas');
     Route::resource('admin/banner', BannerController::class)->middleware(['user.access:superadmin,admin'])->names('banners');
+    Route::resource('admin/page-profile', PageProfileController::class)->middleware(['user.access:superadmin,admin'])->names('page-profile');
     // Data Pendaftar
     Route::get('registration/{status}', [RegistrationController::class, 'index'])->name('registration.index')->middleware(['user.access:superadmin,admin']);
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');

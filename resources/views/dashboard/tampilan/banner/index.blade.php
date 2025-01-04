@@ -123,6 +123,6 @@
 
         {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-        <script src="{{ asset('assets/js/feature/datamaster/banner.js') }}"></script>
+        <script src="{{ asset('assets/js/feature/datamaster/pageprofile.js') }}"></script>
     @endpush
 </x-app-layout>

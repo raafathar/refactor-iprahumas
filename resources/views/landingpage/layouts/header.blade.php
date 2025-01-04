@@ -24,19 +24,7 @@
                                 Profil
                                 <i class="ti ti-chevron-down fs-3"></i>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ url('profil/sejarah-singkat') }}">Sejarah Singkat</a>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ url('profil/visimisi') }}">Visi Misi</a>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ url('profil/kode-etik') }}">Kode Etik Keanggotaan</a>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ url('profil/struktur-organisasi') }}">Struktur
-                                        Organisasi</a></li>
-                                <li><a class="dropdown-item" href="{{ url('profil/anggaran-dasar') }}">Anggaran Dasar
-                                        (AD/ART)</a></li>
-                                <li><a class="dropdown-item" href="{{ url('profil/manfaat-anggota') }}">Manfaat Anggota</a>
-                                </li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-pages" data-url="{{ route('get.pages') }}">
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -124,20 +112,8 @@
         </div>
     </div>
 
-    <script>
-        const searchInput = document.getElementById('search');
-        const rekomendasiDiv = document.getElementById('rekomendasi');
-        const rekomendasiSpan = rekomendasiDiv.querySelectorAll('li span b');
-        searchInput.addEventListener('input', function() {
-            const inputValue = this.value;
-            if (inputValue) {
-                rekomendasiSpan.forEach(b => {
-                    b.innerHTML = inputValue; // Ganti isi <b> dengan input
-                });
-                rekomendasiDiv.classList.remove('d-none');
-            } else {
-                rekomendasiDiv.classList.add('d-none');
-            }
-        });
-    </script>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/js/feature/landingpage/header-handle.js') }}"></script>
+@endpush

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Berita;
 use App\Models\Banner;
+use App\Models\Berita;
+use App\Models\PageProfile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class BerandaController extends Controller
 {
@@ -34,6 +35,7 @@ class BerandaController extends Controller
             } else {
                 $berita->b_image_url = asset('assets/images/frontend-pages/default.svg');
             }
+
             return $berita;
         });
     }
@@ -56,7 +58,7 @@ class BerandaController extends Controller
                             
                             return $banner;
                         });
-    
+
         return view('landingpage.index', compact('beritaTerbaru', 'banners'));
     }
 
@@ -92,6 +94,11 @@ class BerandaController extends Controller
             'data' => $posts->items(),
         ]);
     }
+
+    public function get_pages() {
+        $pages = PageProfile::where('p_is_active', 1)->get();
+        return response()->json($pages);
+    }
     
     
 
@@ -110,5 +117,19 @@ class BerandaController extends Controller
         );
 
         return view('landingpage.berita.detail', compact('berita', 'beritaLainnya'));
+    }
+
+    public function detail_profil($slug)
+    {
+        $page = PageProfile::where('p_slug', $slug)->firstOrFail();
+        $page->p_content = strip_tags($page->p_content);
+            
+        if ($page->p_image && Storage::exists($page->p_image)) {
+            $page->p_image_url = asset('storage/' . $page->p_image);
+        } else {
+            $page->p_image_url = asset('assets/images/frontend-pages/default.svg');
+        }
+
+        return view('landingpage.profil.detail', compact('page'));
     }
 }
