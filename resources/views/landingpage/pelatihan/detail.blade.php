@@ -1,6 +1,6 @@
-@extends('frontend.layouts.main')
-@include('frontend.layouts.header')
-@include('frontend.layouts.footer')
+@extends('landingpage.layouts.main')
+@include('landingpage.layouts.header')
+@include('landingpage.layouts.footer')
 
 
 
@@ -10,19 +10,14 @@
    <!-- banner Start -->
    <!-- ------------------------------------- -->
    <section class="pt-lg-14 py-lg-0 py-5 bg-primary-subtle">
-      <div class="container-fluid">
+      <div class="custom-container">
          <div class="text-center">
-               <div class="d-flex justify-content-center">
-                  <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">
-                     Web Development
-                  </p>
-               </div>
                <h2 class="text-dark fs-12 fw-bolder px-xl-12 my-9">
-                  Building responsive websites: tips and tricks for modern developers
+                  {{ $pelatihan->p_title }}
                </h2>
          </div>
          <div class="mt-7 mt-md-5">
-               <img src="https://proglat-assets.kemnaker.go.id/programs/57d2c0ad-c254-4a2d-b317-3806c3962d6b/cover-images/XUFcT9NQXe2BKx0pNYwgmBIOBpnORP5ZkpaBLKv2.jpeg"
+               <img src="{{ $pelatihan->p_image }}"
                   alt="blog detail banner" class="img-fluid w-100 rounded-3 mb-n11">
          </div>
       </div>
@@ -35,7 +30,7 @@
    <!-- Details Start -->
    <!-- ------------------------------------- -->
    <section class="mt-11 pb-md-5 pb-lg-12 pt-lg-14">
-      <div class="container-fluid">
+      <div class="custom-container">
          <div class="row">
                <div class="col-lg-4">
                   <div class="d-flex flex-column gap-3">
@@ -49,13 +44,17 @@
                      <div class="py-9">
                            <h4 class="text-uppercase fs-3 fw-bold">Share</h4>
                            <div class="d-flex gap-6">
-                              <a href="#" class="border round-40 hstack justify-content-center rounded-circle"
-                                 data-bs-toggle="tooltip" data-bs-title="Instagram">
-                                 <img src="../assets/images/frontend-pages/icon-instagram.svg" alt="instagram">
+                              <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="border round-40 hstack justify-content-center rounded-circle"
+                                 data-bs-toggle="tooltip" data-bs-title="Facebook">
+                                 <img src="{{ asset('assets/images/frontend-pages/icon-facebook.svg') }}" alt="facebook">
                               </a>
-                              <a href="#" class="border round-40 hstack justify-content-center rounded-circle"
-                                 data-bs-toggle="tooltip" data-bs-title="YouTube">
-                                 <img src="../assets/images/frontend-pages/icon-youtube.svg" alt="youtube">
+                              <a href="https://api.whatsapp.com/send?text={{ urlencode(url()->current()) }}" target="_blank" class="border round-40 hstack justify-content-center rounded-circle"
+                                    data-bs-toggle="tooltip" data-bs-title="Whatsapp">
+                                    <img src="{{ asset('assets/images/frontend-pages/icon-whatsapp.svg') }}" alt="whatsapp">
+                              </a>
+                              <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank" class="border round-40 hstack justify-content-center rounded-circle"
+                                    data-bs-toggle="tooltip" data-bs-title="Twitter">
+                                    <img src="{{ asset('assets/images/frontend-pages/icon-twitter.svg') }}" alt="twitter">
                               </a>
                            </div>
                      </div>
@@ -68,34 +67,7 @@
                               Deskripsi Pelatihan
                            </h3>
                            <p class="fs-4 mb-0">
-                              Starting with mobile design and then scaling up is a widely recommended approach. By
-                              prioritizing the mobile experience, developers can ensure that the most critical
-                              content is accessible on smaller screens. Once the mobile version is optimized,
-                              expanding to larger screens becomes much easier.
-                           </p>
-                     </div>
-                     <div class="" id="leverage-media">
-                           <h3 class="fs-7 fw-bolder mb-sm-4 mb-3">
-                              Luaran Pelatihan
-                           </h3>
-                           <p class="fs-4">
-                              Media queries are CSS techniques that apply styles based on the screen size or
-                              device characteristics. By using media queries, developers can create breakpoints in
-                              their design, ensuring that the layout adapts to different screen widths. For
-                              instance, you might want to change the font size or adjust the padding on a smaller
-                              screen. A simple example of a media query is:
-                           </p>
-                     </div>
-                     <div class="" id="leverage-media">
-                           <h3 class="fs-7 fw-bolder mb-sm-4 mb-3">
-                              Persyaratan Peserta
-                           </h3>
-                           <p class="fs-4">
-                              Media queries are CSS techniques that apply styles based on the screen size or
-                              device characteristics. By using media queries, developers can create breakpoints in
-                              their design, ensuring that the layout adapts to different screen widths. For
-                              instance, you might want to change the font size or adjust the padding on a smaller
-                              screen. A simple example of a media query is:
+                              {{ $pelatihan->p_content }}
                            </p>
                      </div>
                      <div class="" id="leverage-media">
@@ -104,20 +76,11 @@
                         </h3>
                         <div class="row">
                            <div class="col-4 d-flex gap-4">
-                              <i class="ti ti-briefcase text-dark fs-6"></i>
-                              <p class="fs-4">Batas pendaftaran</p>
-                           </div>
-                           <div class="col-8">
-                              <p class="fs-4">20 Oktober 2024</p>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-4 d-flex gap-4">
                               <i class="ti ti-calendar text-dark fs-6"></i>
                               <p class="fs-4">Durasi pelatihan</p>
                            </div>
                            <div class="col-8">
-                              <p class="fs-4">20 Oktober 2024 - 14 November 2024</p>
+                              <p class="fs-4">{{ $pelatihan->p_start_date }} - {{ $pelatihan->p_end_date }}</p>
                            </div>
                         </div>
                         <div class="row">
@@ -126,7 +89,7 @@
                               <p class="fs-4">Lokasi pelatihan</p>
                            </div>
                            <div class="col-8">
-                              <p class="fs-4">Online</p>
+                              <p class="fs-4">{{ $pelatihan->p_type_training }}</p>
                            </div>
                         </div>
                         <div class="row">
@@ -135,27 +98,16 @@
                               <p class="fs-4">Kuota peserta</p>
                            </div>
                            <div class="col-8">
-                              <p class="fs-4">400</p>
+                              <p class="fs-4">{{ $pelatihan->p_kuota }}</p>
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-4 d-flex gap-4">
-                              <i class="ti ti-eye text-dark fs-6"></i>
-                              <p class="fs-4">Dilihat sebanyak</p>
+                              <i class="ti ti-analyze text-dark fs-6"></i>
+                              <p class="fs-4">Status pelatihan</p>
                            </div>
                            <div class="col-8">
-                              <p class="fs-4">400</p>
-                           </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-4 d-flex gap-4">
-                              <i class="ti ti-book text-dark fs-6"></i>
-                              <p class="fs-4">Silabus pelatihan</p>
-                           </div>
-                           <div class="col-8">
-                              <a href="">
-                                 <p class="fs-4">Download</p>
-                              </a>
+                              <p class="fs-4">{{ $pelatihan->p_status }}</p>
                            </div>
                         </div>
                      </div>

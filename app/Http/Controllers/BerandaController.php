@@ -148,15 +148,45 @@ class BerandaController extends Controller
         $month = $request->month;
         $day = $request->day;
     
-        // Format the selected date to match the format in the database (YYYY-MM-DD)
         $startdate = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT) . "-" . str_pad($day, 2, '0', STR_PAD_LEFT);
     
-        // Query to get the training sessions for the selected date
         $pelatihan = Training::where('p_is_public', 1)
-            ->whereDate('p_start_date', '=', $startdate)
-            ->get();
+        ->whereDate('p_start_date', '=', $startdate)
+        ->get();
+    
+        $pelatihan->each(function ($item) {
+        
+            // Format the p_start_date
+            $item->p_start_date = \Carbon\Carbon::parse($item->p_start_date)->format('j F Y'); 
+        
+            $item->p_image = $item->p_image && Storage::exists($item->p_image)
+                ? asset('storage/' . $item->p_image)
+                : asset('assets/images/frontend-pages/default.svg');
+        });
+    
     
         return response()->json($pelatihan);
+    }
+
+
+    public function detail_pelatihan($slug)
+    {
+        $pelatihan = Training::where('p_slug', $slug)->firstOrFail();
+
+        // Format tanggal menggunakan Carbon
+        $pelatihan->p_start_date = Carbon::parse($pelatihan->p_start_date)->format('d F Y');
+        $pelatihan->p_end_date = Carbon::parse($pelatihan->p_end_date)->format('d F Y');
+        
+        // Pastikan konten dapat dirender sebagai HTML
+        $pelatihan->p_content = strip_tags($pelatihan->p_content);
+
+        if ($pelatihan->p_image && Storage::exists($pelatihan->p_image)) {
+            $pelatihan->p_image = asset('storage/' . $pelatihan->p_image);
+        } else {
+            $pelatihan->p_image = asset('assets/images/frontend-pages/default.svg');
+        }
+        
+        return view('landingpage.pelatihan.detail', compact('pelatihan'));
     }
     
 }

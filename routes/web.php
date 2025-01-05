@@ -33,6 +33,7 @@ Route::prefix('/')->group(function () {
     Route::get('/berita/detail/{slug}', [BerandaController::class, 'detail_berita'])->name('detail.berita');
     Route::get('/kontak', function () { return view('landingpage.contact');})->name('kontak');
     Route::get('/pelatihan', [BerandaController::class, 'pelatihan_view'])->name('pelatihan.index');
+    Route::get('/pelatihan/detail/{slug}', [BerandaController::class, 'detail_pelatihan'])->name('detail.pelatihan');
     Route::get('/keangotaan/panduan-pendaftaran', function () { return view('landingpage.keangotaan.panduan');})->name('panduan');
     Route::get('/keangotaan/syarat-keanggotaan', function () { return view('landingpage.keangotaan.syarat');})->name('syarat');
 

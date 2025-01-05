@@ -141,41 +141,41 @@ function loadEvents(year, month, day) {
                     const eventCard = document.createElement('div');
                     eventCard.classList.add('col-md-6', 'col-lg-4');
                     eventCard.innerHTML = `
-                  <div class="card overflow-hidden hover-img">
-                     <div class="position-relative">
-                        <a href="../main/blog-detail.html">
-                           <img src="${event.p_image}" class="card-img-top" alt="modernize-img">
-                        </a>
-                        <span
-                           class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
-                           min Read</span>
-                        <img src="../assets/images/profile/user-3.jpg" alt="modernize-img"
-                           class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9" width="40"
-                           height="40" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Addie Keller">
-                     </div>
-                     <div class="card-body p-4">
-                           <span class="badge text-bg-light fs-2 py-1 px-2 lh-sm  mt-3">${event.sesi}</span>
-                           <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary"
-                              href="../main/blog-detail.html">${event.judul}</a>
-                           <div class="d-flex align-items-center gap-4">
-                              <div class="d-flex align-items-center gap-2">
-                                 <i class="ti ti-eye text-dark fs-5"></i>${event.views}
-                              </div>
-                           </div>
-                     </div>
-                  </div>
-               `;
+                        <div class="card overflow-hidden hover-img">
+                            <div class="position-relative">
+                                <a href="/pelatihan/detail/${event.p_slug}">
+                                <img src="${event.p_image}" class="card-img-top" alt="modernize-img">
+                                </a>
+                                <span class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">${event.p_type_training}</span>
+                            </div>
+                            <div class="card-body p-4">
+                                <span class="badge text-bg-primary fs-2 py-1 px-2 lh-sm mt-2">${event.p_location}</span>
+                                <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary" href="/pelatihan/detail/${event.p_slug}">${event.p_title}</a>
+                                <div class="d-flex align-items-center gap-4">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="ti ti-analyze text-dark fs-5"></i>${event.p_status}
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="ti ti-users text-dark fs-5"></i>${event.p_kuota}
+                                    </div>
+                                    <div class="d-flex align-items-center fs-2 ms-auto">
+                                        <i class="ti ti-point text-dark"></i>${event.p_start_date}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                `;
                     listAcara.appendChild(eventCard);
                 });
             } else {
                 listAcara.innerHTML = `
-            <div class="row justify-content-center">
-               <h1 class="fw-bolder fs-7 text-center">Belum ada pelatihan</h1>
-               <p class="fw-semibold fs-4 text-center">Pelatihan pada tanggal <span class="text-primary">${selectedDay}</span> belum tersedia</p>
-               <div class="col-12 d-flex justify-content-center align-items-center flex-col mt-4">
-                  <img src="../assets/images/svgs/undraw_no_data.svg" class="img-thumbnail shadow-none border-0">
-               </div>
-            </div>
+                    <div class="row justify-content-center">
+                        <h1 class="fw-bolder fs-7 text-center">Belum ada pelatihan</h1>
+                        <p class="fw-semibold fs-4 text-center">Pelatihan pada tanggal <span class="text-primary">${selectedDay}</span> belum tersedia</p>
+                        <div class="col-12 d-flex justify-content-center align-items-center flex-col mt-4">
+                            <img src="../assets/images/svgs/undraw_no_data.svg" class="img-thumbnail shadow-none border-0">
+                        </div>
+                    </div>
             `;
             }
         })
