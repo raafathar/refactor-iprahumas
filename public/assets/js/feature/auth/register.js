@@ -134,11 +134,25 @@ $(document).ready(() => {
             delay: 500,
             data: function (params) {
                 return {
-                    search: params.term 
+                    search: params.term,
+                    filter: getFilterValue(category)
                 };
             },
             processResults: processData,
         };
+    }
+
+    function getFilterValue(category) {
+        switch (category) {
+            case "districts":
+                return $("#province_id").val();
+            case "subdistricts":
+                return $("#district_id").val();
+            case "villages":
+                return $("#subdistrict_id").val();
+            default:
+                return null;
+        }
     }
 
     $("select#district_id").attr("disabled", true).val("").trigger("change")

@@ -57,7 +57,7 @@ $(document).ready(() => {
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
         const upperCase = (string) => string.toUpperCase();
-        
+
         const fields = [
             { label: 'Nama Lengkap', value: json.name },
             { label: 'Email', value: json.email },
@@ -126,7 +126,7 @@ $(document).ready(() => {
         $('#users-form h5#modal-title').text('Tambah Anggota');
 
         // field form
-        $('#users-form').find('label[for="profile_picture"]').each(function() {
+        $('#users-form').find('label[for="profile_picture"]').each(function () {
             if ($(this).find('.text-danger').length === 0) {
                 $(this).append('<span class="text-danger">*</span>');
             }
@@ -246,11 +246,25 @@ $(document).ready(() => {
             delay: 500,
             data: function (params) {
                 return {
-                    search: params.term
+                    search: params.term,
+                    filter: getFilterValue(category)
                 };
             },
             processResults: processData,
         };
+    }
+
+    function getFilterValue(category) {
+        switch (category) {
+            case "districts":
+                return $("#province_id").val();
+            case "subdistricts":
+                return $("#district_id").val();
+            case "villages":
+                return $("#subdistrict_id").val();
+            default:
+                return null;
+        }
     }
 
     $("select#district_id").attr("disabled", true).val("").trigger("change")

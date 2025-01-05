@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\FileHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\DefaultResource;
@@ -28,6 +29,7 @@ use Throwable;
 
 class RegisteredUserController extends Controller
 {
+    use FileHandler;
     /**
      * Display the registration view.
      */
@@ -59,16 +61,17 @@ class RegisteredUserController extends Controller
                 return redirect()->back();
             }
 
-            // Mengambil path foto profil jika ada
-            $path_profile_picture = $request->file('profile_picture')
-                ? $request->file('profile_picture')->store('images/profile_pictures')
-                : null;
-
             // Mencari user berdasarkan NIP yang terkait
             $user = User::where('role', 'user')->whereHas('form', function ($query) use ($request) {
                 $query->where('nip', 'like', '%' . $request->nip . '%');
             })->first();
 
+            // Mengambil path foto profil jika ada
+            if ($request->hasFile('profile_picture')) {
+                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $user->profile_picture, "images/profile_pictures");
+            } else {
+                $path_profile_picture = $user->profile_picture;
+            }
 
             // Mengatur password untuk user baru
             $password_rand = !$user || $user->password == null ? Str::random(8) : null;
@@ -92,10 +95,6 @@ class RegisteredUserController extends Controller
                 ]);
             }
 
-            // Menghitung nomor anggota baru
-            $lastNumber = Form::count();
-            $new_member_number = date('Y') . str_pad($lastNumber + 1, 5, '0', STR_PAD_LEFT);
-
             $form = Form::updateOrCreate(
                 [
                     'nip' => $request->nip,
@@ -105,7 +104,7 @@ class RegisteredUserController extends Controller
                     'nip' => $request->nip,
                     'user_id' => $user->id,
                     'dob' => $request->dob,
-                    'new_member_number' => optional($user->form)->new_member_number ?? $new_member_number,
+                    'new_member_number' => generate_new_member_number(),
                     'religion' => $request->religion,
                     'phone' => $request->phone,
                     'last_education' => $request->last_education,

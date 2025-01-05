@@ -15,6 +15,14 @@ use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
+use App\Http\Controllers\Dashboard\DataMaster\SkillController;
+use App\Http\Controllers\Dashboard\DataMaster\UserController;
+use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
+use \App\Http\Controllers\Dashboard\Setting\UserSettingController;
+use App\Http\Controllers\Dashboard\Home\BiographyController;
+use App\Http\Controllers\RegistrationTrainingController;
+use App\Http\Controllers\TrainingController;
+use Illuminate\Support\Facades\Route;
 
 
 // For guest
@@ -35,7 +43,11 @@ Route::prefix('/')->group(function () {
 
 // For authenticated users
 Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
+    // Home
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Biodata Anggota
+    Route::get('/biography', [BiographyController::class, 'index'])->middleware(['user.access:superadmin,admin,user'])->name('biography.index');
 
     // Data Master
     // Data Anggota
@@ -43,6 +55,12 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('admin/berita', BeritaController::class)->middleware(['user.access:superadmin,admin'])->names('beritas');
     Route::resource('admin/banner', BannerController::class)->middleware(['user.access:superadmin,admin'])->names('banners');
     Route::resource('admin/page-profile', PageProfileController::class)->middleware(['user.access:superadmin,admin'])->names('page-profile');
+    Route::resource('admin/pelatihan', TrainingController::class)->middleware(['user.access:superadmin,admin'])->names('trainings');
+
+    if (config("app.env") != "production") {
+        Route::resource('admin/registration', RegistrationTrainingController::class)->middleware(['user.access:superadmin,admin'])->names('trainings.registration');
+    }
+
     // Data Pendaftar
     Route::get('registration/{status}', [RegistrationController::class, 'index'])->name('registration.index')->middleware(['user.access:superadmin,admin']);
     Route::resource('registration', RegistrationController::class)->except(['index'])->middleware(['user.access:superadmin,admin'])->names('registration');
@@ -58,19 +76,12 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('skills', SkillController::class)->middleware(['user.access:superadmin'])->names('skills');
     // Keahlian
     Route::resource('letter-logs', LetterLogController::class)->middleware(['user.access:superadmin'])->names('letter-logs');
-});
 
-
-
-
-
-
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Setting
+    // Manajemen Pengguna
+    Route::resource('user-settings', UserSettingController::class)->middleware(['user.access:superadmin'])->names('user-settings');
+    // Pengaturan Akun
+    Route::resource('account-setting', AccountSettingController::class)->only(['index', 'update'])->names('account-setting');
 });
 
 require __DIR__ . '/auth.php';

@@ -17,9 +17,10 @@ class DistrictController extends Controller
     {
         try {
             $search = $request->input('search');
+            $filter = $request->input('filter');
 
-            if ($search) {
-                $districts = District::where('name', 'like', '%' . $search . '%')->paginate(10);
+            if ($search && $filter) {
+                $districts = District::where('name', 'like', '%' . $search . '%')->where('province_id', $filter)->paginate(10);
             } else {
                 $districts = District::paginate(10);
             }

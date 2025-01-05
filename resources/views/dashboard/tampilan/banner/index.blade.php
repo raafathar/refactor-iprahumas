@@ -51,7 +51,6 @@
                                 autofocus autocomplete="name" />
                             <x-input-error messages="{{ $errors->first('b_image') }}" />
                         </div>
-                        <img src="#" class="img-thumbnail" id="b_image-show" alt="image">
 
                         {{-- is Active --}}
                         <div class="form-check form-switch mb-3">

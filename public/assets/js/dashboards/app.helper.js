@@ -59,7 +59,9 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             if (onSuccess) {
                 onSuccess(response);
             } else {
-                location.reload();
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             }
 
             if (response.message) {
@@ -174,26 +176,45 @@ function isJsonString(str) {
     }
 }
 
+/**
+ * Remove all image from target
+ * @param {String} form
+ */
 const resetReadImage = (form) => {
-    console.log($(form).find("img"));
-
     $(form).find("img").removeAttr("src")
 }
 
-const readImage = (event, imageTarget) => {
-    var tgt = event.target
+/**
+ * Load current file image into target or generate after parent
+ * @param {Event} event
+ * @param {String} imageTarget
+ */
+const readImage = ({ event, input = null, imageTarget = null }) => {
+    var tgt = document.querySelector(input) == null ? (event.currentTarget || window.event.srcElement) : document.querySelector(input)
+    var files = tgt.files;
 
-    var files = tgt.files
+
+    const image = document.createElement("img")
+    image.className = "img-thumbnail"
 
     if (FileReader && files && files.length) {
         var fr = new FileReader()
         fr.onload = event => {
-            $(imageTarget).attr('src', event.target.result)
+            $(imageTarget ?? image).attr('src', event.target.result)
         }
-        fr.readAsDataURL(event.currentTarget.files[0])
+        fr.readAsDataURL(input == null ? event.currentTarget.files[0] : tgt.files[0])
+    }
+
+    if (!imageTarget) {
+        event.currentTarget.parentElement.after(image);
     }
 }
 
+/**
+ * Addressing url into storage
+ * @param {String} url
+ * @returns string
+ */
 const storage_path = (url) => {
     return `${window.location.origin}/storage/${url}`
 }

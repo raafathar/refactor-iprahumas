@@ -5,7 +5,8 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
             <a class="dropdown-item d-flex align-items-center gap-3" data-bs-toggle="modal"
-                data-bs-target="#modal-update" data-json="{{ $banner }}" onclick="onEdit(event)">
+                data-bs-target="#modal-update" data-json="{{ $banner }}" href="javascript:void(0)"
+                onclick="onEdit(event)">
                 <i class="fs-4 ti ti-edit"></i>Edit
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="modal"

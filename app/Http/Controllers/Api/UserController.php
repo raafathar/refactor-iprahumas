@@ -20,7 +20,8 @@ class UserController extends Controller
 
             if ($search) {
                 $user = User::where('role', 'user')->whereHas('form', function ($query) use ($search) {
-                    $query->where('nip', 'like', '%' . $search . '%');
+                    $query->where('nip', 'like', '%' . $search . '%')
+                        ->where('status', 'approved');
                 })->with([
                     'form.province',
                     'form.district',
@@ -28,7 +29,14 @@ class UserController extends Controller
                     'form.village'
                 ])->paginate(10);
             } else {
-                $user = User::where('role', 'user')->paginate(10);
+                $user = User::where('role', 'user')->whereHas('form', function ($query) {
+                    $query->where('status', 'approved');
+                })->with([
+                    'form.province',
+                    'form.district',
+                    'form.subdistrict',
+                    'form.village'
+                ])->paginate(10);
             }
 
             if ($request->expectsJson()) {

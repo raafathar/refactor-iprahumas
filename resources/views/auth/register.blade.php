@@ -113,7 +113,7 @@
                                                     {{ old('religion') == 'islam' ? 'selected' : '' }}>Islam
                                                 </option>
                                                 <option value="christian"
-                                                    {{ old('christian') == 'islam' ? 'selected' : '' }}>Kristen</option>
+                                                    {{ old('religion') == 'christian' ? 'selected' : '' }}>Kristen</option>
                                                 <option value="catholic"
                                                     {{ old('religion') == 'catholic' ? 'selected' : '' }}>Katolik
                                                 </option>
