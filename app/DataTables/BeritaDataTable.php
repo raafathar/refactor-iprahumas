@@ -71,7 +71,7 @@ class BeritaDataTable extends DataTable
                 'cellspacing' => '0',
             ])
             ->stateSave(true)
-            ->autoWidth(true)
+            ->autoWidth(false)
             ->scrollX(true)
             ->responsive(true)
             ->columns($this->getColumns())
