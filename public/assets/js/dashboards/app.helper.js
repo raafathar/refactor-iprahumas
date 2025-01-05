@@ -59,7 +59,9 @@ function handleAjaxForm(form, btn, method, action, formData, onSuccess) {
             if (onSuccess) {
                 onSuccess(response);
             } else {
-                location.reload();
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             }
 
             if (response.message) {
@@ -176,7 +178,7 @@ function isJsonString(str) {
 
 /**
  * Remove all image from target
- * @param {String} form 
+ * @param {String} form
  */
 const resetReadImage = (form) => {
     $(form).find("img").removeAttr("src")
@@ -184,8 +186,8 @@ const resetReadImage = (form) => {
 
 /**
  * Load current file image into target or generate after parent
- * @param {Event} event 
- * @param {String} imageTarget 
+ * @param {Event} event
+ * @param {String} imageTarget
  */
 const readImage = ({ event, input = null, imageTarget = null }) => {
     var tgt = document.querySelector(input) == null ? (event.currentTarget || window.event.srcElement) : document.querySelector(input)
@@ -210,7 +212,7 @@ const readImage = ({ event, input = null, imageTarget = null }) => {
 
 /**
  * Addressing url into storage
- * @param {String} url 
+ * @param {String} url
  * @returns string
  */
 const storage_path = (url) => {

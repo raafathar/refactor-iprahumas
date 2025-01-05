@@ -163,7 +163,7 @@
                                         </div>
                                     </div>
                                     <div class="message-body">
-                                        <a href="../main/page-user-profile.html"
+                                        <a href="{{ route('account-setting.index') }}"
                                             class="py-8 px-7 mt-8 d-flex align-items-center">
                                             <span
                                                 class="d-flex align-items-center justify-content-center text-bg-light rounded-1 p-6">

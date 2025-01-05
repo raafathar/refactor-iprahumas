@@ -29,7 +29,8 @@
                                         <div class="mb-3">
                                             <x-input-label for="payment_proof" :value="__('Bukti Pembayaran')" />
                                             <x-text-input id="payment_proof" type="file" name="payment_proof"
-                                                :value="old('payment_proof')" required autofocus autocomplete="payment_proof" />
+                                                :value="old('payment_proof')" required autofocus autocomplete="payment_proof"
+                                                          accept="image/png, image/jpg, image/jpeg" />
                                             <x-input-error :messages="$errors->get('payment_proof')" class="mt-2" />
                                         </div>
                                     @endif

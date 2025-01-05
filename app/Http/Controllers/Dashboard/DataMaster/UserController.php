@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\DataMaster;
 
 use App\DataTables\UsersDataTable;
+use App\Helper\FileHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -10,14 +11,12 @@ use App\Http\Resources\DefaultResource;
 use App\Models\Form;
 use App\Models\Golongan;
 use App\Models\Instance;
-use App\Models\LetterHistory;
 use App\Models\Period;
 use App\Models\Position;
 use App\Models\Skill;
 use App\Models\User;
 use App\Notifications\AccountDetail;
 use Exception;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +25,7 @@ use Throwable;
 
 class UserController extends Controller
 {
+    use FileHandler;
     /**
      * Display a listing of the resource.
      */
@@ -56,7 +56,6 @@ class UserController extends Controller
 
         try {
             $active_period = Period::where('status', 'active')->first();
-            $lastNumber = Form::count();
 
             if (!$active_period) {
                 throw new Exception('Periode pendaftaran telah berakhir');
@@ -145,7 +144,7 @@ class UserController extends Controller
 
         try {
             if ($request->hasFile('profile_picture')) {
-                $path_profile_picture = $request->file('profile_picture')->store('images/profile_pictures');
+                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $user->profile_picture, "images/profile_pictures");
             } else {
                 $path_profile_picture = $user->profile_picture;
             }

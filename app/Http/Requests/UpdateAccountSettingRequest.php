@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UpdateAccountSettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,29 +21,39 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string|max:255',
-            'nip' => 'required|string|min:18|unique:forms,nip,'
-                . $this->user->id . ',user_id',
-            'email' => 'nullable|email|string|max:255|unique:users,email,' . $this->user->id,
-            'phone' => 'required|string|min:10|max:15|unique:forms,phone,' . $this->user->id . ',user_id',
-            'dob' => 'required|date',
-            'religion' => 'required|string',
-            'position_id' => 'required|exists:positions,id',
-            'instance_id' => 'required|exists:instances,id',
-            'golongan_id' => 'required|exists:golongans,id',
-            'work_unit' => 'required|string',
-            'skill_id' => 'required|exists:skills,id',
-            'last_education' => 'required|string',
-            'last_education_major' => 'required|string',
-            'last_education_institution' => 'required|string',
-            'province_id' => 'required|exists:provinces,id',
-            'district_id' => 'required|exists:districts,id',
-            'subdistrict_id' => 'required|exists:subdistricts,id',
-            'village_id' => 'required|exists:villages,id',
-            'address' => 'required|string',
+            'email' => 'required|email|string|max:255|unique:users,email,' . $this->account_setting->id,
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'current_password' => ['required', 'string'],
+            'password' => ['nullable', 'string', 'confirmed', 'min:8'],
+            'password_confirmation' => ['nullable', 'string', 'required_with:password'],
         ];
+
+        if ($this->account_setting->role === 'user') {
+            $rules = array_merge($rules, [
+                'nip' => 'required|string|min:18|unique:forms,nip,'
+                    . $this->account_setting->id . ',user_id',
+                'phone' => 'required|string|min:10|max:15|unique:forms,phone,' . $this->account_setting->id . ',user_id',
+                'dob' => 'required|date',
+                'religion' => 'required|string',
+                'position_id' => 'required|exists:positions,id',
+                'instance_id' => 'required|exists:instances,id',
+                'golongan_id' => 'required|exists:golongans,id',
+                'work_unit' => 'required|string',
+                'skill_id' => 'required|exists:skills,id',
+                'last_education' => 'required|string',
+                'last_education_major' => 'required|string',
+                'last_education_institution' => 'required|string',
+                'province_id' => 'required|exists:provinces,id',
+                'district_id' => 'required|exists:districts,id',
+                'subdistrict_id' => 'required|exists:subdistricts,id',
+                'village_id' => 'required|exists:villages,id',
+                'address' => 'required|string',
+            ]);
+        }
+
+        return $rules;
     }
 
     /**
@@ -63,6 +73,7 @@ class UpdateUserRequest extends FormRequest
             'nip.min' => 'NIP harus minimal 18 karakter.',
             'nip.unique' => 'NIP sudah terdaftar.',
 
+            'email.required' => 'Email wajib diisi.',
             'email.email' => 'Email harus berupa format email yang valid.',
             'email.string' => 'Email harus berupa teks.',
             'email.max' => 'Email tidak boleh lebih dari 255 karakter.',
@@ -122,6 +133,17 @@ class UpdateUserRequest extends FormRequest
             'profile_picture.image' => 'Foto resmi harus berupa gambar.',
             'profile_picture.mimes' => 'Foto resmi harus dalam format jpeg, png, atau jpg.',
             'profile_picture.max' => 'Ukuran foto resmi tidak boleh lebih dari 1MB.',
+
+            'current_password.required' => 'Kata sandi saat ini wajib diisi.',
+            'current_password.string' => 'Kata sandi saat ini harus berupa teks.',
+
+            'password.nullable' => 'Kata sandi baru tidak wajib diisi.',
+            'password.string' => 'Kata sandi baru harus berupa teks.',
+            'password.confirmed' => 'Kata sandi baru dan konfirmasi kata sandi tidak cocok.',
+            'password.min' => 'Kata sandi baru harus minimal 8 karakter.',
+
+            'password_confirmation.required_with' => 'Konfirmasi kata sandi wajib diisi jika kata sandi baru diisi.',
+            'password_confirmation.string' => 'Konfirmasi kata sandi harus berupa teks.',
         ];
     }
 }

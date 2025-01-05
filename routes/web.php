@@ -11,7 +11,9 @@ use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
 use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
+use \App\Http\Controllers\Dashboard\Setting\UserSettingController;
+use App\Http\Controllers\Dashboard\Home\BiographyController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +28,11 @@ Route::prefix('/')->group(function () {
 
 // For authenticated users
 Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
+    // Home
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Biodata Anggota
+    Route::get('/biography', [BiographyController::class, 'index'])->middleware(['user.access:superadmin,admin,user'])->name('biography.index');
 
     // Data Master
     // Data Anggota
@@ -49,19 +55,12 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('skills', SkillController::class)->middleware(['user.access:superadmin'])->names('skills');
     // Keahlian
     Route::resource('letter-logs', LetterLogController::class)->middleware(['user.access:superadmin'])->names('letter-logs');
-});
 
-
-
-
-
-
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Setting
+    // Manajemen Pengguna
+    Route::resource('user-settings', UserSettingController::class)->middleware(['user.access:superadmin'])->names('user-settings');
+    // Pengaturan Akun
+    Route::resource('account-setting', AccountSettingController::class)->only(['index', 'update'])->names('account-setting');
 });
 
 require __DIR__ . '/auth.php';
