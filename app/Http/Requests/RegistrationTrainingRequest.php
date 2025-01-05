@@ -22,6 +22,7 @@ class RegistrationTrainingRequest extends FormRequest
     public function rules(): array
     {
         return [
+            "training_id" => "required",
             "rp_nama_lengkap" => "required",
             "rp_email" => "required|email",
             "rp_nomor_wa" => "required",
