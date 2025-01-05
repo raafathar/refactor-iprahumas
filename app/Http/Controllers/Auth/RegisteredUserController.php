@@ -91,6 +91,7 @@ class RegisteredUserController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'profile_picture' => $path_profile_picture ?? $user->profile_picture,
+                    'email_verified_at' => null,
                     'password' => $password,
                 ]);
             }
@@ -122,6 +123,8 @@ class RegisteredUserController extends Controller
                     'address' => $request->address,
                     'period_id' => $active_period->id,
                     'status' => 'pending',
+                    'payment_proof' => null,
+                    'reason' => null,
                     'updated_by' => $user->id,
                 ]
             );
