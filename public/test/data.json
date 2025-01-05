@@ -1,0 +1,72 @@
+[
+    {
+        "judul": "Pelatihan Python untuk Pemula",
+        "sesi": "online",
+        "views": 2325,
+        "tanggal_event": "2024-12-26",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Workshop Data Science",
+        "sesi": "offline",
+        "views": 1256,
+        "tanggal_event": "2024-12-26",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Kursus Dasar Web Development",
+        "sesi": "online",
+        "views": 3450,
+        "tanggal_event": "2024-05-23",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Pelatihan Cloud Computing",
+        "sesi": "offline",
+        "views": 500,
+        "tanggal_event": "2024-11-04",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Seminar Kecerdasan Buatan",
+        "sesi": "online",
+        "views": 1800,
+        "tanggal_event": "2024-01-27",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Workshop Deep Learning",
+        "sesi": "offline",
+        "views": 1100,
+        "tanggal_event": "2024-02-12",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Kursus Digital Marketing",
+        "sesi": "online",
+        "views": 4000,
+        "tanggal_event": "2024-07-19",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Pelatihan Manajemen Proyek",
+        "sesi": "offline",
+        "views": 3200,
+        "tanggal_event": "2024-06-05",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Seminar Teknologi Blockchain",
+        "sesi": "online",
+        "views": 1500,
+        "tanggal_event": "2024-10-22",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    },
+    {
+        "judul": "Workshop Cyber Security",
+        "sesi": "offline",
+        "views": 2300,
+        "tanggal_event": "2024-03-30",
+        "image": "https://web.komdigi.go.id/resource/dXBsb2Fkcy8yMDI0LzEwLzIxLzc5MDljY2NhLWYzNGMtNDE5YS05YWM4LTM0OWY2YjliODUxMC5wbmc="
+    }
+]

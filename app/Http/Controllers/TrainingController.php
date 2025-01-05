@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\TrainingDataTable;
+use App\Models\Training;
 use App\Helper\FileHandler;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\DataTables\TrainingDataTable;
 use App\Http\Requests\TrainingRequest;
 use App\Http\Resources\DefaultResource;
-use App\Models\Training;
-use Illuminate\Http\Request;
 
 class TrainingController extends Controller
 {
@@ -17,7 +18,10 @@ class TrainingController extends Controller
      */
     public function index(TrainingDataTable $dataTable)
     {
-        return $dataTable->render("dashboard.datamaster.pelatihan.index");
+        $training = Training::all(["id", "p_title"]);
+        return $dataTable->render("dashboard.datamaster.pelatihan.index", [
+            "trainings" => $training
+        ]);
     }
 
     /**
@@ -39,6 +43,7 @@ class TrainingController extends Controller
             $validation["p_image"] = $this->fileImageHandler($request, "p_image", "pelatihan");
             $validation["p_is_public"] = isset($validation["p_is_public"]) ? 1 : 0;
             $validation["p_status"] = "active";
+            $validation["p_slug"] = Str::slug($validation["p_title"]) . "-" . explode("-", Str::uuid())[0];
 
             Training::create($validation);
 
@@ -74,12 +79,19 @@ class TrainingController extends Controller
      */
     public function update(TrainingRequest $request, $id)
     {
+        $training = Training::whereId($id)->first();
         $validation = $request->validated();
 
+
         try {
+            if ($training->p_title != $validation["p_title"]) {
+                $validation["p_slug"] = Str::slug($validation["p_title"]) . "-" . explode("-", $training->p_slug)[count(explode("-", $training->p_slug)) - 1];
+            }
+
             if ($request->has("p_image")) {
                 $validation["p_image"] = $this->fileImageUpdateHandler($request, "p_image", $training->p_image, "pelatihan");
             }
+
             $validation["p_is_public"] = isset($validation["p_is_public"]) ? 1 : 0;
             Training::whereId($id)->update($validation);
 

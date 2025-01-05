@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime("p_end_date");
             $table->enum("p_status", ["active", "non-active", "on going", "ended"])->default("active");
             $table->enum("p_forum_scale", ["internal", "eksternal"]);
+            $table->string("p_slug");
             $table->integer("p_kuota");
             $table->integer("p_is_public");
             $table->timestamps();

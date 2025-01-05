@@ -130,7 +130,7 @@
                                     value="{{ old('p_image') == null ? $training->p_image : old('p_image') }}">
                             </div>
                             <img class="img-thumbnail" id="p_image-update"
-                                src="{{ \Storage::url($training->p_image) }}" alt="Gambar Pelatihan">
+                                src="{{ asset('storage/' . $training->p_image) }}" alt="Gambar Pelatihan">
 
                             <x-input-error messages="{{ $errors->first('p_image') }}" />
                         </div>

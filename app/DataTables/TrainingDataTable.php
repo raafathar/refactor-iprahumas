@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Training;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Yajra\DataTables\DataTables;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -28,9 +29,12 @@ class TrainingDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
-            ->addColumn('aksi', fn(Training $training) => view("dashboard.datamaster.pelatihan.action", compact("training")))
-            ->rawColumns(["p_start_date", "p_end_date", "created_at", "updated_at"])
+        $model = Training::with("registration_training");
+
+        return DataTables::of($model)
+            ->rawColumns(["aksi", "number_registration", "p_start_date", "p_end_date", "created_at", "updated_at"])
+            ->addColumn('aksi', "dashboard.datamaster.pelatihan.action")
+            ->editColumn("number_registration", fn(Training $training) => $training->registration_training->count())
             ->editColumn("p_status", fn(Training $training) =>  `
             <a class="btn btn-primary" href="` . $training->p_status . `"/>
             `)
@@ -105,6 +109,7 @@ class TrainingDataTable extends DataTable
         return [
             Column::make('aksi'),
             Column::make('p_title')->title("Judul"),
+            Column::make('number_registration'),
             Column::make('p_start_date')->title("Tanggal Pelaksanaan"),
             Column::make('p_end_date')->title("Tanggal Penutupan"),
             Column::make('p_status')->title("Status"),
