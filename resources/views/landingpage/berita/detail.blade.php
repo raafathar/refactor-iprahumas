@@ -94,13 +94,6 @@
                                     <a href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">
                                         <img src="{{ $beritaContent->b_image_url }}" class="card-img-top" alt="modernize-img">
                                     </a>
-                                    <span
-                                        class="badge text-bg-light fs-2 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
-                                        min Read</span>
-                                    <img src="../assets/images/profile/user-3.jpg" alt="modernize-img"
-                                        class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
-                                        width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-title="Addie Keller">
                                 </div>
                                 <div class="card-body p-4">
                                     <span class="badge text-bg-light fs-2 py-1 px-2 lh-sm  mt-3">{{ $beritaContent->user_name }}</span>

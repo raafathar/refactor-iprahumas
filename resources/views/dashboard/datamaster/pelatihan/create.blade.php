@@ -24,9 +24,9 @@
                 {{-- Judul {p_title} --}}
                 <div class="col">
                     <div class="form-group mb-3">
-                        <label for="p_title">Judul Pelatihan</label>
-                        <input id="p_title" name="p_title" value="{{ old('p_title') }}" type="text"
-                            class="form-control">
+                        <x-input-label for="p_title" :value="__('Judul Pelatihan')" required />
+                        <x-text-input id="p_title" type="text" name="p_title" :value="old('p_title')" required
+                            autofocus autocomplete="name" />
                         <x-input-error messages="{{ $errors->first('p_title') }}" />
                     </div>
                 </div>
@@ -34,8 +34,9 @@
                 <div class="col">
                     {{-- Location {p_location} --}}
                     <div class="mb-3">
-                        <label for="p_location">Lokasi</label>
-                        <input name="p_location" class="form-control" type="text" value="{{ old('p_location') }}">
+                        <x-input-label for="p_location" :value="__('Lokasi')" required />
+                        <x-text-input id="p_location" type="text" name="p_location" :value="old('p_location')" required
+                            autofocus autocomplete="name" />
                         <x-input-error messages="{{ $errors->first('p_location') }}" />
                     </div>
                 </div>
@@ -46,9 +47,9 @@
                 {{-- Tanggal mulai {p_start_date} --}}
                 <div class="col">
                     <div class="form-group mb-3">
-                        <label for="p_start_date">Tanggal Mulai</label>
-                        <input id="p_start_date" name="p_start_date" value="{{ old('p_start_date') }}"
-                            type="datetime-local" class="form-control">
+                        <x-input-label for="p_start_date" :value="__('Tanggal Mulai')" required />
+                        <x-text-input id="p_start_date" type="datetime-local" name="p_start_date" :value="old('p_start_date')" required
+                            autofocus autocomplete="name" />
                         <x-input-error messages="{{ $errors->first('p_start_date') }}" />
                     </div>
                 </div>
@@ -56,9 +57,9 @@
                 <div class="col">
                     {{-- Tanggal Berakhir {p_end_date} --}}
                     <div class="mb-3">
-                        <label for="p_end_date">Tanggal Berakhir</label>
-                        <input name="p_end_date" value="{{ old('p_end_date') }}" class="form-control"
-                            type="datetime-local">
+                        <x-input-label for="p_end_date" :value="__('Tanggal Berakhir')" required />
+                        <x-text-input id="p_end_date" type="datetime-local" name="p_end_date" :value="old('p_end_date')" required
+                            autofocus autocomplete="name" />
                         <x-input-error messages="{{ $errors->first('p_end_date') }}" />
                     </div>
                 </div>
@@ -69,10 +70,10 @@
                 {{-- Pelaksanaan VIA {p_type_training} --}}
                 <div class="col">
                     <div class="form-group mb-3">
-                        <label for="p_type_training">Pelaksanaan VIA</label>
+                        <x-input-label for="p_type_training" :value="__('Tanggal Berakhir')" required />
                         <select id="p_type_training" name="p_type_training" value="{{ old('p_type_training') }}"
                             type="text" class="form-control">
-                            <option selected disabled>-- PILIH VIA PELAKSANAAN --</option>
+                            <option selected disabled>-- Pilih Jenis Pelatihan --</option>
                             <option value="offline" {{ old('p_type_training') == 'offline' ? 'selected' : '' }}>Luring
                             </option>
                             <option value="online" {{ old('p_type_training') == 'online' ? 'selected' : '' }}>Daring
@@ -85,9 +86,9 @@
                 <div class="col">
                     {{-- Cakupan Forum {p_forum_scale} --}}
                     <div class="mb-3">
-                        <label for="p_forum_scale">Cakupan Forum</label>
+                        <x-input-label for="p_forum_scale" :value="__('Forum')" required />
                         <select name="p_forum_scale" class="form-control" type="text">
-                            <option selected disabled>-- PILIH CAKUPAN FORUM --</option>
+                            <option selected disabled>-- Pilih Cakupan Forum --</option>
                             <option value="internal" {{ old('p_forum_scale') == 'internal' ? 'selected' : '' }}>
                                 Internal</option>
                             <option value="eksternal" {{ old('p_forum_scale') == 'eksternal' ? 'selected' : '' }}>
@@ -104,11 +105,11 @@
                     {{-- Kuota {p_kuota} --}}
                     <div class="mb-3">
                         <div class="form-group">
-                            <label for="p_kuota">Kuota</label>
-                            <input id="p_kuota" name="p_kuota" type="text" class="form-control"
-                                value="{{ old('p_kuota') }}">
+                            <x-input-label for="p_kuota" :value="__('Kuota')" required />
+                            <x-text-input id="p_kuota" type="number" name="p_kuota" :value="old('p_kuota')" required
+                                autofocus autocomplete="name" />
+                            <x-input-error messages="{{ $errors->first('p_kuota') }}" />
                         </div>
-                        <x-input-error messages="{{ $errors->first('p_kuota') }}" />
                     </div>
                 </div>
 
@@ -116,11 +117,11 @@
                     {{-- Gambar Pelatihan {p_image} --}}
                     <div class="mb-3">
                         <div class="form-group">
-                            <label for="p_image">Gambar Pelatihan</label>
-                            <input id="p_image" name="p_image" type="file" class="form-control"
-                                value="{{ old('p_image') }}">
+                            <x-input-label for="p_image" :value="__('Gambar Pelatihan')" required />
+                            <x-text-input id="p_image" type="file" name="p_image" :value="old('p_image')" required
+                                autofocus autocomplete="name" />
+                            <x-input-error messages="{{ $errors->first('p_image') }}" />
                         </div>
-                        <x-input-error messages="{{ $errors->first('p_image') }}" />
                     </div>
                 </div>
             </div>

@@ -278,13 +278,6 @@
                                 <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="position-relative">
                                     <img src="{{ $berita->b_image_url }}"
                                         alt="blog image" class="w-100 img-fluid">
-                                    <div class="position-absolute bottom-0 end-0 me-9 mb-3">
-                                        <p class="text-dark fs-2 px-2 rounded-pill bg-white mb-0 ">2 min read</p>
-                                    </div>
-                                    <div class="position-absolute bottom-0 ms-7 mb-n9">
-                                        <img src="../assets/images/profile/user-3.jpg" alt="user" class="rounded-circle"
-                                            width="44px" height="44px">
-                                    </div>
                                 </a>
                                 <div class="mt-10 px-7 pb-7 h-100">
                                     <div class="d-flex gap-3 flex-column h-100 justify-content-between">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Banner;
 use App\Models\Berita;
+use App\Models\Training;
 use App\Models\PageProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -95,12 +96,28 @@ class BerandaController extends Controller
         ]);
     }
 
+    // halaman menu profile dan detail profile
+
     public function get_pages() {
         $pages = PageProfile::where('p_is_active', 1)->get();
         return response()->json($pages);
     }
-    
-    
+
+    public function detail_profil($slug)
+    {
+        $page = PageProfile::where('p_slug', $slug)->firstOrFail();
+        $page->p_content = strip_tags($page->p_content);
+            
+        if ($page->p_image && Storage::exists($page->p_image)) {
+            $page->p_image_url = asset('storage/' . $page->p_image);
+        } else {
+            $page->p_image_url = asset('assets/images/frontend-pages/default.svg');
+        }
+
+        return view('landingpage.profil.detail', compact('page'));
+    }
+
+    // halaman grid berita dan detail berita
 
     public function berita_view () {
         return view('landingpage.berita.index');
@@ -119,17 +136,27 @@ class BerandaController extends Controller
         return view('landingpage.berita.detail', compact('berita', 'beritaLainnya'));
     }
 
-    public function detail_profil($slug)
-    {
-        $page = PageProfile::where('p_slug', $slug)->firstOrFail();
-        $page->p_content = strip_tags($page->p_content);
-            
-        if ($page->p_image && Storage::exists($page->p_image)) {
-            $page->p_image_url = asset('storage/' . $page->p_image);
-        } else {
-            $page->p_image_url = asset('assets/images/frontend-pages/default.svg');
-        }
+    // halaman grid pelatihan dan detail pelatihan
 
-        return view('landingpage.profil.detail', compact('page'));
+    public function pelatihan_view() {
+        return view('landingpage.pelatihan.index');
     }
+
+    public function get_pelatihan(Request $request) {
+        // Get the selected year, month, and day from the request
+        $year = $request->year;
+        $month = $request->month;
+        $day = $request->day;
+    
+        // Format the selected date to match the format in the database (YYYY-MM-DD)
+        $startdate = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT) . "-" . str_pad($day, 2, '0', STR_PAD_LEFT);
+    
+        // Query to get the training sessions for the selected date
+        $pelatihan = Training::where('p_is_public', 1)
+            ->whereDate('p_start_date', '=', $startdate)
+            ->get();
+    
+        return response()->json($pelatihan);
+    }
+    
 }
