@@ -51,9 +51,17 @@ class TrainingController extends Controller
                 return new DefaultResource(true, "data berhasil ditambahkan", []);
             }
 
-            return back()->with("success", "Data berhasil ditambahkan");
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil ditambahkan', []);
+            }
+
+            toastr()->success('Data berhasil ditambahkan');
         } catch (\Throwable $e) {
-            return back()->with("error", "Ups ada yang salah!");
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, "Ups ada yang salah! Silakan hubungi tim pengembang!", []);
+            }
+
+            abort(500, $e->getMessage());
         }
     }
 
@@ -95,9 +103,17 @@ class TrainingController extends Controller
             $validation["p_is_public"] = isset($validation["p_is_public"]) ? 1 : 0;
             Training::whereId($id)->update($validation);
 
-            return back()->with("success", "Data berhasil diubah");
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil diubah', []);
+            }
+
+            toastr()->success('Data berhasil ditambahkan');
         } catch (\Throwable $e) {
-            return back()->with("error", "Ups ada yang salah!");
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, "Ups ada yang salah! Silakan hubungi tim pengembang!", []);
+            }
+
+            abort(500, $e->getMessage());
         }
     }
 

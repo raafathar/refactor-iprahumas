@@ -3,6 +3,7 @@ $(document).ready(function () {
 
         function onCreated() {
             resetReadImage("#training-form")
+            location.href = route("trainings.index")
         }
 
         window.onDelete = (event) => {
@@ -10,9 +11,6 @@ $(document).ready(function () {
 
             if (target.length > 0) {
                 const json = target.data('json');
-
-                console.log(route('trainings.destroy', json.id));
-
                 deleteForm(route('trainings.destroy', json.id), reloadTable);
             } else {
                 console.warn('Data JSON tidak ditemukan');
@@ -35,6 +33,12 @@ $(document).ready(function () {
 
         })
 
+        window.onSubmit = (event) => {
+            event.preventDefault()
+            if (document.activeElement) document.activeElement.blur();
+            submitForm('#training-form', onCreated);
+        };
+
         window.onEdit = (event) => {
             event.preventDefault()
 
@@ -51,8 +55,9 @@ $(document).ready(function () {
         window.onUpdate = (event) => {
             event.preventDefault()
             if (document.activeElement) document.activeElement.blur();
-            submitForm('#training-form-update', () => {
+            submitForm('#training-form', () => {
                 readImage({ event: event, input: "input[name='p_image']", imageTarget: "img#p_image-update" })
+                location.reload()
             });
         }
 

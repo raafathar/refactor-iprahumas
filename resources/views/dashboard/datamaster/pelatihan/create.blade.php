@@ -12,8 +12,7 @@
     <x-breadcrumb :items="['Data Master', 'Pelatihan']" />
 
     <div class="card card-body">
-        <form action="{{ route('trainings.store') }}" id="training-form-update" method="POST"
-            enctype="multipart/form-data">
+        <form action="{{ route('trainings.store') }}" id="training-form" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="d-flex justify-content-end mb-3">
                 <button onclick="onSubmit(event)" class="btn btn-primary">Tambah Pelatihan</button>

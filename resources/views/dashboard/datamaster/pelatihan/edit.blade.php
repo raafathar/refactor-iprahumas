@@ -17,7 +17,7 @@
             @csrf
             @method('put')
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn btn-primary">Ubah
+                <button class="btn btn-primary" onclick="onUpdate(event)">Ubah
                     Pelatihan</button>
             </div>
 

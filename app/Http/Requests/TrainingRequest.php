@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AfterSpecific;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TrainingRequest extends FormRequest
@@ -29,7 +30,11 @@ class TrainingRequest extends FormRequest
                 "p_type_training" => "required|in:offline,online",
                 "p_location" => "required",
                 "p_start_date" => "required|date",
-                "p_end_date" => "required|date",
+                "p_end_date" => [
+                    "required",
+                    "date",
+                    new AfterSpecific($this->input("p_start_date"), "Tanggal Mulai")
+                ],
                 "p_forum_scale" => "required|in:internal,eksternal",
                 "p_kuota" => "required|integer",
                 "p_is_public" => "nullable",
@@ -42,7 +47,11 @@ class TrainingRequest extends FormRequest
             "p_type_training" => "required|in:offline,online",
             "p_location" => "required",
             "p_start_date" => "required|date",
-            "p_end_date" => "required|date",
+            "p_end_date" => [
+                "required",
+                "date",
+                new AfterSpecific($this->input("p_start_date"), "Tanggal Mulai")
+            ],
             "p_forum_scale" => "required|in:internal,eksternal",
             "p_kuota" => "required|integer",
             "p_is_public" => "nullable",
