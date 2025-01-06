@@ -242,47 +242,15 @@
                         <span class="d-flex">
                             <i class="ti ti-layout-grid"></i>
                         </span>
-                        <span class="hide-menu">Frontend page</span>
+                        <span class="hide-menu">Landing page</span>
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="../main/frontend-landingpage.html" class="sidebar-link">
+                            <a href="{{ route('page-profile.index') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
-                                <span class="hide-menu">Homepage</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="../main/frontend-aboutpage.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">About Us</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="../main/frontend-contactpage.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Contact Us</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="../main/frontend-blogpage.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Blog</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="../main/frontend-blogdetailpage.html" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Blog Details</span>
+                                <span class="hide-menu">Halaman profile</span>
                             </a>
                         </li>
                     </ul>
