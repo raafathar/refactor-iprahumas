@@ -2,13 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
 use App\Models\Berita;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -55,8 +52,8 @@ class BeritaDataTable extends DataTable
      */
     public function query(Berita $model): QueryBuilder
     {
-        return $model->newQuery()->select('users.name', "beritas.*")
-            ->join('users', 'users.id', '=', 'beritas.user_id');;
+        return $model->newQuery()->latest()->select('users.name', "beritas.*")
+            ->join('users', 'users.id', '=', 'beritas.user_id');
     }
 
     /**
@@ -125,7 +122,8 @@ class BeritaDataTable extends DataTable
             Column::make('name')->title("Penulis"),
             Column::make('b_title')->title("Judul"),
             Column::make('b_date')->title("Dibuat Pada"),
-            Column::make('aktif')->title("Aktif")->searchable(false)->orderable(false),
+            Column::make('aktif')->title("Aktif")
+                ->searchable(false)->orderable(false),
         ];
     }
 

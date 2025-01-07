@@ -41,7 +41,18 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('biography.index') }}" aria-expanded="false">
                         <span>
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="21.21"  height="22.5"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users-group"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" /><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M17 10h2a2 2 0 0 1 2 2v1" /><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M3 13v-1a2 2 0 0 1 2 -2h2" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21.21" height="22.5" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
+                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M17 10h2a2 2 0 0 1 2 2v1" />
+                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
+                            </svg>
                         </span>
                         <span class="hide-menu">Biodata Anggota</span>
                     </a>
@@ -166,6 +177,17 @@
                     </ul>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Berita -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-receipt"></i>
+                        </span>
+                        <span class="hide-menu">Berita</span>
+                    </a>
+                </li>
+                <!-- ---------------------------------- -->
                 <!-- Pengaturan -->
                 <!-- ---------------------------------- -->
                 <li class="nav-small-cap">
@@ -178,7 +200,16 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('user-settings.index') }}" aria-expanded="false">
                         <span>
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="21.21"  height="22.5"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 21v-2a4 4 0 0 1 4 -4h2" /><path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21.21" height="22.5"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M6 21v-2a4 4 0 0 1 4 -4h2" />
+                                <path
+                                    d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" />
+                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            </svg>
                         </span>
                         <span class="hide-menu">Manajemen Pengguna</span>
                     </a>
@@ -194,17 +225,6 @@
                         <span class="hide-menu">Pengaturan Akun</span>
                     </a>
 
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Berita -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-receipt"></i>
-                        </span>
-                        <span class="hide-menu">Berita</span>
-                    </a>
                 </li>
                 <!-- ---------------------------------- -->
                 <!-- Pelatihan -->

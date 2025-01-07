@@ -211,6 +211,13 @@ return [
         "p_forum_scale" => "Cakupan forum",
         "p_kuota" => "Kuota",
         "p_is_public" => "Public",
+
+        // Berita 
+        "b_title" => "Judul",
+        "b_image" => "Gambar",
+        "b_date" => "Tanggal Berita",
+        "b_content" => "Artikel Berita",
+
     ],
 
 ];

@@ -11,6 +11,7 @@ use App\DataTables\BeritaDataTable;
 use App\Http\Requests\BeritaRequest;
 use Illuminate\Filesystem\Filesystem;
 use App\Http\Resources\DefaultResource;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class BeritaController extends Controller
 {
@@ -39,20 +40,28 @@ class BeritaController extends Controller
     {
         $validation = $request->all();
 
-        $validation["id"] = Str::uuid()->toString();
-        $validation["user_id"] = auth()->user()->id;
-        $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
-        $validation["b_image"] = $this->fileImageHandler($request, "b_image", "berita");
-        $validation["b_slug"] = Str::slug($validation["b_title"] . "-" . explode("-", $validation["id"])[0]);
 
 
         try {
+            $validation["id"] = Str::uuid()->toString();
+            $validation["user_id"] = auth()->user()->id;
+            $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
+            $validation["b_image"] = $this->fileImageHandler($request, "b_image", "berita");
+            $validation["b_slug"] = Str::slug($validation["b_title"] . "-" . explode("-", $validation["id"])[0]);
             $berita = Berita::create($validation);
-        } catch (\InvalidArgumentException $th) {
-            return back()->with("error", "Ups ada yang salah!");
-        }
 
-        return back()->with("success", "Berhasil menambahkan berita " . $berita->b_title);
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil ditambahkan', []);
+            }
+
+            toastr()->success('Data berhasil ditambahkan');
+        } catch (\Throwable $e) {
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, "Ups ada yang salah! Silakan hubungi tim pengembang!", []);
+            }
+
+            abort(500, $e->getMessage());
+        }
     }
 
     /**
@@ -68,9 +77,9 @@ class BeritaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit($id)
     {
-        $berita = Berita::whereBSlug($slug)->first();
+        $berita = Berita::whereId($id)->first();
         return view("dashboard.datamaster.berita.edit", compact("berita"));
     }
 
@@ -82,16 +91,28 @@ class BeritaController extends Controller
         $validation = $request->validated();
 
         try {
-            $berita = Berita::findOrFail($id)->first();
+            $berita = Berita::whereId($id)->first();
             $validation["b_is_active"] = isset($validation["b_is_active"]) ? 1 : 0;
             if ($request->hasFile("b_image")) {
                 $validation["b_image"] = $this->fileImageUpdateHandler($request, "b_image", $berita->b_image, "berita");
+            } else {
+                $validation["b_image"] = $berita->b_image;
             }
             $validation["b_slug"] = Str::slug($validation["b_title"]);
 
             Berita::whereId($id)->update($validation);
+
+            if ($request->expectsJson()) {
+                return new DefaultResource(true, 'Data berhasil ditambahkan', []);
+            }
+
+            toastr()->success('Data berhasil diubah');
         } catch (\InvalidArgumentException $th) {
-            return back()->with("error", "Ups ada yang salah!");
+            if ($request->expectsJson()) {
+                return new DefaultResource(false, "Ups ada yang salah! Silakan hubungi tim pengembang!", []);
+            }
+
+            abort(500, $e->getMessage());
         }
         return back()->with("success", "Berhasil mengubah berita " . $berita->b_title);
     }

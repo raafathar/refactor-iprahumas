@@ -95,6 +95,7 @@ function submitForm(formSelector, onSuccess = null) {
     const btn = $(event.target).closest("button");
     const formData = new FormData(form[0]);
 
+
     document.activeElement.blur();
     form.attr('inert', 'true');
 

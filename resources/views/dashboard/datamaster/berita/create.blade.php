@@ -12,10 +12,10 @@
     <x-breadcrumb :items="['Data Master', 'Tambah Berita']" />
 
     <div class="card card-body">
-        <form action="{{ route('beritas.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('beritas.store') }}" id="berita-form" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn btn-primary">Tambah Berita</button>
+                <button class="btn btn-primary" onclick="onSubmit(event)">Tambah Berita</button>
             </div>
             {{-- Judul --}}
             <div class="form-group mb-3">
@@ -58,6 +58,12 @@
 
     @push('scripts')
         <script src="{{ asset('assets/libs/ckeditor5/ckbox.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/toastr-init.js') }}"></script>
+        <script src="{{ asset('assets/js/dashboards/app.helper.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/sweetalert2/js/sweetalert2.min.js') }}"></script>
         <script type="importmap">
       {
         "imports": {
@@ -68,6 +74,7 @@
       }
     </script>
         <script src="{{ asset('assets/js/form/editor.js') }}" type="module"></script>
+        <script src="{{ asset('assets/js/feature/datamaster/berita.js') }}"></script>
     @endpush
 
 </x-app-layout>

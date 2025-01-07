@@ -9,11 +9,12 @@
     <div class="card card-body" style="height: auto">
 
 
-        <form action="{{ route('beritas.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('beritas.update', $berita->id) }}" id="berita-form" method="POST"
+            enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="d-flex justify-content-end mb-3">
-                <button class="btn btn-primary">Ubah Berita</button>
+                <button class="btn btn-primary" onclick="onUpdate(event)">Ubah Berita</button>
             </div>
             {{-- Judul --}}
             <div class="form-group mb-3">
@@ -28,7 +29,8 @@
                 <label for="b_image">Gambar Berita</label>
                 <input name="b_image" class="form-control" type="file" id="formFile">
 
-                <img src="{{ Storage::url($berita->b_image) }}" class="img-thumbnail" alt="Cover Berita">
+                <img id="b_image-update" src="{{ asset('storage/' . $berita->b_image) }}" class="img-thumbnail"
+                    alt="Cover Berita">
                 <x-input-error messages="{{ $errors->first('b_image') }}" />
             </div>
 
@@ -62,6 +64,13 @@
 
     @push('scripts')
         <script src="{{ asset('assets/libs/ckeditor5/ckbox.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/toastr-init.js') }}"></script>
+        <script src="{{ asset('assets/js/dashboards/app.helper.js') }}"></script>
+        <script src="{{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/sweetalert2/js/sweetalert2.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/ckeditor5/ckbox.js') }}"></script>
         <script type="importmap">
       {
         "imports": {
@@ -72,6 +81,7 @@
       }
     </script>
         <script src="{{ asset('assets/js/form/editor.js') }}" type="module"></script>
+        <script src="{{ asset('assets/js/feature/datamaster/berita.js') }}"></script>
     @endpush
 
 </x-app-layout>

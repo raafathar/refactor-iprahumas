@@ -22,6 +22,7 @@ class BeritaRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         if ($this->method() == "PUT") {
             return [
                 "b_title" => [
