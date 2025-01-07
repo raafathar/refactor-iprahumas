@@ -67,11 +67,14 @@ class RegisteredUserController extends Controller
             })->first();
 
             // Mengambil path foto profil jika ada
-            if ($request->hasFile('profile_picture')) {
-                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $user->profile_picture, "images/profile_pictures");
-            } else {
-                $path_profile_picture = $user->profile_picture;
-            }
+//            if ($request->hasFile('profile_picture')) {
+//                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $user->profile_picture, "images/profile_pictures");
+//            } else {
+//                $path_profile_picture = $user->profile_picture;
+//            }
+            $path_profile_picture = $request->file('profile_picture')
+                ? $request->file('profile_picture')->store('images/profile_pictures')
+                : null;
 
             // Mengatur password untuk user baru
             $password_rand = !$user || $user->password == null ? Str::random(8) : null;
