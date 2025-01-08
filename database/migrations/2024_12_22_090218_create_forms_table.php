@@ -31,7 +31,6 @@ return new class extends Migration
             $table->foreignId('subdistrict_id')->nullable()->default(null)->constrained('subdistricts');
             $table->foreignId('village_id')->nullable()->default(null)->constrained('villages');
             $table->text('address')->nullable();
-            $table->foreignUuid('period_id')->constrained('periods')->nullable();
             $table->text('payment_proof')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('reason')->nullable();
@@ -42,6 +41,13 @@ return new class extends Migration
         Schema::create('detail_form_skills', function (Blueprint $table) {
             $table->foreignUuid("form_id")->constrained("forms");
             $table->foreignUuid("skill_id")->constrained("skills");
+        });
+
+        Schema::create('detail_form_periods', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->foreignUuid("form_id")->constrained("forms");
+            $table->foreignUuid("period_id")->constrained("periods");
+            $table->timestamps();
         });
     }
 

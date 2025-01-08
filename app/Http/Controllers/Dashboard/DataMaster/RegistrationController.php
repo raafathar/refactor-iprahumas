@@ -166,14 +166,16 @@ class RegistrationController extends Controller
 
     public function generateSKRegistration($data, $letter_number)
     {
-        $name =   str_replace(' ', '_', $data->name);
+        $name = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $data->name));
+        $active_period = $data->form->periods->where('status', 'active')->first();
 
         $additional_data = [
             'chairperson_name' => 'FACHRUDIN ALI',
             'general_secretary_name' => 'LIZZATUL FARHATININGSIH',
             'chairperson_signature' => 'images/signature/TTDAli.png',
             'general_secretary_signature' => 'images/signature/TTDAli.png',
-            'letter_number' => $letter_number
+            'letter_number' => $letter_number,
+            'active_period' => $active_period,
         ];
 
         try {

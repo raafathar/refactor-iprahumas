@@ -139,9 +139,9 @@
                 <td style="width: 15%;">KESATU</td>
                 <td style="width: 5%;">:</td>
                 <td style="width: 80%;">Terhitung sejak
-                    {{ \Carbon\Carbon::parse($data->form->period->start_date)->translatedFormat('d F Y') }}
+                    {{ \Carbon\Carbon::parse($additional_data['active_period']['start_date'])->translatedFormat('d F Y') }}
                     s.d.
-                    {{ \Carbon\Carbon::parse($data->form->period->end_date)->translatedFormat('d F Y') }}
+                    {{ \Carbon\Carbon::parse($additional_data['active_period']['end_date'])->translatedFormat('d F Y') }}
                     disahkan sebagai anggota
                     aktif Ikatan Pranata
                     Humas Indonesia (IPRAHUMAS).</td>

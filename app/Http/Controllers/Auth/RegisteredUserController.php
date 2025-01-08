@@ -117,7 +117,6 @@ class RegisteredUserController extends Controller
                     'subdistrict_id' => $request->subdistrict_id,
                     'village_id' => $request->village_id,
                     'address' => $request->address,
-                    'period_id' => $active_period->id,
                     'status' => 'pending',
                     'payment_proof' => null,
                     'reason' => null,
@@ -127,6 +126,9 @@ class RegisteredUserController extends Controller
 
             $skills = $request->input('skill_id', []);
             $form->skills()->sync($skills);
+            $form->periods()->attach($active_period->id, [
+                'id' => Str::uuid()
+            ]);
 
             Auth::login($user);
 

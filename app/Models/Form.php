@@ -35,7 +35,6 @@ class Form extends Model
         'payment_proof',
         'status',
         'reason',
-        'period_id',
         'updated_by',
     ];
 
@@ -95,9 +94,9 @@ class Form extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    public function period(): BelongsTo
+    public function periods(): BelongsToMany
     {
-        return $this->belongsTo(Period::class);
+        return $this->belongsToMany(Period::class, 'detail_form_periods', 'form_id', 'period_id')->withTimestamps();
     }
 
     public function skills(): BelongsToMany

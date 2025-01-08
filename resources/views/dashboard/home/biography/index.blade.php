@@ -30,12 +30,12 @@
                                  alt="{{ $user->name }}" />
                         @endif
                         <h5 class="fw-semibold mb-0 mt-4">{{ $user->name }}</h5>
-                        <span class="text-dark fs-2">{{ $user->form->instance->name }}</span>
+                        <span class="text-dark fs-2">{{ optional($user->form->instance)->name ?: '-' }}</span>
                     </div>
                     <ul class="px-2 py-2 bg-light list-unstyled d-flex align-items-center justify-content-center mb-0">
 {{--                       jabatan, pangkat--}}
                         <li class="me-3">
-                            <span>{{ $user->form->position->name }}</span>
+                            <span>{{ optional($user->form->position)->name ?: '-' }}</span>
                         </li>
                     </ul>
                 </div>
@@ -45,6 +45,7 @@
 
     <div class="d-flex justify-content-center">
         <ul class="pagination">
+            {{-- Tombol ke halaman sebelumnya --}}
             @if ($users->onFirstPage())
                 <li class="page-item disabled">
                     <span class="page-link">&laquo;</span>
@@ -55,12 +56,46 @@
                 </li>
             @endif
 
-            @for ($i = 1; $i <= $users->lastPage(); $i++)
-                <li class="page-item {{ $i == $users->currentPage() ? 'active' : '' }}">
+            {{-- Logika untuk menampilkan halaman tertentu --}}
+            @php
+                $currentPage = $users->currentPage();
+                $lastPage = $users->lastPage();
+                $start = max(1, $currentPage - 2); // Tampilkan 2 halaman sebelum halaman saat ini
+                $end = min($lastPage, $currentPage + 2); // Tampilkan 2 halaman setelah halaman saat ini
+            @endphp
+
+            {{-- Tampilkan halaman pertama jika jauh dari range --}}
+            @if ($start > 1)
+                <li class="page-item">
+                    <a class="page-link" href="{{ $users->url(1) }}">1</a>
+                </li>
+                @if ($start > 2)
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+            @endif
+
+            {{-- Tampilkan halaman dalam range --}}
+            @for ($i = $start; $i <= $end; $i++)
+                <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
                     <a class="page-link" href="{{ $users->url($i) }}">{{ $i }}</a>
                 </li>
             @endfor
 
+            {{-- Tampilkan halaman terakhir jika jauh dari range --}}
+            @if ($end < $lastPage)
+                @if ($end < $lastPage - 1)
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                @endif
+                <li class="page-item">
+                    <a class="page-link" href="{{ $users->url($lastPage) }}">{{ $lastPage }}</a>
+                </li>
+            @endif
+
+            {{-- Tombol ke halaman berikutnya --}}
             @if ($users->hasMorePages())
                 <li class="page-item">
                     <a class="page-link" href="{{ $users->nextPageUrl() }}" rel="next">&raquo;</a>

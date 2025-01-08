@@ -63,6 +63,9 @@ class UsersDataTable extends DataTable
             ->editColumn('skills', function (User $users) {
                 return optional($users->form->skills)->pluck('name')->join(', ') ?: '-';
             })
+            ->editColumn('periods', function (User $users) {
+                return optional($users->form->periods)->pluck('name')->join(', ') ?: '-';
+            })
             ->editColumn('updated_by', function (User $users) {
                 return optional($users->form->updatedBy)->name ?: '-';
             })
