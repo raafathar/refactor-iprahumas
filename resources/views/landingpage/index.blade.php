@@ -384,14 +384,13 @@
                         <div class="col-lg-6">
                             <div class="py-lg-12 ps-lg-12 py-5 px-lg-0 px-9">
                                 <h2 class="fs-10 fw-bolder text-lg-start text-center">
-                                    Jadilah Bagian dari Ikatan Pranata Humas Indonesia
+                                    Jadilah bagian dari Ikatan Pranata Humas Indonesia
                                 </h2>
                                 <div
                                     class="d-flex justify-content-lg-start justify-content-center gap-3 my-4 flex-sm-nowrap flex-wrap">
-                                    <a href="/login" class="btn btn-primary py-6 px-9">Masuk
-                                        untuk Anggota</a>
+                                    <a href="/login" class="btn btn-primary py-6 px-9">Masuk untuk anggota</a>
                                     <a href="/register"
-                                        class="btn border border-dark py-6 px-9">Daftar Menjadi Anggota</a>
+                                        class="btn border border-dark py-6 px-9">Daftar menjadi anggota</a>
                                 </div>
                             </div>
                         </div>
