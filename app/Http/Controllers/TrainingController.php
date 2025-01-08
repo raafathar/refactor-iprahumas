@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Training;
 use App\Helper\FileHandler;
 use Illuminate\Support\Str;
@@ -68,9 +69,11 @@ class TrainingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Training $training)
+    public function show($id)
     {
-        //
+        // $training = Training::whereId($id)->first();
+        // $zona = Carbon::parse($training->p_start_date)->format("T");
+        // return view("dashboard.datamaster.pelatihan.detail", compact("training", "zona"));
     }
 
     /**
@@ -79,6 +82,8 @@ class TrainingController extends Controller
     public function edit($id)
     {
         $training = Training::whereId($id)->first();
+
+
         return view("dashboard.datamaster.pelatihan.edit", compact("training"));
     }
 
@@ -90,7 +95,6 @@ class TrainingController extends Controller
         $training = Training::whereId($id)->first();
         $validation = $request->validated();
 
-
         try {
             if ($training->p_title != $validation["p_title"]) {
                 $validation["p_slug"] = Str::slug($validation["p_title"]) . "-" . explode("-", $training->p_slug)[count(explode("-", $training->p_slug)) - 1];
@@ -101,6 +105,7 @@ class TrainingController extends Controller
             }
 
             $validation["p_is_public"] = isset($validation["p_is_public"]) ? 1 : 0;
+            // dd($validation, Training::whereId($id)->first());
             Training::whereId($id)->update($validation);
 
             if ($request->expectsJson()) {

@@ -148,7 +148,7 @@
             {{-- Editor --}}
             <textarea id="editor" name="p_content">
                 @if (old('p_content') == null)
-@include('dashboard.datamaster.pelatihan.default-value')
+{{ $training->p_content }}
 @else
 {{ old('p_content') }}
 @endif

@@ -35,6 +35,7 @@ $(document).ready(function () {
 
         window.onSubmit = (event) => {
             event.preventDefault()
+            $("textarea[name='p_content']").text(ContentEditor.getData())
             if (document.activeElement) document.activeElement.blur();
             submitForm('#training-form', onCreated);
         };
@@ -54,6 +55,7 @@ $(document).ready(function () {
 
         window.onUpdate = (event) => {
             event.preventDefault()
+            $("textarea[name='p_content']").text(ContentEditor.getData())
             if (document.activeElement) document.activeElement.blur();
             submitForm('#training-form', () => {
                 readImage({ event: event, input: "input[name='p_image']", imageTarget: "img#p_image-update" })

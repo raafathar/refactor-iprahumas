@@ -4,9 +4,8 @@
     </a>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li>
-            <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" id="btn-detail"
-                data-bs-toggle="modal" data-bs-target="#modal-detail" data-json="{{ $model }}"
-                onclick="onDetail(event)">
+            <a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('trainings.show', $model->id) }}"
+                id="btn-detail">
                 <i class="fs-4 ti ti-eye"></i>Detail
             </a>
             <a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('trainings.edit', $model->id) }}"
