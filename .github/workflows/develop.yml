@@ -22,10 +22,11 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-      - name: Use Node.js 22.09.0
-        uses: actions/setup-node@v4.1.0
+      - name: Use Node.js 22.5
+        uses: actions/setup-node@v4
         with:
-          node-version: "22.09.0"
+          node-version: "22.5"
+          cache: "npm"
 
       - name: Install Dependencies
         run: composer install
