@@ -33,14 +33,14 @@ $(document).ready(() => {
         };
 
         return religionMap[religion];
-    }  
-    
+    }
+
     function generateDetailHTML(json) {
-        const formatDate = (date) => 
+        const formatDate = (date) =>
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
         const upperCase = (string) => string.toUpperCase();
-        
+
         const fields = [
             { label: 'Nama Lengkap', value: json.name },
             { label: 'Email', value: json.email },
@@ -55,14 +55,14 @@ $(document).ready(() => {
             { label: 'Jabatan', value: json.form.position.name },
             { label: 'Instansi', value: json.form.instance.name },
             { label: 'Pangkat/Golongan', value: json.form.golongan.name },
-            { label: 'Keahlian', value: json.form.skill.name },
+            { label: 'Keahlian', value: json.form.skills.map(skill => skill.name).join(', ') },
             { label: 'Provinsi', value: json.form.province.name },
             { label: 'Kabupaten/Kota', value: json.form.district.name },
             { label: 'Kecamatan', value: json.form.subdistrict.name },
             { label: 'Kelurahan', value: json.form.village.name },
             { label: 'Alamat Lengkap', value: json.form.address },
-            { 
-                label: 'Bukti Pembayaran', 
+            {
+                label: 'Bukti Pembayaran',
                 value: json.form.payment_proof_url
                 ? `<img src="${json.form.payment_proof_url}" alt="Bukti Pembayaran" class="img-fluid" width="100%">`
                 : 'Belum Melakukan Pembayaran'

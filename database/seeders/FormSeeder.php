@@ -38,7 +38,7 @@ class FormSeeder extends Seeder
             $status = ['pending', 'pending', 'approved', 'approved', 'rejected', 'rejected'];
 
             foreach ($users as $key => $user) {
-                Form::create([
+                $form = Form::create([
                     'user_id' => $user->id,
                     'nip' => fake()->numerify('####################'),
                     'dob' => fake()->date('Y-m-d', '2003-12-31'),
@@ -52,7 +52,6 @@ class FormSeeder extends Seeder
                     'position_id' => Position::inRandomOrder()->first()->id,
                     'instance_id' => Instance::inRandomOrder()->first()->id,
                     'golongan_id' => Golongan::inRandomOrder()->first()->id,
-                    'skill_id' => Skill::inRandomOrder()->first()->id,
                     'province_id' => $province->id,
                     'district_id' => $district->id,
                     'subdistrict_id' => $subdistrict->id,
@@ -64,6 +63,13 @@ class FormSeeder extends Seeder
                     'reason' => $status[$key] === 'rejected' ? fake()->sentence() : null,
                     'updated_by' => User::where('role', 'admin')->first()->id,
                 ]);
+
+                $skills = Skill::pluck('id')->toArray();
+                $assignedSkills = fake()->randomElements($skills, fake()->numberBetween(1, 3));
+
+                foreach ($assignedSkills as $skillId) {
+                    $form->skills()->attach($skillId);
+                }
             }
         } catch (\Throwable $th) {
             throw $th;

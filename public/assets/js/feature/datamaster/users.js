@@ -72,7 +72,7 @@ $(document).ready(() => {
             { label: 'Jabatan', value: json.form.position.name },
             { label: 'Instansi', value: json.form.instance.name },
             { label: 'Pangkat/Golongan', value: json.form.golongan.name },
-            { label: 'Keahlian', value: json.form.skill.name },
+            { label: 'Keahlian', value: json.form.skills.map(skill => skill.name).join(', ') },
             { label: 'Provinsi', value: json.form.province.name },
             { label: 'Kabupaten/Kota', value: json.form.district.name },
             { label: 'Kecamatan', value: json.form.subdistrict.name },

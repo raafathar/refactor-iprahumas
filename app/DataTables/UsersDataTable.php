@@ -60,8 +60,8 @@ class UsersDataTable extends DataTable
             ->editColumn('work_unit', function (User $users) {
                 return $users->form->work_unit;
             })
-            ->editColumn('skill_id', function (User $users) {
-                return $users->form->skill->name;
+            ->editColumn('skills', function (User $users) {
+                return $users->form->skills->pluck('name')->join(', ');
             })
             ->editColumn('updated_by', function (User $users) {
                 return $users->form->updatedBy->name;

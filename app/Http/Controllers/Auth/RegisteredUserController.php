@@ -66,12 +66,6 @@ class RegisteredUserController extends Controller
                 $query->where('nip', 'like', '%' . $request->nip . '%');
             })->first();
 
-            // Mengambil path foto profil jika ada
-//            if ($request->hasFile('profile_picture')) {
-//                $path_profile_picture = $this->fileImageUpdateHandler($request, "profile_picture", $user->profile_picture, "images/profile_pictures");
-//            } else {
-//                $path_profile_picture = $user->profile_picture;
-//            }
             $path_profile_picture = $request->file('profile_picture')
                 ? $request->file('profile_picture')->store('images/profile_pictures')
                 : null;
@@ -118,7 +112,6 @@ class RegisteredUserController extends Controller
                     'position_id' => $request->position_id,
                     'instance_id' => $request->instance_id,
                     'golongan_id' => $request->golongan_id,
-                    'skill_id' => $request->skill_id,
                     'province_id' => $request->province_id,
                     'district_id' => $request->district_id,
                     'subdistrict_id' => $request->subdistrict_id,
@@ -131,6 +124,9 @@ class RegisteredUserController extends Controller
                     'updated_by' => $user->id,
                 ]
             );
+
+            $skills = $request->input('skill_id', []);
+            $form->skills()->sync($skills);
 
             Auth::login($user);
 

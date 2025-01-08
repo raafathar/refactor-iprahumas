@@ -26,7 +26,6 @@ return new class extends Migration
             $table->foreignUuid('position_id')->nullable()->default(null)->constrained('positions');
             $table->foreignUuid('instance_id')->nullable()->default(null)->constrained('instances');
             $table->foreignUuid('golongan_id')->nullable()->default(null)->constrained('golongans');
-            $table->foreignUuid('skill_id')->nullable()->default(null)->constrained('skills');
             $table->foreignId('province_id')->nullable()->default(null)->constrained('provinces');
             $table->foreignId('district_id')->nullable()->default(null)->constrained('districts');
             $table->foreignId('subdistrict_id')->nullable()->default(null)->constrained('subdistricts');
@@ -39,6 +38,11 @@ return new class extends Migration
             $table->foreignUuid('updated_by')->constrained('users')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('detail_form_skills', function (Blueprint $table) {
+            $table->foreignUuid("form_id")->constrained("forms");
+            $table->foreignUuid("skill_id")->constrained("skills");
+        });
     }
 
     /**
@@ -47,5 +51,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('forms');
+        Schema::dropIfExists('detail_form_skills');
     }
 };

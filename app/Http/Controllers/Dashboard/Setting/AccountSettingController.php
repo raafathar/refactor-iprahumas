@@ -39,6 +39,7 @@ class AccountSettingController extends Controller
                 'form.district',
                 'form.subdistrict',
                 'form.village',
+                'form.skills',
             ])->first();
         }
 
@@ -117,7 +118,6 @@ class AccountSettingController extends Controller
                     'instance_id' => $request->instance_id,
                     'golongan_id' => $request->golongan_id,
                     'work_unit' => $request->work_unit,
-                    'skill_id' => $request->skill_id,
                     'last_education' => $request->last_education,
                     'last_education_major' => $request->last_education_major,
                     'last_education_institution' => $request->last_education_institution,
@@ -128,6 +128,9 @@ class AccountSettingController extends Controller
                     'address' => $request->address,
                     'updated_by' => Auth::user()->id,
                 ]);
+
+                $skills = $request->input('skill_id', []);
+                $form->skills()->sync($skills);
             }
 
             DB::commit();

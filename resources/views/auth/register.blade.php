@@ -144,14 +144,16 @@
                                             <x-input-label for="position_id" :value="__('Jabatan')" required />
                                             <select name="position_id" id="position_id" class="form-control" required
                                                 autocomplete="position_id">
+                                                @if($positions->isEmpty())
+                                                    <option readonly value="">Data Masih Kosong</option>
+                                                @else
                                                 <option value="" disabled selected>Pilih Jabatan</option>
-                                                @forelse($positions as $position)
+                                                    @foreach($positions as $position)
                                                     <option value="{{ $position->id }}"
                                                         {{ old('position_id') == $position->id ? 'selected' : '' }}>
                                                         {{ $position->name }}</option>
-                                                @empty
-                                                    <option readonly value="">Data Masih Kosong</option>
-                                                @endforelse
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <x-input-error :messages="$errors->get('position_id')" class="mt-2" />
                                         </div>
@@ -159,14 +161,16 @@
                                             <x-input-label for="instance_id" :value="__('Instansi')" required />
                                             <select name="instance_id" id="instance_id" class="form-control" required
                                                 autocomplete="instance_id">
-                                                <option value="" disabled selected>Pilih Instansi</option>
-                                                @forelse($instances as $instance)
-                                                    <option value="{{ $instance->id }}"
-                                                        {{ old('instance_id') == $instance->id ? 'selected' : '' }}>
-                                                        {{ $instance->name }}</option>
-                                                @empty
+                                                @if($instances->isEmpty())
                                                     <option readonly value="">Data Masih Kosong</option>
-                                                @endforelse
+                                                @else
+                                                    <option value="" disabled selected>Pilih Instansi</option>
+                                                    @foreach($instances as $instance)
+                                                        <option value="{{ $instance->id }}"
+                                                            {{ old('instance_id') == $instance->id ? 'selected' : '' }}>
+                                                            {{ $instance->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <x-input-error :messages="$errors->get('instance_id')" class="mt-2" />
                                         </div>
@@ -174,15 +178,16 @@
                                             <x-input-label for="golongan_id" :value="__('Pangkat/Golongan')" required />
                                             <select name="golongan_id" id="golongan_id" class="form-control" required
                                                 autocomplete="golongan_id">
-                                                <option value="" disabled selected>Pilih Pangkat/Golongan
-                                                </option>
-                                                @forelse($golongans as $golongan)
-                                                    <option value="{{ $golongan->id }}"
-                                                        {{ old('golongan_id') == $golongan->id ? 'selected' : '' }}>
-                                                        {{ $golongan->name }}</option>
-                                                @empty
+                                                @if($golongans->isEmpty())
                                                     <option readonly value="">Data Masih Kosong</option>
-                                                @endforelse
+                                                @else
+                                                    <option value="" disabled selected>Pilih Pangkat/Golongan</option>
+                                                    @foreach($golongans as $golongan)
+                                                        <option value="{{ $golongan->id }}"
+                                                            {{ old('golongan_id') == $golongan->id ? 'selected' : '' }}>
+                                                            {{ $golongan->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <x-input-error :messages="$errors->get('golongan_id')" class="mt-2" />
                                         </div>
@@ -194,17 +199,17 @@
                                         </div>
                                         <div class="mb-3">
                                             <x-input-label for="skill_id" :value="__('Keahlian')" required />
-                                            <select name="skill_id" id="skill_id" class="form-control" required
-                                                autocomplete="skill_id">
-                                                <option value="" disabled selected>Pilih Keahlian
-                                                </option>
-                                                @forelse($skills as $skill)
-                                                    <option value="{{ $skill->id }}"
-                                                        {{ old('skill_id') == $skill->id ? 'selected' : '' }}>
-                                                        {{ $skill->name }}</option>
-                                                @empty
+                                            <select name="skill_id[]" id="skill_id" multiple="multiple" class="form-control" required>
+                                                @if($skills->isEmpty())
                                                     <option readonly value="">Data Masih Kosong</option>
-                                                @endforelse
+                                                @else
+                                                    <option value="" disabled>Pilih Keahlian</option>
+                                                    @foreach($skills as $skill)
+                                                        <option value="{{ $skill->id }}" {{ collect(old('skill_id'))->contains($skill->id) ? 'selected' : '' }}>
+                                                            {{ $skill->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                             <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
                                         </div>

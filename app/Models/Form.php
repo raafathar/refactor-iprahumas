@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 
 class Form extends Model
@@ -25,7 +27,6 @@ class Form extends Model
         'position_id',
         'instance_id',
         'golongan_id',
-        'skill_id',
         'province_id',
         'district_id',
         'subdistrict_id',
@@ -44,58 +45,63 @@ class Form extends Model
         'last_education' => 'string',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function position()
+    public function position(): BelongsTo
     {
         return $this->belongsTo(Position::class);
     }
 
-    public function instance()
+    public function instance(): BelongsTo
     {
         return $this->belongsTo(Instance::class);
     }
 
-    public function golongan()
+    public function golongan(): BelongsTo
     {
         return $this->belongsTo(Golongan::class);
     }
 
-    public function skill()
+    public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class);
     }
 
-    public function province()
+    public function province(): BelongsTo
     {
         return $this->belongsTo(Province::class);
     }
 
-    public function district()
+    public function district(): BelongsTo
     {
         return $this->belongsTo(District::class);
     }
 
-    public function subdistrict()
+    public function subdistrict(): BelongsTo
     {
         return $this->belongsTo(Subdistrict::class);
     }
 
-    public function village()
+    public function village(): BelongsTo
     {
         return $this->belongsTo(Village::class);
     }
 
-    public function updatedBy()
+    public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    public function period()
+    public function period(): BelongsTo
     {
         return $this->belongsTo(Period::class);
+    }
+
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class, 'detail_form_skills', 'form_id', 'skill_id');
     }
 }

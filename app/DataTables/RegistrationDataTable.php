@@ -30,7 +30,7 @@ class RegistrationDataTable extends DataTable
                     : null;
                 return view('dashboard.datamaster.registration.action', compact('users'));
             })
-            ->rawColumns(['payment_proof', 'name', 'nip', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'status', 'reason', 'updated_by', 'created_at', 'updated_at'])
+            ->rawColumns(['payment_proof', 'name', 'nip', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'status', 'reason', 'skills', 'updated_by', 'created_at', 'updated_at'])
             ->editColumn('payment_proof', function (User $users) {
                 $paymentProof = $users->form->payment_proof
                     ? asset('storage/' . $users->form->payment_proof)
@@ -107,8 +107,8 @@ class RegistrationDataTable extends DataTable
             ->editColumn('reason', function (User $users) {
                 return $users->form->reason;
             })
-            ->editColumn('skill_id', function (User $users) {
-                return $users->form->skill->name;
+            ->editColumn('skills', function (User $users) {
+                return $users->form->skills->pluck('name')->join(', ');
             })
             ->editColumn('updated_by', function (User $users) {
                 return $users->form->updatedBy->name;
