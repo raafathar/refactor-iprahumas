@@ -1,0 +1,60 @@
+name: Deploy to dev server jagoan hosting
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Use Node.js 22.09.0
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "22.09.0"
+
+      - name: Install Dependencies
+        run: composer install
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Update .env
+        env:
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: php artisan migrate:fresh --seed
+
+      - name: Clear Cache
+        run: php artisan optimize:clear
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          local-dir: ./
+          port: ${{ secrets.FTP_PORT }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+      
