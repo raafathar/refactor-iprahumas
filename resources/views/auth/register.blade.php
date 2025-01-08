@@ -2,8 +2,8 @@
     <div class="position-relative overflow-hidden radial-gradient min-vh-100 w-100">
         <div class="position-relative z-index-5">
             <div class="row">
-                <div class="col-xl-7 col-xxl-8">
-                    <a href="javascript:void(0)" class="text-nowrap logo-img d-block px-4 py-9 w-100">
+                <div class="col-xl-7 col-xxl-8" style="background-image: url('{{ asset('assets/images/backgrounds/register.jpg') }}'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                    <a href="{{ route('landingpage') }}" class="text-nowrap logo-img d-block px-4 py-9 w-100">
                         <img src="{{ asset('assets/images/logos/dark-logo.png') }}" class="dark-logo" height="58"
                             alt="Logo-Dark" />
                         <img src="{{ asset('assets/images/logos/light-logo.png') }}" class="light-logo" height="58"
@@ -11,7 +11,7 @@
                     </a>
                     <div class="d-none d-xl-flex align-items-center justify-content-center h-n80">
                         <div class="d-flex flex-column align-items-center">
-                            <h1 class="text-center">IPRAHUMAS</h1>
+                            {{-- <h1 class="text-center">IPRAHUMAS</h1>
                             <p class="text-center">Ikatan Pranata Humas Indonesia</p>
                             <div class="row" style="width: 80%; height: 80%">
                                 <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
@@ -37,7 +37,7 @@
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
                                         class="w-100 shadow-1-strong rounded mb-4" alt="Yosemite National Park" />
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <!-- Gallery -->
                     </div>
@@ -45,12 +45,11 @@
                 <div class="col-xl-5 col-xxl-4">
                     <div
                         class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
-                        <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-4">
-                            <h2 class="mb-2 fs-6 fw-bolder">Pendaftaran Anggota IPRAHUMAS</h2>
-
-                            <h2 class="mb-2 fs-3 fw-bolder">Anggota Lama?</h2>
-
+                        <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-2">
+                            <h2 class="fs-6 fw-bolder">Daftar menjadi Bagian Anggota</h2>
+                            <p class="mb-4">Ikatan Pranata Humas Indonesia</p>
                             <!-- Search Section -->
+                            <x-input-label for="input-search" :value="__('Cari Data untuk Anggota Lama')" />
                             <div class="input-group mb-2">
                                 <x-text-input id="input-search" type="text" name="input_search" class="form-control"
                                     placeholder="Cari berdasarkan NIP" required autofocus />
@@ -58,9 +57,9 @@
                             </div>
 
                             <!-- Result Section -->
-                            <div id="user-result"></div>
+                            <div id="user-result" class="text-danger fs-3"></div>
 
-                            <p class="mb-2" id="navigator-count"></p>
+                            <p class="mb-2 mt-4" id="navigator-count"></p>
 
                             <form method="POST" id="register-form" action="{{ route('register') }}"
                                 class="needs-validation" novalidate enctype="multipart/form-data">
@@ -197,22 +196,6 @@
                                                 :value="old('work_unit')" required autofocus autocomplete="work_unit" />
                                             <x-input-error :messages="$errors->get('work_unit')" class="mt-2" />
                                         </div>
-                                        <div class="mb-3">
-                                            <x-input-label for="skill_id" :value="__('Keahlian')" required />
-                                            <select name="skill_id[]" id="skill_id" multiple="multiple" class="form-control" required>
-                                                @if($skills->isEmpty())
-                                                    <option readonly value="">Data Masih Kosong</option>
-                                                @else
-                                                    <option value="" disabled>Pilih Keahlian</option>
-                                                    @foreach($skills as $skill)
-                                                        <option value="{{ $skill->id }}" {{ collect(old('skill_id'))->contains($skill->id) ? 'selected' : '' }}>
-                                                            {{ $skill->name }}
-                                                        </option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                            <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
-                                        </div>
                                     </div>
 
                                     {{-- 4 --}}
@@ -299,20 +282,47 @@
                                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                         </div>
                                     </div>
+
+                                    {{-- 6 --}}
+                                    <div class="d-none mt-4">
+                                        <div class="mb-3">
+                                            <x-input-label for="skill_id" :value="__('Keahlian')" required />
+                                            <select name="skill_id[]" id="skill_id" multiple="multiple" class="form-control" required>
+                                                @if($skills->isEmpty())
+                                                    <option readonly value="">Data Masih Kosong</option>
+                                                @else
+                                                    <option value="" disabled>Pilih Keahlian</option>
+                                                    @foreach($skills as $skill)
+                                                        <option value="{{ $skill->id }}" {{ collect(old('skill_id'))->contains($skill->id) ? 'selected' : '' }}>
+                                                            {{ $skill->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
+                                        </div>
+                                    </div>
+
+                                    
                                 </div>
 
-                                <div class="d-flex justify-content-end gap-3">
+
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input primary" type="checkbox" value=""
+                                    id="remember_me" name="remember" checked>
+                                    <label class="form-check-label text-dark fs-3" id="remember_me">
+                                        {{ __('Dengan melakukan pendaftaran, saya setuju dengan Syarat & Ketentuan keanggotaan.') }}
+                                    </label>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-3 my-3">
                                     <span id="back" class="btn btn-rounded btn-outline-dark w-100">Kembali</span>
                                     <span id="next" class="btn btn-primary w-100"></span>
                                 </div>
-                                <p class="mt-3 fs-3">
-                                    Dengan melakukan pendaftaran, saya setuju dengan Kebijakan Privasi dan
-                                    Syarat & Ketentuan Iprahumas.
-                                </p>
 
                                 <div class="d-flex align-items-center justify-content-center">
                                     <p class="fs-4 mb-0 fw-medium">{{ __('Sudah menjadi anggota?') }}</p>
-                                    <a class="text-primary fw-medium ms-2" href="{{ route('login') }}">
+                                    <a class="text-primary fw-medium ms-2 fs-4" href="{{ route('login') }}">
                                         {{ __('Masuk') }}
                                     </a>
                                 </div>
