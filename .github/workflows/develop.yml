@@ -41,8 +41,8 @@ jobs:
       #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       #   run: php artisan migrate:fresh --seed
 
-      - name: Clear Cache
-        run: php artisan optimize:clear
+      # - name: Clear Cache
+      #   run: php artisan optimize:clear
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
