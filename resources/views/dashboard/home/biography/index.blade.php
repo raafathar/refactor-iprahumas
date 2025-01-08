@@ -29,13 +29,12 @@
                                  class="rounded-circle object-fit-fill" width="80" height="80"
                                  alt="{{ $user->name }}" />
                         @endif
-                        <h5 class="fw-semibold mb-0">{{ $user->name }}</h5>
-                        <span class="text-dark fs-2">{{ $user->form->nip }}</span>
+                        <h5 class="fw-semibold mb-0 mt-4">{{ $user->name }}</h5>
+                        <span class="text-dark fs-2">{{ $user->form->instance->name }}</span>
                     </div>
                     <ul class="px-2 py-2 bg-light list-unstyled d-flex align-items-center justify-content-center mb-0">
 {{--                       jabatan, pangkat--}}
                         <li class="me-3">
-                            <i class="ti ti-user me-1 text-primary"></i>
                             <span>{{ $user->form->position->name }}</span>
                         </li>
                     </ul>

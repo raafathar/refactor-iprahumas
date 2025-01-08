@@ -2,7 +2,7 @@ var at = document.documentElement.getAttribute("data-layout");
 if ((at = "vertical")) {
 
   // ----------------------------------------
-  // Active 2 file at same time 
+  // Active 2 file at same time
   // ----------------------------------------
 
   var currentNewURL =
@@ -16,7 +16,7 @@ if ((at = "vertical")) {
   } else if (currentNewURL.includes("/")) {
     current_link.setAttribute("href", "./");
   } else {
-    current_link.setAttribute("href", "/");
+    current_link.setAttribute("href", "/dashboard");
   }
   // end
 
@@ -38,11 +38,11 @@ if ((at = "vertical")) {
   // Do something with the matching element
   if (elements) {
     elements.classList.add("active");
-    if (elements.href !== window.location.origin + "/") {
+    if (elements.href !== window.location.origin + "/dashboard") {
         var parentAnchor = elements.closest("ul").parentElement.querySelector("a");
 
         // Ensure the parent anchor exists and is not the root URL
-        if (parentAnchor && parentAnchor.href !== window.location.origin + "/") {
+        if (parentAnchor && parentAnchor.href !== window.location.origin + "/dashboard") {
             parentAnchor.classList.add("active");
         }
     }
