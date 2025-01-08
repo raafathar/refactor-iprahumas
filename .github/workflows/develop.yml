@@ -34,12 +34,12 @@ jobs:
       - name: Generate key
         run: php artisan key:generate
 
-      - name: Update .env
-        env:
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: php artisan migrate:fresh --seed
+      # - name: Update .env
+      #   env:
+      #     DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      #     DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      #   run: php artisan migrate:fresh --seed
 
       - name: Clear Cache
         run: php artisan optimize:clear
