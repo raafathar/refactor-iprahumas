@@ -39,28 +39,28 @@ $(document).ready(() => {
         const formatDate = (date) =>
             new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(date));
 
-        const upperCase = (string) => string.toUpperCase();
+        const upperCase = (string) => string?.toUpperCase() ?? '-';
 
         const fields = [
             { label: 'Nama Lengkap', value: json.name },
-            { label: 'Email', value: json.email },
-            { label: 'NIP', value: json.form.nip },
-            { label: 'Tanggal Lahir', value: formatDate(json.form.dob) },
-            { label: 'Agama', value: convertReligion(json.form.religion) },
-            { label: 'Nomor Telepon', value: json.form.phone },
-            { label: 'Pendidikan Terakhir', value: upperCase(json.form.last_education) },
-            { label: 'Jurusan', value: json.form.last_education_major },
-            { label: 'Universitas', value: json.form.last_education_institution },
-            { label: 'Unit Kerja', value: json.form.work_unit },
-            { label: 'Jabatan', value: json.form.position.name },
-            { label: 'Instansi', value: json.form.instance.name },
-            { label: 'Pangkat/Golongan', value: json.form.golongan.name },
-            { label: 'Keahlian', value: json.form.skills.map(skill => skill.name).join(', ') },
-            { label: 'Provinsi', value: json.form.province.name },
-            { label: 'Kabupaten/Kota', value: json.form.district.name },
-            { label: 'Kecamatan', value: json.form.subdistrict.name },
-            { label: 'Kelurahan', value: json.form.village.name },
-            { label: 'Alamat Lengkap', value: json.form.address },
+            { label: 'Email', value: json.email ?? '-' },
+            { label: 'NIP', value: json.form.nip ?? '-' },
+            { label: 'Tanggal Lahir', value: formatDate(json.form.dob) ?? '-' },
+            { label: 'Agama', value: convertReligion(json.form.religion) ?? '-' },
+            { label: 'Nomor Telepon', value: json.form.phone ?? '-' },
+            { label: 'Pendidikan Terakhir', value: upperCase(json.form?.last_education) },
+            { label: 'Jurusan', value: json.form.last_education_major ?? '-' },
+            { label: 'Universitas', value: json.form.last_education_institution ?? '-' },
+            { label: 'Unit Kerja', value: json.form.work_unit ?? '-' },
+            { label: 'Jabatan', value: json.form?.position?.name ?? '-' },
+            { label: 'Instansi', value: json.form?.instance?.name ?? '-' },
+            { label: 'Pangkat/Golongan', value: json.form?.golongan?.name ?? '-' },
+            { label: 'Keahlian', value: json.form?.skills?.map(skill => skill.name).join(', ') ?? '-' },
+            { label: 'Provinsi', value: json.form?.province?.name ?? '-' },
+            { label: 'Kabupaten/Kota', value: json.form?.district?.name ?? '-' },
+            { label: 'Kecamatan', value: json.form?.subdistrict?.name ?? '-' },
+            { label: 'Kelurahan', value: json.form?.village?.name ?? '-' },
+            { label: 'Alamat Lengkap', value: json.form?.address ?? '-' },
             {
                 label: 'Bukti Pembayaran',
                 value: json.form.payment_proof_url

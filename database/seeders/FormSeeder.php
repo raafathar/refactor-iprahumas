@@ -23,56 +23,56 @@ class FormSeeder extends Seeder
      */
     public function run(): void
     {
-        try {
-            // Seed form
-            $province = Province::where('name', 'Jawa Timur')->first();
-            $district = District::where('province_id', $province->id)->first();
-            $subdistrict = Subdistrict::where('district_id', $district->id)->first();
-            $village = Village::where('subdistrict_id', $subdistrict->id)->first();
-
-            $users = User::where('role', 'user')
-                ->where('name', '!=', 'User')
-                ->take(6)
-                ->get();
-
-            $status = ['pending', 'pending', 'approved', 'approved', 'rejected', 'rejected'];
-
-            foreach ($users as $key => $user) {
-                $form = Form::create([
-                    'user_id' => $user->id,
-                    'nip' => fake()->numerify('####################'),
-                    'dob' => fake()->date('Y-m-d', '2003-12-31'),
-                    'new_member_number' => generate_new_member_number(),
-                    'religion' => fake()->randomElement(["islam", "christian", "catholic", "hindu", "buddha", "konghucu", "other"]),
-                    'phone' => '08' . fake()->numerify('#########'),
-                    'last_education' => fake()->randomElement(['sma', 'd3', 'd4/s1', 's2', 's3']),
-                    'last_education_major' => fake()->word(),
-                    'last_education_institution' => fake()->company(),
-                    'work_unit' => fake()->company(),
-                    'position_id' => Position::inRandomOrder()->first()->id,
-                    'instance_id' => Instance::inRandomOrder()->first()->id,
-                    'golongan_id' => Golongan::inRandomOrder()->first()->id,
-                    'province_id' => $province->id,
-                    'district_id' => $district->id,
-                    'subdistrict_id' => $subdistrict->id,
-                    'village_id' => $village->id,
-                    'address' => fake()->address(),
-                    'period_id' => period::where('status', 'active')->first()->id,
-                    'payment_proof' => $status[$key] === 'approved' ?  'images/payment_proof/payment_proof.jpeg' : null,
-                    'status' => $status[$key],
-                    'reason' => $status[$key] === 'rejected' ? fake()->sentence() : null,
-                    'updated_by' => User::where('role', 'admin')->first()->id,
-                ]);
-
-                $skills = Skill::pluck('id')->toArray();
-                $assignedSkills = fake()->randomElements($skills, fake()->numberBetween(1, 3));
-
-                foreach ($assignedSkills as $skillId) {
-                    $form->skills()->attach($skillId);
-                }
-            }
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+//        try {
+//            // Seed form
+//            $province = Province::where('name', 'Jawa Timur')->first();
+//            $district = District::where('province_id', $province->id)->first();
+//            $subdistrict = Subdistrict::where('district_id', $district->id)->first();
+//            $village = Village::where('subdistrict_id', $subdistrict->id)->first();
+//
+//            $users = User::where('role', 'user')
+//                ->where('name', '!=', 'User')
+//                ->take(6)
+//                ->get();
+//
+//            $status = ['pending', 'pending', 'approved', 'approved', 'rejected', 'rejected'];
+//
+//            foreach ($users as $key => $user) {
+//                $form = Form::create([
+//                    'user_id' => $user->id,
+//                    'nip' => fake()->numerify('####################'),
+//                    'dob' => fake()->date('Y-m-d', '2003-12-31'),
+//                    'new_member_number' => generate_new_member_number(),
+//                    'religion' => fake()->randomElement(["islam", "christian", "catholic", "hindu", "buddha", "konghucu", "other"]),
+//                    'phone' => '08' . fake()->numerify('#########'),
+//                    'last_education' => fake()->randomElement(['sma', 'd3', 'd4/s1', 's2', 's3']),
+//                    'last_education_major' => fake()->word(),
+//                    'last_education_institution' => fake()->company(),
+//                    'work_unit' => fake()->company(),
+//                    'position_id' => Position::inRandomOrder()->first()->id,
+//                    'instance_id' => Instance::inRandomOrder()->first()->id,
+//                    'golongan_id' => Golongan::inRandomOrder()->first()->id,
+//                    'province_id' => $province->id,
+//                    'district_id' => $district->id,
+//                    'subdistrict_id' => $subdistrict->id,
+//                    'village_id' => $village->id,
+//                    'address' => fake()->address(),
+//                    'period_id' => period::where('status', 'active')->first()->id,
+//                    'payment_proof' => $status[$key] === 'approved' ?  'images/payment_proof/payment_proof.jpeg' : null,
+//                    'status' => $status[$key],
+//                    'reason' => $status[$key] === 'rejected' ? fake()->sentence() : null,
+//                    'updated_by' => User::where('role', 'admin')->first()->id,
+//                ]);
+//
+//                $skills = Skill::pluck('id')->toArray();
+//                $assignedSkills = fake()->randomElements($skills, fake()->numberBetween(1, 3));
+//
+//                foreach ($assignedSkills as $skillId) {
+//                    $form->skills()->attach($skillId);
+//                }
+//            }
+//        } catch (\Throwable $th) {
+//            throw $th;
+//        }
     }
 }

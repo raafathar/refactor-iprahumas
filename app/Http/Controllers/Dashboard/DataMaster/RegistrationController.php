@@ -171,8 +171,8 @@ class RegistrationController extends Controller
         $additional_data = [
             'chairperson_name' => 'FACHRUDIN ALI',
             'general_secretary_name' => 'LIZZATUL FARHATININGSIH',
-            'chairperson_signature' => 'images/profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg',
-            'general_secretary_signature' => 'images/profile_pictures/0yTANuswMxGr3ZzAVyMxBx0m6riNHX81urYUSRBC.jpg',
+            'chairperson_signature' => 'images/signature/TTDAli.png',
+            'general_secretary_signature' => 'images/signature/TTDAli.png',
             'letter_number' => $letter_number
         ];
 

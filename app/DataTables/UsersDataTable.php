@@ -46,37 +46,37 @@ class UsersDataTable extends DataTable
                 return $users->form->nip;
             })
             ->editColumn('email', function (User $users) {
-                return '<a href="mailto:' . e($users->email) . '">' . e($users->email) . '</a>';
+                return '<a href="mailto:' . e($users->email ?: '-') . '">' . e($users->email ?: '-') . '</a>';
             })
             ->editColumn('position_id', function (User $users) {
-                return $users->form->position->name;
+                return optional($users->form->position)->name ?: '-';
             })
             ->editColumn('instance_id', function (User $users) {
-                return $users->form->instance->name;
+                return optional($users->form->instance)->name ?: '-';
             })
             ->editColumn('golongan_id', function (User $users) {
-                return $users->form->golongan->name;
+                return optional($users->form->golongan)->name ?: '-';
             })
             ->editColumn('work_unit', function (User $users) {
-                return $users->form->work_unit;
+                return $users->form->work_unit ?: '-';
             })
             ->editColumn('skills', function (User $users) {
-                return $users->form->skills->pluck('name')->join(', ');
+                return optional($users->form->skills)->pluck('name')->join(', ') ?: '-';
             })
             ->editColumn('updated_by', function (User $users) {
-                return $users->form->updatedBy->name;
+                return optional($users->form->updatedBy)->name ?: '-';
             })
             ->editColumn('province_id', function (User $users) {
-                return $users->form->province->name;
+                return optional($users->form->province)->name ?: '-';
             })
             ->editColumn('district_id', function (User $users) {
-                return $users->form->district->name;
+                return optional($users->form->district)->name ?: '-';
             })
             ->editColumn('subdistrict_id', function (User $users) {
-                return $users->form->subdistrict->name;
+                return optional($users->form->subdistrict)->name ?: '-';
             })
             ->editColumn('village_id', function (User $users) {
-                return $users->form->village->name;
+                return optional($users->form->village)->name ?: '-';
             })
             ->editColumn('created_at', function (User $users) {
                 return Carbon::parse($users->form->created_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');

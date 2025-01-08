@@ -33,8 +33,9 @@ class UserDataImport implements ToModel
         Form::create([
             'user_id' => $user->id,
             'nip' => str_replace(' ', '', $row[2]),
-            'new_member_number' => $row[0],
+            'new_member_number' => generate_new_member_number(),
             'period_id' => $active_period->id,
+            'status' => 'approved',
             'updated_by' => $admin->id,
         ]);
 
