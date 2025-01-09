@@ -35,8 +35,9 @@ class UserController extends Controller
         $instances = Instance::all();
         $golongans = Golongan::all();
         $skills = Skill::all();
+        $periods = Period::all();
 
-        return $dataTable->render('dashboard.datamaster.user.index', compact('positions', 'instances', 'golongans', 'skills'));
+        return $dataTable->render('dashboard.datamaster.user.index', compact('positions', 'instances', 'golongans', 'skills', 'periods'));
     }
 
     /**
@@ -86,15 +87,19 @@ class UserController extends Controller
                 'position_id' => $request->position_id,
                 'instance_id' => $request->instance_id,
                 'golongan_id' => $request->golongan_id,
-                'skill_id' => $request->skill_id,
                 'province_id' => $request->province_id,
                 'district_id' => $request->district_id,
                 'subdistrict_id' => $request->subdistrict_id,
                 'village_id' => $request->village_id,
                 'address' => $request->address,
-                'period_id' => Period::where('status', 'active')->first()->id,
                 'status' => 'pending',
                 'updated_by' => Auth::user()->id,
+            ]);
+
+            $skills = $request->input('skill_id', []);
+            $form->skills()->sync($skills);
+            $form->periods()->attach($active_period->id, [
+                'id' => Str::uuid()
             ]);
 
             DB::commit();

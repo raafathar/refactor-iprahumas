@@ -19,7 +19,7 @@ $(document).ready(() => {
             form.find('select[name="instance_id"]').val(data.form.instance_id).trigger('change');
             form.find('select[name="golongan_id"]').val(data.form.golongan_id).trigger('change');
             form.find('input[name="work_unit"]').val(data.form.work_unit).trigger('change');
-            form.find('select[name="skill_id"]').val(data.form.skill_id).trigger('change');
+            form.find('select[name="skill_id[]"]').val(data.form.skills.map(skill => skill.id)).trigger('change');
             form.find('input[name="dob"]').val(new Date(data.form.dob).toISOString().split('T')[0]).trigger('change');
             form.find('select[name="religion"]').val(data.form.religion).trigger('change');
             form.find('input[name="phone"]').val(data.form.phone).trigger('change');

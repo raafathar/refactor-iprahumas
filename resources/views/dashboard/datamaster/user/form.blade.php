@@ -96,17 +96,17 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <x-input-label for="skill_id" :value="__('Keahlian')" required />
-                                    <select name="skill_id" id="skill_id" class="form-control" required
-                                        autocomplete="skill_id">
-                                        <option value="" disabled selected>Pilih Keahlian
-                                        </option>
-                                        @forelse($skills as $skill)
-                                            <option value="{{ $skill->id }}"
-                                                {{ old('skill_id') == $skill->id ? 'selected' : '' }}>
-                                                {{ $skill->name }}</option>
-                                        @empty
+                                    <select name="skill_id[]" id="skill_id" multiple="multiple" class="form-control" required>
+                                        @if($skills->isEmpty())
                                             <option readonly value="">Data Masih Kosong</option>
-                                        @endforelse
+                                        @else
+                                            <option value="" disabled>Pilih Keahlian</option>
+                                            @foreach($skills as $skill)
+                                                <option value="{{ $skill->id }}" {{ collect(old('skill_id'))->contains($skill->id) ? 'selected' : '' }}>
+                                                    {{ $skill->name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                     <x-input-error :messages="$errors->get('skill_id')" class="mt-2" />
                                 </div>

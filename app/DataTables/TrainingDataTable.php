@@ -66,8 +66,8 @@ class TrainingDataTable extends DataTable
                 'cellspacing' => '0',
             ])
             ->stateSave(true)
-            // ->autoWidth(true)
-            // ->scrollX(true)
+             ->autoWidth(false)
+             ->scrollX(true)
             ->responsive(true)
             ->minifiedAjax()
             //->dom('Bfrtip')
