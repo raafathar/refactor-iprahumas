@@ -40,7 +40,6 @@ jobs:
             **/vendor/**
             **/public/assets**
             **/public/storage**
-          timeout: 600
 
       #- name: Install Rsync
        # run: sudo apt-get install rsync -y
