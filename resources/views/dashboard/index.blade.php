@@ -29,7 +29,7 @@
 
     </div>
     @if (!in_array(auth()->user()->role, ['admin', 'superadmin']))
-        @if (auth()->user()->form->period->status != 'inactive' || config('app.env') != 'production')
+        @if (auth()->user()->form->period->status != 'active' || config('app.env') != 'production')
             <div class="card card-body">
                 <p>Masa aktif anda sudah berakhir silakan melakukan daftar ulang</p>
                 <div class="d-flex">
