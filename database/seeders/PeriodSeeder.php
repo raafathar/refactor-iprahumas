@@ -15,8 +15,8 @@ class PeriodSeeder extends Seeder
     {
         try {
             Period::create([
-                'name' => 'Periode 2024-2024',
-                'start_date' => '2024-01-02',
+                'name' => 'Periode 2022-2024',
+                'start_date' => '2022-01-02',
                 'end_date' => '2024-12-31',
                 'status' => 'active',
             ]);
