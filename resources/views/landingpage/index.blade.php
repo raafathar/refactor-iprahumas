@@ -43,8 +43,7 @@
             <div class="container-fluid">
                 <div class="d-flex gap-3 justify-content-center align-items-center flex-md-nowrap flex-wrap">
                     <span class="badge text-black bg-white p-2">Informasi Terbaru</span>
-                    <p class="text-white fs-4 mb-0 text-md-start text-center">Lorem ipsum dolor sit amet consectetur,
-                        adipisicing elit.</p>
+                    <p class="text-white fs-4 mb-0 text-md-start text-center">Belum ada informasi terbaru, cek website secara berkala 🙇</p>
                 </div>
             </div>
         </section>
@@ -311,7 +310,7 @@
                     @endforeach
                 </div>
                 <div class="ml-3 text-center">
-                    <a href="{{ route('berita') }}" class="btn btn-primary px-9 py-6">Lihat Lebih Banyak</a>
+                    <a href="{{ route('berita') }}" class="btn btn-primary px-9 py-6">Berita lainnya</a>
                 </div>
             </div>
         </section>
@@ -332,19 +331,15 @@
                             <p class="fs-4">
                                 Umpan balik dari anggota kami adalah bukti nyata komitmen, kualitas dan pengembangan pada
                                 organisasi.
-                                Simak tanggapan mereka selama berorganisasi.
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="border p-7 p-md-5 rounded-3">
-                            <h3 class="fs-7 fw-semibold text-dark">Tanggapan mereka</h3>
                             <div class="owl-carousel testimonial-carousel owl-theme">
                                 <div class="item">
                                     <div>
                                         <div class="d-flex align-items-center gap-3 my-4">
-                                            <div><img src="../assets/images/profile/user-3.jpg" alt="user"
-                                                    class="rounded-circle" width="44px" height="44px"></div>
                                             <p class="fs-4 fw-semibold mb-0 text-dark">Sophia Johnson</p>
                                         </div>
                                         <p class="fs-5 pb-4 mb-4">
@@ -356,8 +351,6 @@
                                 <div class="item">
                                     <div>
                                         <div class="d-flex align-items-center gap-3 my-4">
-                                            <div><img src="../assets/images/profile/user-3.jpg" alt="user"
-                                                    class="rounded-circle" width="44px" height="44px"></div>
                                             <p class="fs-4 fw-semibold mb-0 text-dark">Sophia Johnson</p>
                                         </div>
                                         <p class="fs-5 pb-4 mb-4">
@@ -384,14 +377,13 @@
                         <div class="col-lg-6">
                             <div class="py-lg-12 ps-lg-12 py-5 px-lg-0 px-9">
                                 <h2 class="fs-10 fw-bolder text-lg-start text-center">
-                                    Jadilah Bagian dari Ikatan Pranata Humas Indonesia
+                                    Jadilah bagian dari Ikatan Pranata Humas Indonesia
                                 </h2>
                                 <div
                                     class="d-flex justify-content-lg-start justify-content-center gap-3 my-4 flex-sm-nowrap flex-wrap">
-                                    <a href="/login" class="btn btn-primary py-6 px-9">Masuk
-                                        untuk Anggota</a>
+                                    <a href="/login" class="btn btn-primary py-6 px-9">Masuk anggota</a>
                                     <a href="/register"
-                                        class="btn border border-dark py-6 px-9">Daftar Menjadi Anggota</a>
+                                        class="btn border border-dark py-6 px-9">Daftar sekarang</a>
                                 </div>
                             </div>
                         </div>
