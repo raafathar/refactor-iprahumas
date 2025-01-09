@@ -29,7 +29,7 @@ jobs:
         run: sudo apt-get install rsync -y
 
       - name: Synchronize Files To Server
-        uses: contention/rsync-deployments@v2.0.0
+        uses: burnett01/rsync-deployments@7.0.1
         # env:
         #   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         #   SOURCE: "."
@@ -38,20 +38,20 @@ jobs:
         #   REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
         #   TARGET: "/home/iprahuma/dev.iprahumas.id"
         with:
-          flags: -avzr --delete
-          excludes: ".git*"
-          user: ${{ secrets.REMOTE_USER }}
-          host: ${{ secrets.REMOTE_HOST }}
-          localpath: "."
-          remotepath: "/home/iprahuma/dev.iprahumas.id"
-          deploy_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote_path: "/home/iprahuma/dev.iprahumas.id"
+          remote_user: ${{ secrets.REMOTE_USER }}
+          switches: "-avzr --delete"
+          remote_port: ${{ secrets.REMOTE_PORT }}
+          remote_key_pass: ${{ secrets.SSH_PASSPHRASE }}
 
       - name: Run Remote/Artisan Commands
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
-          #passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
