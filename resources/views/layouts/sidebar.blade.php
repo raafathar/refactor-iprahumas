@@ -46,6 +46,7 @@
                         <span class="hide-menu">Biodata Anggota</span>
                     </a>
                 </li>
+                @if(auth()->check() && (auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin'))
                 <!-- ---------------------------------- -->
                 <!-- Data Master -->
                 <!-- ---------------------------------- -->
@@ -101,9 +102,11 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 <!-- ---------------------------------- -->
                 <!-- Periode Pendaftaran -->
                 <!-- ---------------------------------- -->
+                @if(auth()->check() && (auth()->user()->role == 'superadmin'))
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('periods.index') }}" aria-expanded="false">
                         <span>
@@ -165,35 +168,14 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 <!-- ---------------------------------- -->
-                <!-- Pengaturan -->
+                <!-- Postingan -->
                 <!-- ---------------------------------- -->
+                @if(auth()->check() && (auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin'))
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Pengaturan</span>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Pengaturan Akun -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('user-settings.index') }}" aria-expanded="false">
-                        <span>
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="21.21"  height="22.5"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 21v-2a4 4 0 0 1 4 -4h2" /><path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /></svg>
-                        </span>
-                        <span class="hide-menu">Manajemen Pengguna</span>
-                    </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Pengaturan Akun -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('account-setting.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-user-circle"></i>
-                        </span>
-                        <span class="hide-menu">Pengaturan Akun</span>
-                    </a>
-
+                    <span class="hide-menu">Postingan</span>
                 </li>
                 <!-- ---------------------------------- -->
                 <!-- Berita -->
@@ -218,11 +200,42 @@
                     </a>
                 </li>
                 <!-- ---------------------------------- -->
+                <!-- Publikasi -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-book"></i>
+                        </span>
+                        <span class="hide-menu">Publikasi</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ route('trainings.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Buku</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('trainings.index') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Jurnal</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
+                <!-- ---------------------------------- -->
                 <!-- Tampilan -->
                 <!-- ---------------------------------- -->
+                @if(auth()->check() && (auth()->user()->role == 'superadmin'))
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Tampilan</span>
+                    <span class="hide-menu">Landing Page</span>
                 </li>
                 <!-- ---------------------------------- -->
                 <!-- Banner -->
@@ -230,30 +243,53 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('banners.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-users"></i>
+                            <i class="ti ti-layout-grid"></i>
                         </span>
                         <span class="hide-menu">Banner</span>
                     </a>
-                    <!-- ---------------------------------- -->
-                    <!-- Frontend page -->
-                    <!-- ---------------------------------- -->
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Halaman Profil -->
+                <!-- ---------------------------------- -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-layout-grid"></i>
+                    <a class="sidebar-link" href="{{ route('page-profile.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-menu"></i>
                         </span>
-                        <span class="hide-menu">Landing page</span>
+                        <span class="hide-menu">Halaman Profil</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="{{ route('page-profile.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Halaman profile</span>
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                @endif
+                <!-- ---------------------------------- -->
+                <!-- Pengaturan -->
+                <!-- ---------------------------------- -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Pengaturan</span>
+                </li>
+                <!-- ---------------------------------- -->
+                <!-- Pengaturan Akun -->
+                <!-- ---------------------------------- -->
+                @if(auth()->check() && (auth()->user()->role == 'superadmin'))
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('user-settings.index') }}" aria-expanded="false">
+                        <span>
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="21.21"  height="22.5"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 21v-2a4 4 0 0 1 4 -4h2" /><path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /></svg>
+                        </span>
+                        <span class="hide-menu">Manajemen Pengguna</span>
+                    </a>
+                </li>
+                @endif
+                <!-- ---------------------------------- -->
+                <!-- Pengaturan Akun -->
+                <!-- ---------------------------------- -->
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('account-setting.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-user-circle"></i>
+                        </span>
+                        <span class="hide-menu">Pengaturan Akun</span>
+                    </a>
                 </li>
             </ul>
         </nav>

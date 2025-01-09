@@ -50,6 +50,8 @@
                                     <select name="role" id="role" class="form-control" required
                                             autocomplete="role">
                                         <option value="" disabled selected>Pilih Role</option>
+                                        <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>
+                                            User</option>
                                         <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
                                             Admin</option>
                                         <option value="superadmin"

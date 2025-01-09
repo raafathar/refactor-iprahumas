@@ -30,7 +30,7 @@ class RegistrationDataTable extends DataTable
                     : null;
                 return view('dashboard.datamaster.registration.action', compact('users'));
             })
-            ->rawColumns(['payment_proof', 'name', 'nip', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'status', 'reason', 'updated_by', 'created_at', 'updated_at'])
+            ->rawColumns(['payment_proof', 'name', 'nip', 'email', 'position_id', 'instance_id', 'golongan_id', 'work_unit', 'periods', 'status', 'reason', 'skills', 'updated_by', 'created_at', 'updated_at'])
             ->editColumn('payment_proof', function (User $users) {
                 $paymentProof = $users->form->payment_proof
                     ? asset('storage/' . $users->form->payment_proof)
@@ -80,19 +80,22 @@ class RegistrationDataTable extends DataTable
                 return $users->form->nip;
             })
             ->editColumn('email', function (User $users) {
-                return '<a href="mailto:' . e($users->email) . '">' . e($users->email) . '</a>';
+                return '<a href="mailto:' . e($users->email ?: '-') . '">' . e($users->email ?: '-') . '</a>';
             })
             ->editColumn('position_id', function (User $users) {
-                return $users->form->position->name;
+                return optional($users->form->position)->name ?: '-';
             })
             ->editColumn('instance_id', function (User $users) {
-                return $users->form->instance->name;
+                return optional($users->form->instance)->name ?: '-';
             })
             ->editColumn('golongan_id', function (User $users) {
-                return $users->form->golongan->name;
+                return optional($users->form->golongan)->name ?: '-';
             })
             ->editColumn('work_unit', function (User $users) {
-                return $users->form->work_unit;
+                return $users->form->work_unit ?: '-';
+            })
+            ->editColumn('periods', function (User $users) {
+                return optional($users->form->periods)->pluck('name')->join(', ') ?: '-';
             })
             ->editColumn('status', function (User $users) {
                 if ($users->form->status == 'approved') {
@@ -107,23 +110,23 @@ class RegistrationDataTable extends DataTable
             ->editColumn('reason', function (User $users) {
                 return $users->form->reason;
             })
-            ->editColumn('skill_id', function (User $users) {
-                return $users->form->skill->name;
+            ->editColumn('skills', function (User $users) {
+                return optional($users->form->skills)->pluck('name')->join(', ') ?: '-';
             })
             ->editColumn('updated_by', function (User $users) {
                 return $users->form->updatedBy->name;
             })
             ->editColumn('province_id', function (User $users) {
-                return $users->form->province->name;
+                return optional($users->form->province)->name ?: '-';
             })
             ->editColumn('district_id', function (User $users) {
-                return $users->form->district->name;
+                return optional($users->form->district)->name ?: '-';
             })
             ->editColumn('subdistrict_id', function (User $users) {
-                return $users->form->subdistrict->name;
+                return optional($users->form->subdistrict)->name ?: '-';
             })
             ->editColumn('village_id', function (User $users) {
-                return $users->form->village->name;
+                return optional($users->form->village)->name ?: '-';
             })
             ->editColumn('created_at', function (User $users) {
                 return Carbon::parse($users->form->created_at)->timezone('Asia/Jakarta')->translatedFormat('d F Y H:i:s T');
@@ -160,7 +163,7 @@ class RegistrationDataTable extends DataTable
                 'cellspacing' => '0',
             ])
             ->stateSave(true)
-            ->autoWidth(true)
+            ->autoWidth(false)
             ->scrollX(true)
             ->responsive(true)
             ->columns($this->getColumns())

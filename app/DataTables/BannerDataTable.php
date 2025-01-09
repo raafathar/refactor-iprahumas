@@ -57,6 +57,10 @@ class BannerDataTable extends DataTable
                 'class' => 'table table-striped table-bordered',
                 'cellspacing' => '0',
             ])
+            ->stateSave(true)
+            ->autoWidth(false)
+            ->scrollX(true)
+            ->responsive(true)
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')

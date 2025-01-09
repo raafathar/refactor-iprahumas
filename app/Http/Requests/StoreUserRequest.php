@@ -41,7 +41,8 @@ class StoreUserRequest extends FormRequest
             'instance_id' => 'required|exists:instances,id',
             'golongan_id' => 'required|exists:golongans,id',
             'work_unit' => 'required|string',
-            'skill_id' => 'required|exists:skills,id',
+            'skill_id' => 'required|array',
+            'skill_id.*' => 'exists:skills,id',
             'last_education' => 'required|string',
             'last_education_major' => 'required|string',
             'last_education_institution' => 'required|string',
@@ -103,8 +104,9 @@ class StoreUserRequest extends FormRequest
             'work_unit.required' => 'Unit kerja wajib diisi.',
             'work_unit.string' => 'Unit kerja harus berupa teks.',
 
-            'skill_id.required' => 'Keahlian wajib diisi.',
-            'skill_id.exists' => 'Keahlian tidak ditemukan.',
+            'skill_id.required' => 'Keahlian wajib dipilih.',
+            'skill_id.array' => 'Format data keahlian tidak valid.',
+            'skill_id.*.exists' => 'Salah satu keahlian yang dipilih tidak ditemukan.',
 
             'last_education.required' => 'Pendidikan terakhir wajib diisi.',
             'last_education.string' => 'Pendidikan terakhir harus berupa teks.',

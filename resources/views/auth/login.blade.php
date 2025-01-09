@@ -2,14 +2,14 @@
     <div class="position-relative overflow-hidden radial-gradient min-vh-100 w-100">
         <div class="position-relative z-index-5">
             <div class="row">
-                <div class="col-xl-7 col-xxl-8">
-                    <a href="javascript:void(0)" class="text-nowrap logo-img d-block px-4 py-9 w-100">
+                <div class="col-xl-7 col-xxl-8" style="background-image: url('{{ asset('assets/images/backgrounds/register.jpg') }}'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+                    <a href="{{ route('landingpage') }}" class="text-nowrap logo-img d-block px-4 py-9 w-100">
                         <img src="{{ asset('assets/images/logos/dark-logo.png') }}" class="dark-logo" height="58"
                             alt="Logo-Dark" />
                         <img src="{{ asset('assets/images/logos/light-logo.png') }}" class="light-logo" height="58"
                             alt="Logo-light" />
                     </a>
-                    <div class="d-none d-xl-flex align-items-center justify-content-center h-n80">
+                    {{-- <div class="d-none d-xl-flex align-items-center justify-content-center h-n80">
                         <div class="d-flex flex-column align-items-center">
                             <h1 class="text-center">IPRAHUMAS</h1>
                             <p class="text-center">Ikatan Pranata Humas Indonesia</p>
@@ -39,13 +39,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Gallery -->
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-xl-5 col-xxl-4">
                     <div
                         class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
-                        <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-4">
+                        <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-2">
                             <h2 class="mb-1 fs-6 fw-bolder">Selamat Datang di IPRAHUMAS</h2>
                             <p class="mb-7">Ikatan Pranata Humas Indonesia</p>
                             <div class="row">
@@ -98,7 +97,7 @@
                                 </button>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <p class="fs-4 mb-0 fw-medium">{{ __('Belum menjadi anggota?') }}</p>
-                                    <a class="text-primary fw-medium ms-2" href="{{ route('register') }}">
+                                    <a class="text-primary fw-medium ms-2 fs-4" href="{{ route('register') }}">
                                         {{ __('Daftar') }}
                                     </a>
                                 </div>

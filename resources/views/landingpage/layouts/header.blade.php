@@ -61,13 +61,19 @@
                                 <i class="ti ti-search fs-6"></i>
                             </a>
                         </div>
-                        <div>
-                            <a href="{{ route('login') }}" class="btn btn-primary py-8 px-9">Masuk</a>
-                        </div>
-                        <div>
-                            <a href="{{ route('register') }}"
-                                class="btn btn-light border border-dark py-8 px-9">Daftar</a>
-                        </div>
+                        @if(auth()->check())
+                            <div>
+                                <a href="{{ route('dashboard') }}" class="btn btn-primary py-8 px-9">Dashboard</a>
+                            </div>
+                        @else
+                            <div>
+                                <a href="{{ route('login') }}" class="btn btn-primary py-8 px-9">Masuk</a>
+                            </div>
+                            <div>
+                                <a href="{{ route('register') }}"
+                                    class="btn btn-light border border-dark py-8 px-9">Daftar</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
