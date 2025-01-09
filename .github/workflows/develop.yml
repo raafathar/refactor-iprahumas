@@ -30,7 +30,7 @@ jobs:
 
       - name: Synchronize Files To Server
         uses: easingthemes/ssh-deploy@main
-        env:
+        with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SOURCE: "."
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
