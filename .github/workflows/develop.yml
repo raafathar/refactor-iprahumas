@@ -29,14 +29,22 @@ jobs:
         run: sudo apt-get install rsync -y
 
       - name: Synchronize Files To Server
-        uses: easingthemes/ssh-deploy@main
+        uses: contention/rsync-deployments@v2.0.0
+        # env:
+        #   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        #   SOURCE: "."
+        #   REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        #   REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        #   REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+        #   TARGET: "/home/iprahuma/dev.iprahumas.id"
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SOURCE: "."
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-          TARGET: "/home/iprahuma/dev.iprahumas.id"
+          flags: -avzr --delete
+          excludes: ".git*"
+          user: ${{ secrets.REMOTE_USER }}
+          host: ${{ secrets.REMOTE_HOST }}
+          localpath: "."
+          remotepath: "/home/iprahuma/dev.iprahumas.id"
+          deploy_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Run Remote/Artisan Commands
         uses: appleboy/ssh-action@v1.0.3
