@@ -5,7 +5,7 @@ on:
     branches: [ develop ]
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,44 +15,39 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: 8.3
 
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Install Composer Dependencies
+        run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
 
-      - name: Use Node.js 22.5
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22.5"
-          cache: "npm"
+          node-version: 22.9
 
-      - name: Install Dependencies
-        run: composer update
+      - name: Install NPM Dependencies
+        run: npm run build
 
-      - name: Generate key
-        run: php artisan key:generate
+      - name: Synchronize Files To Server
+        uses: easingthemes/ssh-deploy@v5.1.0
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SOURCE: "."
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          TARGET: "/home/iprahuma/dev.iprahumas.id"
 
-      # - name: Update .env
-      #   env:
-      #     DB_DATABASE: ${{ secrets.DB_DATABASE }}
-      #     DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      #   run: php artisan migrate:fresh --seed
-
-      # - name: Clear Cache
-      #   run: php artisan optimize:clear
-
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Run Remote/Artisan Commands
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASS }}
-          protocol: ftps
-          local-dir: ./
-          port: ${{ secrets.FTP_PORT }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/vendor/**
+          host: ${{ secrets.REMOTE_HOST }}
+          port: ${{ secrets.REMOTE_PORT }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/iprahuma/dev.iprahumas.id
+#            php artisan migrate --seed
+            php artisan optimize:clear
+
