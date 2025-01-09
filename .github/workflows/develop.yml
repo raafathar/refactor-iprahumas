@@ -48,6 +48,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/iprahuma/dev.iprahumas.id
-#            php artisan migrate --seed
+            # php artisan migrate --seed
             php artisan optimize:clear
 
