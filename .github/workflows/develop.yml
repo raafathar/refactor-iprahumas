@@ -25,8 +25,8 @@ jobs:
         with:
           node-version: 22.9
 
-#      - name: Install NPM Dependencies
-#        run: npm run build
+      - name: Install Rsync
+        run: sudo apt-get install rsync -y
 
       - name: Synchronize Files To Server
         uses: easingthemes/ssh-deploy@main
