@@ -41,224 +41,251 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('biography.index') }}" aria-expanded="false">
                         <span>
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="21.21"  height="22.5"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-users-group"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" /><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M17 10h2a2 2 0 0 1 2 2v1" /><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M3 13v-1a2 2 0 0 1 2 -2h2" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21.21" height="22.5" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
+                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M17 10h2a2 2 0 0 1 2 2v1" />
+                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
+                            </svg>
                         </span>
                         <span class="hide-menu">Biodata Anggota</span>
                     </a>
                 </li>
-                @if(auth()->check() && (auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin'))
-                <!-- ---------------------------------- -->
-                <!-- Data Master -->
-                <!-- ---------------------------------- -->
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Data Master</span>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Data Anggota -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-users"></i>
-                        </span>
-                        <span class="hide-menu">Data Anggota</span>
-                    </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Data Pendaftar -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-checkup-list"></i>
-                        </span>
-                        <span class="hide-menu">Data Pendaftar</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
+                @if (!in_array(auth()->user()->role, ['admin', 'superadmin']))
+                    @if (auth()->user()->form->period->status != 'active')
                         <li class="sidebar-item">
-                            <a href="{{ route('registration.index', ['status' => 'pending']) }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
+                            <div class="card card-body">
+                                <p>Masa aktif anda sudah berakhir silakan melakukan daftar ulang</p>
+                                <div class="d-flex">
+                                    <a href="{{ route('re-registration.index') }}" class="btn btn-primary">Daftar
+                                        Ulang</a>
                                 </div>
-                                <span class="hide-menu">Diproses</span>
-                            </a>
+                            </div>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('registration.index', ['status' => 'approved']) }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Diterima</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('registration.index', ['status' => 'rejected']) }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Ditolak</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    @endif
+                @endif
+                @if (auth()->check() && (auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin'))
+                    <!-- ---------------------------------- -->
+                    <!-- Data Master -->
+                    <!-- ---------------------------------- -->
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Data Master</span>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Data Anggota -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('users.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-users"></i>
+                            </span>
+                            <span class="hide-menu">Data Anggota</span>
+                        </a>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Data Pendaftar -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <span class="d-flex">
+                                <i class="ti ti-checkup-list"></i>
+                            </span>
+                            <span class="hide-menu">Data Pendaftar</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('registration.index', ['status' => 'pending']) }}"
+                                    class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Diproses</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('registration.index', ['status' => 'approved']) }}"
+                                    class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Diterima</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('registration.index', ['status' => 'rejected']) }}"
+                                    class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Ditolak</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 <!-- ---------------------------------- -->
                 <!-- Periode Pendaftaran -->
                 <!-- ---------------------------------- -->
-                @if(auth()->check() && (auth()->user()->role == 'superadmin'))
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('periods.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-calendar-time"></i>
-                        </span>
-                        <span class="hide-menu">Periode Pendaftaran</span>
-                    </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Data Master -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-file-database"></i>
-                        </span>
-                        <span class="hide-menu">Data Master</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="{{ route('positions.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Jabatan</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('instances.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Instansi</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('golongans.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Pangkat/Golongan</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('skills.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Keahlian</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('letter-logs.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Log Surat</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (auth()->check() && auth()->user()->role == 'superadmin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('periods.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-calendar-time"></i>
+                            </span>
+                            <span class="hide-menu">Periode Pendaftaran</span>
+                        </a>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Data Master -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <span class="d-flex">
+                                <i class="ti ti-file-database"></i>
+                            </span>
+                            <span class="hide-menu">Data Master</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('positions.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Jabatan</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('instances.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Instansi</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('golongans.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Pangkat/Golongan</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('skills.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Keahlian</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('letter-logs.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Log Surat</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 <!-- ---------------------------------- -->
                 <!-- Postingan -->
                 <!-- ---------------------------------- -->
-                @if(auth()->check() && (auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin'))
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Postingan</span>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Berita -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-receipt"></i>
-                        </span>
-                        <span class="hide-menu">Berita</span>
-                    </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Pelatihan -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('trainings.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-clipboard"></i>
-                        </span>
-                        <span class="hide-menu">Pelatihan</span>
-                    </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Publikasi -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-book"></i>
-                        </span>
-                        <span class="hide-menu">Publikasi</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="{{ route('trainings.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Buku</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('trainings.index') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Jurnal</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (auth()->check() && (auth()->user()->role == 'superadmin' || auth()->user()->role == 'admin'))
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Postingan</span>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Berita -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('beritas.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-receipt"></i>
+                            </span>
+                            <span class="hide-menu">Berita</span>
+                        </a>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Pelatihan -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('trainings.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-clipboard"></i>
+                            </span>
+                            <span class="hide-menu">Pelatihan</span>
+                        </a>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Publikasi -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <span class="d-flex">
+                                <i class="ti ti-book"></i>
+                            </span>
+                            <span class="hide-menu">Publikasi</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ route('trainings.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Buku</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('trainings.index') }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti ti-circle"></i>
+                                    </div>
+                                    <span class="hide-menu">Jurnal</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 <!-- ---------------------------------- -->
                 <!-- Tampilan -->
                 <!-- ---------------------------------- -->
-                @if(auth()->check() && (auth()->user()->role == 'superadmin'))
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Landing Page</span>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Banner -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('banners.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-layout-grid"></i>
-                        </span>
-                        <span class="hide-menu">Banner</span>
-                    </a>
-                </li>
-                <!-- ---------------------------------- -->
-                <!-- Halaman Profil -->
-                <!-- ---------------------------------- -->
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('page-profile.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-menu"></i>
-                        </span>
-                        <span class="hide-menu">Halaman Profil</span>
-                    </a>
-                </li>
+                @if (auth()->check() && auth()->user()->role == 'superadmin')
+                    <li class="nav-small-cap">
+                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                        <span class="hide-menu">Landing Page</span>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Banner -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('banners.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-layout-grid"></i>
+                            </span>
+                            <span class="hide-menu">Banner</span>
+                        </a>
+                    </li>
+                    <!-- ---------------------------------- -->
+                    <!-- Halaman Profil -->
+                    <!-- ---------------------------------- -->
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('page-profile.index') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-menu"></i>
+                            </span>
+                            <span class="hide-menu">Halaman Profil</span>
+                        </a>
+                    </li>
                 @endif
                 <!-- ---------------------------------- -->
                 <!-- Pengaturan -->
@@ -270,15 +297,24 @@
                 <!-- ---------------------------------- -->
                 <!-- Pengaturan Akun -->
                 <!-- ---------------------------------- -->
-                @if(auth()->check() && (auth()->user()->role == 'superadmin'))
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('user-settings.index') }}" aria-expanded="false">
-                        <span>
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="21.21"  height="22.5"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 21v-2a4 4 0 0 1 4 -4h2" /><path d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" /><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /></svg>
-                        </span>
-                        <span class="hide-menu">Manajemen Pengguna</span>
-                    </a>
-                </li>
+                @if (auth()->check() && auth()->user()->role == 'superadmin')
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('user-settings.index') }}" aria-expanded="false">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21.21" height="22.5"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-user-shield">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h2" />
+                                    <path
+                                        d="M22 16c0 4 -2.5 6 -3.5 6s-3.5 -2 -3.5 -6c1 0 2.5 -.5 3.5 -1.5c1 1 2.5 1.5 3.5 1.5z" />
+                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                                </svg>
+                            </span>
+                            <span class="hide-menu">Manajemen Pengguna</span>
+                        </a>
+                    </li>
                 @endif
                 <!-- ---------------------------------- -->
                 <!-- Pengaturan Akun -->

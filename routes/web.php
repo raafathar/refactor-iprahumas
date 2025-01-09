@@ -31,17 +31,22 @@ Route::prefix('/')->group(function () {
     Route::get('/profil/{slug}', [BerandaController::class, 'detail_profil'])->name('detail.profil');
     Route::get('/berita', [BerandaController::class, 'berita_view'])->name('berita');
     Route::get('/berita/detail/{slug}', [BerandaController::class, 'detail_berita'])->name('detail.berita');
-    Route::get('/kontak', function () { return view('landingpage.contact');})->name('kontak');
+    Route::get('/kontak', function () {
+        return view('landingpage.contact');
+    })->name('kontak');
     Route::get('/pelatihan', [BerandaController::class, 'pelatihan_view'])->name('pelatihan.index');
     Route::get('/pelatihan/detail/{slug}', [BerandaController::class, 'detail_pelatihan'])->name('detail.pelatihan');
-    Route::get('/keangotaan/panduan-pendaftaran', function () { return view('landingpage.keangotaan.panduan');})->name('panduan');
-    Route::get('/keangotaan/syarat-keanggotaan', function () { return view('landingpage.keangotaan.syarat');})->name('syarat');
-
+    Route::get('/keangotaan/panduan-pendaftaran', function () {
+        return view('landingpage.keangotaan.panduan');
+    })->name('panduan');
+    Route::get('/keangotaan/syarat-keanggotaan', function () {
+        return view('landingpage.keangotaan.syarat');
+    })->name('syarat');
 });
 
 
 // For authenticated users
-Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
+Route::middleware(['auth', 'verified', "user.re-register", 'user.status'])->group(function () {
     // Home
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -81,6 +86,8 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('user-settings', UserSettingController::class)->middleware(['user.access:superadmin'])->names('user-settings');
     // Pengaturan Akun
     Route::resource('account-setting', AccountSettingController::class)->only(['index', 'update'])->names('account-setting');
+
+    // Registration
 });
 
 require __DIR__ . '/auth.php';

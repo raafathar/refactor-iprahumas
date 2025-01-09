@@ -26,5 +26,16 @@
                 </div>
             </div>
         </div>
+
     </div>
+    @if (!in_array(auth()->user()->role, ['admin', 'superadmin']))
+        @if (auth()->user()->form->period->status != 'inactive' || config('app.env') != 'production')
+            <div class="card card-body">
+                <p>Masa aktif anda sudah berakhir silakan melakukan daftar ulang</p>
+                <div class="d-flex">
+                    <a href="{{ route('re-registration.index') }}" class="btn btn-primary">Daftar Ulang</a>
+                </div>
+            </div>
+        @endif
+    @endif
 </x-app-layout>

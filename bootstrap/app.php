@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'user.access' => \App\Http\Middleware\UserAccess::class,
             'user.status' => \App\Http\Middleware\UserStatus::class,
+            'user.re-register' => \App\Http\Middleware\UserReReregisterStatus::class,
+            'user.re-register.already' => \App\Http\Middleware\AlreadyReRegistration::class,
             'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         ]);
     })

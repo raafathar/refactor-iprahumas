@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ReRegistrationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,16 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::controller(ReRegistrationController::class)->group(function () {
+        Route::group(["as" => "re-registration."], function () {
+            Route::get("daftar-ulang", "index")->name("index")->middleware("user.re-register");
+            Route::put("daftar-ulang", "update")->name("update")->middleware("user.re-register");
+            Route::get("bukti-pembayaran", "payment_proof")->name("payment_proof")->middleware("user.re-register.already");
+            Route::put("bukti-pembayaran/{id}", "payment_proof_send")->name("payment");
+        });
+    });
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
