@@ -38,7 +38,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link fs-4 fw-bold text-dark link-primary"
-                            href="../main/frontend-pricingpage.html">Publikasi</a>
+                            href="javascript:void(0);">Publikasi</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link fs-4 fw-bold text-dark link-primary" href="#" id="navbarDropdown"
@@ -143,6 +143,23 @@
             <li class="mb-1">
                 <a href="{{ route('pelatihan.index') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
                     Pelatihan
+                </a>
+            </li>
+            
+            <li class="mb-1">
+                <a href="{{ route('syarat') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Syarat keanggotaan
+                </a>
+            </li>
+            <li class="mb-1">
+                <a href="{{ route('panduan') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Panduan Pendaftaran
+                </a>
+            </li>
+
+            <li class="mb-1">
+                <a href="{{ route('kontak') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Kontak
                 </a>
             </li>
 
