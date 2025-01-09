@@ -57,7 +57,7 @@ jobs:
           #path: /
           #remote_path: "/home/iprahuma/dev.iprahumas.id"
           #remote_user: ${{ secrets.REMOTE_USER }}
-          #switches: -avzr --delete --exclude=.git --exclude=vendor --exclude=".git" --exclude=".github" --exclude="public/vendor" --exclude="public/favicon.ico"
+          #switches: -avzr --delete --exclude=.git --exclude=vendor --exclude=".git" --exclude=".github" --exclude="public/vendor"
           #remote_port: ${{ secrets.REMOTE_PORT }}
           #remote_key_pass: ${{ secrets.SSH_PASSPHRASE }}
 
