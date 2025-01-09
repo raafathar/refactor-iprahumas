@@ -25,11 +25,25 @@ jobs:
         with:
           node-version: 22.9
 
-      - name: Install Rsync
-        run: sudo apt-get install rsync -y
-
       - name: Synchronize Files To Server
-        uses: burnett01/rsync-deployments@7.0.1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          local-dir: ./dist/
+          port: ${{ secrets.FTP_PORT }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/vendor/**
+
+      #- name: Install Rsync
+       # run: sudo apt-get install rsync -y
+
+      #- name: Synchronize Files To Server
+       # uses: burnett01/rsync-deployments@7.0.1
         # env:
         #   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         #   SOURCE: "."
@@ -37,25 +51,26 @@ jobs:
         #   REMOTE_USER: ${{ secrets.REMOTE_USER }}
         #   REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
         #   TARGET: "/home/iprahuma/dev.iprahumas.id"
-        with:
-          remote_host: ${{ secrets.REMOTE_HOST }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          remote_path: "/home/iprahuma/dev.iprahumas.id"
-          remote_user: ${{ secrets.REMOTE_USER }}
-          switches: "-avzr --delete"
-          remote_port: ${{ secrets.REMOTE_PORT }}
-          remote_key_pass: ${{ secrets.SSH_PASSPHRASE }}
+        #with:
+         # remote_host: ${{ secrets.REMOTE_HOST }}
+          #remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          #path: /
+          #remote_path: "/home/iprahuma/dev.iprahumas.id"
+          #remote_user: ${{ secrets.REMOTE_USER }}
+          #switches: -avzr --delete --exclude=.git --exclude=vendor --exclude=".git" --exclude=".github" --exclude="public/vendor" --exclude="public/favicon.ico"
+          #remote_port: ${{ secrets.REMOTE_PORT }}
+          #remote_key_pass: ${{ secrets.SSH_PASSPHRASE }}
 
-      - name: Run Remote/Artisan Commands
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          port: ${{ secrets.REMOTE_PORT }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/iprahuma/dev.iprahumas.id
+      #- name: Run Remote/Artisan Commands
+       # uses: appleboy/ssh-action@v1.0.3
+        #with:
+         # host: ${{ secrets.REMOTE_HOST }}
+          #port: ${{ secrets.REMOTE_PORT }}
+          #passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          #username: ${{ secrets.REMOTE_USER }}
+          #key: ${{ secrets.SSH_PRIVATE_KEY }}
+          #script: |
+           # cd /home/iprahuma/dev.iprahumas.id
             # php artisan migrate --seed
-            php artisan optimize:clear
+            #php artisan optimize:clear
 
