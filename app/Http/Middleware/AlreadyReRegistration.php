@@ -23,7 +23,7 @@ class AlreadyReRegistration
             return $next($request);
         }
 
-        if ($formStatus == "pending" && $formPayment != null) {
+        if ($formStatus == "pending" || $formPayment != null) {
             return redirect()->route("status-account");
         }
         return $next($request);
