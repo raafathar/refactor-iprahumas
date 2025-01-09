@@ -46,7 +46,7 @@
                     <div
                         class="authentication-login min-vh-100 bg-body row justify-content-center align-items-center p-4">
                         <div class="auth-max-width col-sm-8 col-md-6 col-xl-7 px-2">
-                            <h2 class="fs-6 fw-bolder">Daftar menjadi Bagian Anggota</h2>
+                            <h2 class="fs-6 fw-bolder">Formulir Pendaftaran Anggota</h2>
                             <p class="mb-4">Ikatan Pranata Humas Indonesia</p>
                             <!-- Search Section -->
                             <x-input-label for="input-search" :value="__('Cari Data untuk Anggota Lama')" />
@@ -70,7 +70,7 @@
                                     {{-- 1 --}}
                                     <div class="d-none mt-4">
                                         <div class="mb-3">
-                                            <x-input-label for="name" :value="__('Nama Lengkap')" required />
+                                            <x-input-label for="name" :value="__('Nama Lengkap (Tambahkan gelar bila ada)')" required />
                                             <x-text-input id="name" type="text" name="name" :value="old('name')"
                                                 required autofocus autocomplete="name" />
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -129,7 +129,7 @@
                                             <x-input-error :messages="$errors->get('religion')" class="mt-2" />
                                         </div>
                                         <div class="mb-3">
-                                            <x-input-label for="profile_picture" :value="__('Foto Resmi')" required />
+                                            <x-input-label for="profile_picture" :value="__('Foto Formal')" required />
                                             <x-text-input id="profile_picture" type="file" name="profile_picture"
                                                 :value="old('profile_picture')" accept="image/png, image/jpg, image/jpeg" required
                                                 autofocus autocomplete="profile_picture" />
@@ -228,7 +228,7 @@
                                             <x-input-error :messages="$errors->get('last_education_major')" class="mt-2" />
                                         </div>
                                         <div class="mb-3">
-                                            <x-input-label for="last_education_institution" :value="__('Universitas')"
+                                            <x-input-label for="last_education_institution" :value="__('Universitas/Sekolah')"
                                                 required />
                                             <x-text-input id="last_education_institution" type="text"
                                                 name="last_education_institution" :value="old('last_education_institution')" required autofocus
@@ -286,7 +286,7 @@
                                     {{-- 6 --}}
                                     <div class="d-none mt-4">
                                         <div class="mb-3">
-                                            <x-input-label for="skill_id" :value="__('Keahlian')" required />
+                                            <x-input-label for="skill_id" :value="__('Keahlian (Min. 1 atau lebih)')" required />
                                             <select name="skill_id[]" id="skill_id" multiple="multiple" class="form-control" required>
                                                 @if($skills->isEmpty())
                                                     <option readonly value="">Data Masih Kosong</option>
