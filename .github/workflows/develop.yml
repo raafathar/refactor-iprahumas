@@ -38,8 +38,7 @@ jobs:
             **/.git*
             **/.git*/**
             **/vendor/**
-            **/public/assets**
-            **/public/storage**
+            **/node_modules/**
 
       #- name: Install Rsync
        # run: sudo apt-get install rsync -y
