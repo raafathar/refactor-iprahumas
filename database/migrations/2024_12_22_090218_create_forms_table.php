@@ -26,17 +26,27 @@ return new class extends Migration
             $table->foreignUuid('position_id')->nullable()->default(null)->constrained('positions');
             $table->foreignUuid('instance_id')->nullable()->default(null)->constrained('instances');
             $table->foreignUuid('golongan_id')->nullable()->default(null)->constrained('golongans');
-            $table->foreignUuid('skill_id')->nullable()->default(null)->constrained('skills');
             $table->foreignId('province_id')->nullable()->default(null)->constrained('provinces');
             $table->foreignId('district_id')->nullable()->default(null)->constrained('districts');
             $table->foreignId('subdistrict_id')->nullable()->default(null)->constrained('subdistricts');
             $table->foreignId('village_id')->nullable()->default(null)->constrained('villages');
             $table->text('address')->nullable();
-            $table->foreignUuid('period_id')->constrained('periods')->nullable();
             $table->text('payment_proof')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('reason')->nullable();
             $table->foreignUuid('updated_by')->constrained('users')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('detail_form_skills', function (Blueprint $table) {
+            $table->foreignUuid("form_id")->constrained("forms");
+            $table->foreignUuid("skill_id")->constrained("skills");
+        });
+
+        Schema::create('detail_form_periods', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->foreignUuid("form_id")->constrained("forms");
+            $table->foreignUuid("period_id")->constrained("periods");
             $table->timestamps();
         });
     }
@@ -46,6 +56,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('detail_form_periods');
+        Schema::dropIfExists('detail_form_skills');
         Schema::dropIfExists('forms');
     }
 };

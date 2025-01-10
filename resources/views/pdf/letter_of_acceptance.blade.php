@@ -139,9 +139,9 @@
                 <td style="width: 15%;">KESATU</td>
                 <td style="width: 5%;">:</td>
                 <td style="width: 80%;">Terhitung sejak
-                    {{ \Carbon\Carbon::parse($data->form->period->start_date)->translatedFormat('d F Y') }}
+                    {{ \Carbon\Carbon::parse($additional_data['active_period']['start_date'])->translatedFormat('d F Y') }}
                     s.d.
-                    {{ \Carbon\Carbon::parse($data->form->period->end_date)->translatedFormat('d F Y') }}
+                    {{ \Carbon\Carbon::parse($additional_data['active_period']['end_date'])->translatedFormat('d F Y') }}
                     disahkan sebagai anggota
                     aktif Ikatan Pranata
                     Humas Indonesia (IPRAHUMAS).</td>
@@ -181,24 +181,24 @@
         <table style="text-align: center; margin-top: 10px;">
             <tr>
                 <td style="width: 40%">KETUA UMUM,</td>
-                <td style="width: 20%"></td>
-                <td style="width: 40%">SEKRETARIS UMUM,</td>
+{{--                <td style="width: 20%"></td>--}}
+{{--                <td style="width: 40%">SEKRETARIS UMUM,</td>--}}
             </tr>
             <tr>
                 <td>
-                    <img src="{{ public_path('storage/' . $additional_data['chairperson_signature']) }}"
-                        alt="{{ config('app.name') }}" style="max-height: 80px;">
+                    <img src="{{ public_path('assets/' . $additional_data['chairperson_signature']) }}"
+                        alt="{{ config('app.name') }}" style="max-height: 100px;">
                 </td>
-                <td></td>
-                <td>
-                    <img src="{{ public_path('storage/' . $additional_data['general_secretary_signature']) }}"
-                        alt="{{ config('app.name') }}" style="max-height: 80px;">
-                </td>
+{{--                <td></td>--}}
+{{--                <td>--}}
+{{--                    <img src="{{ public_path('storage/' . $additional_data['general_secretary_signature']) }}"--}}
+{{--                        alt="{{ config('app.name') }}" style="max-height: 80px;">--}}
+{{--                </td>--}}
             </tr>
             <tr>
                 <td>{{ $additional_data['chairperson_name'] }}</td>
-                <td></td>
-                <td>{{ $additional_data['general_secretary_name'] }}</td>
+{{--                <td></td>--}}
+{{--                <td>{{ $additional_data['general_secretary_name'] }}</td>--}}
             </tr>
         </table>
     </div>

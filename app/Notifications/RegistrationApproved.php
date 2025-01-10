@@ -38,7 +38,7 @@ class RegistrationApproved extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $name =   str_replace(' ', '_', $this->registration->name);
+        $name = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $this->registration->name));
 
         return (new MailMessage)
             ->greeting('Halo ' . $this->registration->name . '!')
@@ -46,7 +46,7 @@ class RegistrationApproved extends Notification
             ->line('Sebagai langkah pertama, kami telah melampirkan dokumen Surat Keputusan (SK) Pendaftaran pada email ini. Silakan cek kembali dokumen tersebut untuk informasi lebih lanjut.')
             ->line('Jika Anda memiliki pertanyaan, jangan ragu untuk menghubungi kami di [support@iprahumas.id](mailto:support@iprahumas.id).')
             ->subject('Pendaftaran Anggota Diterima')
-            ->salutation('Salam hangat,  
+            ->salutation('Salam hangat,
             ' . config('app.name'))
             ->attach(storage_path('app/public/letter_of_acceptance/' . $name . '_' . $this->registration->id . '.pdf'), [
                 'as' => 'Surat Keputusan Pendaftaran.pdf',

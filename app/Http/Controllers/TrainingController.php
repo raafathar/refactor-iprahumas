@@ -18,10 +18,12 @@ class TrainingController extends Controller
      */
     public function index(TrainingDataTable $dataTable)
     {
-        $training = Training::all(["id", "p_title"]);
-        return $dataTable->render("dashboard.datamaster.pelatihan.index", [
-            "trainings" => $training
-        ]);
+        // $training = Training::all(["id", "p_title"]);
+        // return $dataTable->render("dashboard.datamaster.pelatihan.index", [
+        //     "trainings" => $training
+        // ]);
+
+        return abort(503);
     }
 
     /**

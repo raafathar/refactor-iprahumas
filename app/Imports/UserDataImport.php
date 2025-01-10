@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Form;
 use App\Models\Period;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class UserDataImport implements ToModel
@@ -30,12 +31,16 @@ class UserDataImport implements ToModel
         );
 
         // Buat form baru terkait user
-        Form::create([
+        $form = Form::create([
             'user_id' => $user->id,
             'nip' => str_replace(' ', '', $row[2]),
-            'new_member_number' => $row[0],
-            'period_id' => $active_period->id,
+            'new_member_number' => generate_new_member_number(),
+            'status' => 'approved',
             'updated_by' => $admin->id,
+        ]);
+
+        $form->periods()->attach($active_period->id, [
+            'id' => Str::uuid()
         ]);
 
         // Kembalikan model User untuk memenuhi kontrak ToModel

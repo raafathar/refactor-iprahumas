@@ -13,7 +13,7 @@
                                     height="58" alt="Logo-light" />
                             </a>
                             <p class="text-center">
-                                {{ __('Terima kasih sudah bergabung! Silakan bayar biaya pendaftaran untuk menerima email verifikasi.') }}
+                                Terima kasih telah mendaftar!. Silahkan melakukan pembayaran sebesar <b>Rp250.000,-</b> melalui <b>7806080881</b> (BSI) A.n IPRAHUMAS INDONESIA.
                             </p>
 
                             @if (session('status') == 'verification-link-sent')
@@ -27,7 +27,7 @@
                                     @csrf
                                     @if (Auth::user()->form->payment_proof == null)
                                         <div class="mb-3">
-                                            <x-input-label for="payment_proof" :value="__('Bukti Pembayaran')" />
+                                            <x-input-label for="payment_proof" :value="__('Bukti Pembayaran')" required/>
                                             <x-text-input id="payment_proof" type="file" name="payment_proof"
                                                 :value="old('payment_proof')" required autofocus autocomplete="payment_proof"
                                                           accept="image/png, image/jpg, image/jpeg" />

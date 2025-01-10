@@ -61,13 +61,19 @@
                                 <i class="ti ti-search fs-6"></i>
                             </a>
                         </div>
-                        <div>
-                            <a href="{{ route('login') }}" class="btn btn-primary py-8 px-9">Masuk</a>
-                        </div>
-                        <div>
-                            <a href="{{ route('register') }}"
-                                class="btn btn-light border border-dark py-8 px-9">Daftar</a>
-                        </div>
+                        @if(auth()->check())
+                            <div>
+                                <a href="{{ route('dashboard') }}" class="btn btn-primary py-8 px-9">Dashboard</a>
+                            </div>
+                        @else
+                            <div>
+                                <a href="{{ route('login') }}" class="btn btn-primary py-8 px-9">Masuk</a>
+                            </div>
+                            <div>
+                                <a href="{{ route('register') }}"
+                                    class="btn btn-light border border-dark py-8 px-9">Daftar</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -77,43 +83,105 @@
     <!-- Header End -->
     <!-- ------------------------------------- -->
 
-    <!--  Search Bar -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content rounded-1">
-                <div class="modal-header border-bottom">
-                    <input type="search" class="form-control fs-3" placeholder="Cari berita, pengumuman, pelatihan dll"
-                        id="search" autocomplete="off" />
-                    <a href="javascript:void(0)" data-bs-dismiss="modal" class="lh-1">
-                        <i class="ti ti-x fs-5 ms-3"></i>
-                    </a>
-                </div>
-                <div class="modal-body message-body d-none" id="rekomendasi">
-                    <ul class="mb-0 py-1">
-                        <li class="p-1 mb-1 bg-hover-light-black">
-                            <a href="">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="ti ti-search"></i>
-                                    <span class="d-block">Cari pelatihan tentang <b></b></span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="p-1 mb-1 bg-hover-light-black">
-                            <a href="">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="ti ti-search"></i>
-                                    <span class="d-block">Cari berita tentang <b></b></span>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<!--  Search Bar -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content rounded-1">
+            <div class="modal-header border-bottom">
+                <input type="search" class="form-control fs-3" placeholder="Cari berita, pengumuman, pelatihan dll"
+                    id="search" autocomplete="off" />
+                <a href="javascript:void(0)" data-bs-dismiss="modal" class="lh-1">
+                    <i class="ti ti-x fs-5 ms-3"></i>
+                </a>
+            </div>
+            <div class="modal-body message-body d-none" id="rekomendasi">
+                <ul class="mb-0 py-1">
+                    <li class="p-1 mb-1 bg-hover-light-black">
+                        <a href="">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="ti ti-search"></i>
+                                <span class="d-block">Cari pelatihan tentang <b></b></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="p-1 mb-1 bg-hover-light-black">
+                        <a href="">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="ti ti-search"></i>
+                                <span class="d-block">Cari berita tentang <b></b></span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- ------------------------------------- -->
+<!-- Responsive Sidebar Start -->
+<!-- ------------------------------------- -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <a href="../main/frontend-landingpage.html">
+            <img src="{{ asset('assets/images/logos/logo.png') }}" alt="Logo-light" width="100" />
+        </a>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-unstyled ps-0">
+
+            <li class="mb-1">
+                <a href="{{ route('landingpage') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Beranda
+                </a>
+            </li>
+
+            <li class="mb-1">
+                <a href="{{ route('berita') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Berita
+                </a>
+            </li>
+
+            <li class="mb-1">
+                <a href="{{ route('pelatihan.index') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Pelatihan
+                </a>
+            </li>
+            
+            <li class="mb-1">
+                <a href="{{ route('syarat') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Syarat keanggotaan
+                </a>
+            </li>
+            <li class="mb-1">
+                <a href="{{ route('panduan') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Panduan Pendaftaran
+                </a>
+            </li>
+
+            <li class="mb-1">
+                <a href="{{ route('kontak') }}" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+                    Kontak
+                </a>
+            </li>
+
+
+            <li class="mt-4">
+                <a href="{{ route('login') }}" class="btn btn-primary w-100 mb-2">Masuk</a>
+                <a href="{{ route('register') }}" class="btn btn-light border border-dark w-100">Daftar</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- ------------------------------------- -->
+<!-- Responsive Sidebar End -->
+<!-- ------------------------------------- -->
 
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/js/feature/landingpage/header-handle.js') }}"></script>
+<script src="{{ asset('assets/js/feature/landingpage/header-handle.js') }}"></script>
 @endpush

@@ -13,17 +13,17 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav quick-links d-none d-lg-flex align-items-center">
-                <li class="nav-item dropdown-hover d-none d-lg-block">
-                    <a class="nav-link" href="javascript:void(0)">Header 1</a>
-                </li>
-                <li class="nav-item dropdown-hover d-none d-lg-block">
-                    <a class="nav-link" href="javascript:void(0)">Header 2</a>
-                </li>
-                <li class="nav-item dropdown-hover d-none d-lg-block">
-                    <a class="nav-link" href="javascript:void(0)">Header 3</a>
-                </li>
-            </ul>
+{{--            <ul class="navbar-nav quick-links d-none d-lg-flex align-items-center">--}}
+{{--                <li class="nav-item dropdown-hover d-none d-lg-block">--}}
+{{--                    <a class="nav-link" href="javascript:void(0)">Header 1</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item dropdown-hover d-none d-lg-block">--}}
+{{--                    <a class="nav-link" href="javascript:void(0)">Header 2</a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item dropdown-hover d-none d-lg-block">--}}
+{{--                    <a class="nav-link" href="javascript:void(0)">Header 3</a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
 
             <div class="d-block d-lg-none py-4">
                 <a href="{{ route('dashboard') }}" class="text-nowrap logo-img">
@@ -229,25 +229,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body h-n80" data-simplebar="" data-simplebar>
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="../main/app-email.html" aria-expanded="false">
-                                <span class="hide-menu">Header 1</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="../main/app-email.html" aria-expanded="false">
-                                <span class="hide-menu">Header 2</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="../main/app-email.html" aria-expanded="false">
-                                <span class="hide-menu">Header 3</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+{{--                <div class="offcanvas-body h-n80" data-simplebar="" data-simplebar>--}}
+{{--                    <ul id="sidebarnav">--}}
+{{--                        <li class="sidebar-item">--}}
+{{--                            <a class="sidebar-link" href="../main/app-email.html" aria-expanded="false">--}}
+{{--                                <span class="hide-menu">Header 1</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="sidebar-item">--}}
+{{--                            <a class="sidebar-link" href="../main/app-email.html" aria-expanded="false">--}}
+{{--                                <span class="hide-menu">Header 2</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="sidebar-item">--}}
+{{--                            <a class="sidebar-link" href="../main/app-email.html" aria-expanded="false">--}}
+{{--                                <span class="hide-menu">Header 3</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
             </nav>
         </div>
     </div>
