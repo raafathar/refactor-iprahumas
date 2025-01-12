@@ -30,14 +30,14 @@ function renderBerita(beritaData) {
             <div class="col-lg-4 col-md-6">
                 <div class="card rounded-3 overflow-hidden">
                     <a href="/berita/detail/${berita.b_slug}" class="position-relative">
-                        <img src="${berita.b_image_url}" alt="blog image" class="w-100 img-fluid">
+                        <img src="${berita.b_image_url}" alt="blog image" class="img-fluid card-berita-image-container">
                     </a>
                     <div class="mt-10 px-7 pb-7 h-100">
                         <div class="d-flex gap-3 flex-column h-100 justify-content-between">
                             <div class="d-flex">
                                 <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">${berita.user_name}</p>
                             </div>
-                            <a href="/berita/detail/${berita.b_slug}" class="fs-15 fw-bolder">${berita.b_title}</a>
+                            <a href="/berita/detail/${berita.b_slug}" class="fs-15 fw-bolder card-berita-judul">${berita.b_title}</a>
                             <p class="mb-0 fs-4 truncated-text">${berita.b_content}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex gap-9">

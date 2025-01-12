@@ -29,17 +29,19 @@ class BerandaController extends Controller
     {
         return $beritas->map(function ($berita) {
             $this->formatBeritaData($berita);
-            $berita->b_content = strip_tags($berita->b_content);
-            
-            if ($berita->b_image && Storage::exists($berita->b_image)) {
-                $berita->b_image_url = asset('storage/' . $berita->b_image);
-            } else {
-                $berita->b_image_url = asset('assets/images/frontend-pages/default.svg');
-            }
-
+    
+            // Decode entitas HTML lalu hapus tag HTML
+            $berita->b_content = strip_tags(html_entity_decode($berita->b_content ?? '', ENT_QUOTES | ENT_HTML5));
+    
+            // Cek keberadaan gambar dan buat URL yang benar
+            $berita->b_image_url = $berita->b_image && Storage::exists($berita->b_image)
+                ? Storage::url($berita->b_image)
+                : asset('assets/images/frontend-pages/default.svg');
+    
             return $berita;
         });
     }
+    
 
     public function index()
     {

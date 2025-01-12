@@ -44314,3 +44314,22 @@ p {
   height: auto; /* Menggunakan 40% dari tinggi layar */
   background-position: center;
 }
+
+.card-berita-image-container {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+
+.card-berita-judul {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Maksimal 2 baris */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em; /* Sesuaikan dengan tinggi baris teks */
+  max-height: 3em; /* 2 baris x 1.5em */
+}
