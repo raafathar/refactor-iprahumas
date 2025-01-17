@@ -274,7 +274,7 @@
                     @foreach ($beritaTerbaru as $berita)                        
                         <div class="col-lg-4 col-md-6">
                             <div class="card rounded-3 overflow-hidden">
-                                <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="position-relative">
+                                <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="position-relative" onclick="updateView('{{ $berita->b_slug }}')">
                                     <img src="{{ $berita->b_image_url }}"
                                         alt="blog image" class="img-fluid card-berita-image-container">
                                 </a>
@@ -285,8 +285,10 @@
                                                 {{ $berita->user_name }}
                                             </p>
                                         </div>
-                                        <a href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" class="fs-15 fw-bolder card-berita-judul">
-                                            {{ $berita->b_title }}
+                                        <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary card-berita-judul"
+                                        href="{{ route('detail.berita', ['slug' => $berita->b_slug]) }}" 
+                                        onclick="updateView('{{ $berita->b_slug }}')">
+                                        {{ $berita->b_title }}
                                         </a>
                                         <p class="mb-0 fs-4 truncated-text">
                                             {{ $berita->b_content }}
@@ -399,3 +401,6 @@
         <!-- Develop End -->
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('assets/js/feature/landingpage/count-views.js') }}"></script>
+@endpush

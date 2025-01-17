@@ -29,7 +29,7 @@ function renderBerita(beritaData) {
         beritaContainer.innerHTML += `
             <div class="col-lg-4 col-md-6">
                 <div class="card rounded-3 overflow-hidden">
-                    <a href="/berita/detail/${berita.b_slug}" class="position-relative">
+                    <a href="/berita/detail/${berita.b_slug}" class="news-clickable" data-news-id="${berita.b_slug}">
                         <img src="${berita.b_image_url}" alt="blog image" class="img-fluid card-berita-image-container">
                     </a>
                     <div class="mt-10 px-7 pb-7 h-100">
@@ -37,7 +37,7 @@ function renderBerita(beritaData) {
                             <div class="d-flex">
                                 <p class="fs-2 px-2 rounded-pill bg-muted bg-opacity-25 text-dark mb-0">${berita.user_name}</p>
                             </div>
-                            <a href="/berita/detail/${berita.b_slug}" class="fs-15 fw-bolder card-berita-judul">${berita.b_title}</a>
+                            <a href="/berita/detail/${berita.b_slug}" class="fs-15 fw-bolder card-berita-judul news-clickable" data-news-id="${berita.b_slug}">${berita.b_title}</a>
                             <p class="mb-0 fs-4 truncated-text">${berita.b_content}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex gap-9">
@@ -124,3 +124,30 @@ function changePage(page) {
 }
 
 loadBerita(currentPage);
+
+
+function setupNewsClickHandler() {
+    const clickableElements = document.querySelectorAll('.news-clickable');
+
+    clickableElements.forEach(element => {
+        element.addEventListener('click', function () {
+            const newsSlug = element.dataset.newsId;
+            sendClickData(newsSlug);
+        });
+    });
+}
+
+function sendClickData(newsSlug) {
+    fetch(`/berita/count/${newsSlug}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(`Klik dihitung: ${data.b_view}`);
+            } else {
+                console.error('Gagal menghitung klik');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+document.addEventListener('DOMContentLoaded', setupNewsClickHandler);
