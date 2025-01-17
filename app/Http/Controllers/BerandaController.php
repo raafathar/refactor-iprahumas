@@ -46,7 +46,7 @@ class BerandaController extends Controller
     public function index()
     {
         $beritaTerbaru = $this->getFormattedBerita(
-            Berita::with('user')->latest()->take(6)->get()
+            Berita::with('user')->orderBy('b_date', 'desc')->take(6)->get()
         );
     
         $banners = Banner::where('b_is_active', 1)
@@ -97,6 +97,20 @@ class BerandaController extends Controller
             'data' => $posts->items(),
         ]);
     }
+
+    public function count_views_berita($slug)
+    {
+        
+        $news = Berita::where('b_slug', $slug)->firstOrFail();    
+        $news->increment('b_view');
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Klik berhasil dihitung',
+            'b_view' => $news->b_view,
+        ]);
+    }
+    
 
     // halaman menu profile dan detail profile
 

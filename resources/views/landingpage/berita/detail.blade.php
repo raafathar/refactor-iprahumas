@@ -91,14 +91,17 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="card overflow-hidden hover-img">
                                 <div class="position-relative">
-                                    <a href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">
+                                    <a href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}" onclick="updateView('{{ $berita->b_slug }}')">
                                         <img src="{{ $beritaContent->b_image_url }}" class="card-img-top card-berita-image-container" alt="modernize-img">
                                     </a>
                                 </div>
                                 <div class="card-body p-4">
                                     <span class="badge text-bg-light fs-2 py-1 px-2 lh-sm  mt-3">{{ $beritaContent->user_name }}</span>
                                     <a class="d-block my-4 fs-5 text-dark fw-semibold link-primary card-berita-judul"
-                                        href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}">{{ $beritaContent->b_title }}</a>
+                                    href="{{ route('detail.berita', ['slug' => $beritaContent->b_slug]) }}" 
+                                    onclick="updateView('{{ $beritaContent->b_slug }}')">
+                                    {{ $beritaContent->b_title }}
+                                    </a>
                                     <div class="d-flex align-items-center gap-4">
                                         <div class="d-flex align-items-center gap-2">
                                             <i class="ti ti-eye text-dark fs-5"></i>{{ $beritaContent->b_view }}
@@ -118,3 +121,7 @@
         <!-- ------------------------------------- -->
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('assets/js/feature/landingpage/count-views.js') }}"></script>
+@endpush
+
