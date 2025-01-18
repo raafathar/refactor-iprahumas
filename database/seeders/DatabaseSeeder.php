@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PeriodSeeder::class,
             FormSeeder::class,
             BannerSeeder::class,
+            LetterClassificationSeeder::class,
         ]);
         $this->call(BeritasTableSeeder::class);
     }

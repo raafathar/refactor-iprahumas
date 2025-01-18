@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\GolonganController;
 use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
+use App\Http\Controllers\Dashboard\DataMaster\LetterClassificationController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
 use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
 use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
@@ -20,7 +21,7 @@ use \App\Http\Controllers\Dashboard\Setting\UserSettingController;
 use App\Http\Controllers\Dashboard\Home\BiographyController;
 use App\Http\Controllers\RegistrationTrainingController;
 use App\Http\Controllers\TrainingController;
-
+use App\Models\LetterClassification;
 
 // For guest
 Route::prefix('/')->group(function () {
@@ -76,6 +77,11 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('skills', SkillController::class)->middleware(['user.access:superadmin'])->names('skills');
     // Keahlian
     Route::resource('letter-logs', LetterLogController::class)->middleware(['user.access:superadmin'])->names('letter-logs');
+
+    
+    // Setting
+    // Kode Klasifikasi
+    Route::resource('letter-classifications', LetterClassificationController::class)->middleware(['user.access:superadmin'])->names('letter-classifications');
 
     // Setting
     // Manajemen Pengguna
