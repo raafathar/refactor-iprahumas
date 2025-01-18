@@ -5,23 +5,23 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\PageProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\RegistrationTrainingController;
+use App\Http\Controllers\Dashboard\Home\BiographyController;
 use App\Http\Controllers\Dashboard\DataMaster\UserController;
 use App\Http\Controllers\Dashboard\DataMaster\SkillController;
 use App\Http\Controllers\Dashboard\DataMaster\PeriodController;
 use App\Http\Controllers\Dashboard\DataMaster\GolonganController;
 use App\Http\Controllers\Dashboard\DataMaster\InstanceController;
-use App\Http\Controllers\Dashboard\DataMaster\LetterClassificationController;
 use App\Http\Controllers\Dashboard\DataMaster\PositionController;
-use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
-use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
-use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
 use \App\Http\Controllers\Dashboard\Setting\UserSettingController;
-use App\Http\Controllers\Dashboard\Home\BiographyController;
-use App\Http\Controllers\RegistrationTrainingController;
-use App\Http\Controllers\TrainingController;
-use App\Models\LetterClassification;
+use App\Http\Controllers\Dashboard\DataMaster\LetterLogController;
+use App\Http\Controllers\Dashboard\DataMaster\LetterTypeController;
+use App\Http\Controllers\Dashboard\Setting\AccountSettingController;
+use App\Http\Controllers\Dashboard\DataMaster\RegistrationController;
+use App\Http\Controllers\Dashboard\DataMaster\LetterClassificationController;
 
 // For guest
 Route::prefix('/')->group(function () {
@@ -79,9 +79,10 @@ Route::middleware(['auth', 'verified', 'user.status'])->group(function () {
     Route::resource('letter-logs', LetterLogController::class)->middleware(['user.access:superadmin'])->names('letter-logs');
 
     
-    // Setting
+    // Persuratan
     // Kode Klasifikasi
     Route::resource('letter-classifications', LetterClassificationController::class)->middleware(['user.access:superadmin'])->names('letter-classifications');
+    Route::resource('letter-types', LetterTypeController::class)->middleware(['user.access:superadmin'])->names('letter-types');
 
     // Setting
     // Manajemen Pengguna

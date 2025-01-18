@@ -307,7 +307,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ '/test.html' }}" class="sidebar-link">
+                                <a href="{{ route('letter-types.index') }}" class="sidebar-link">
                                     <div class="round-16 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-circle"></i>
                                     </div>
